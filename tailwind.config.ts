@@ -12,6 +12,10 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+
+      backgroundImage: {
+        'loginForm': "url('/bege.png')"
+      }
     },
   },
   plugins: [],
