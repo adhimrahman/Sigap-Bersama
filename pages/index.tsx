@@ -4,20 +4,20 @@ import Image from 'next/image';
 
 export default function Home() {
     const router = useRouter();
-
+    
     return (
         <div className="flex flex-row items-center justify-center min-h-screen px-44 gap-[75px]">
 
             <div className="leftside w-3/5 flex flex-col gap-4 text-justify">
-                <h1 className="flex text-6xl uppercase font-bold mb-3 mb-md-5 gap-[20px]">
+                <h1 className="flex text-6xl uppercase font-bold mb-3 mb-md-5 gap-[20px] tracking-wider">
                     {/* <span className='text-[#00d8ff]'>#</span> */}
                     <span className='text-[#2E7D32]'>sigap</span>
                     <span className='text-[#00d8ff]'>bersama</span>
                 </h1>
                 
-                <p>Dalam beberapa tahun terakhir, peningkatan jumlah bencana alam dan pencemaran lingkungan, telah menjadi tantangan utama di Indonesia. Meskipun berbagai organisasi dan masyarakat berusaha untuk berpartisipasi, masih ada keterbatasan dalam akses informasi dan koordinasi untuk relawan yang ingin terlibat. Sigap Bersama hadir untuk menghubungkan relawan dengan kegiatan tanggap bencana dan kampanye pembersihan lingkungan, menciptakan wadah yang efektif bagi masyarakat untuk berkontribusi.</p>
+                <p className='tracking-wide'>Dalam beberapa tahun terakhir, peningkatan jumlah bencana alam dan pencemaran lingkungan, telah menjadi tantangan utama di Indonesia. Meskipun berbagai organisasi dan masyarakat berusaha untuk berpartisipasi, masih ada keterbatasan dalam akses informasi dan koordinasi untuk relawan. Sigap Bersama hadir untuk menghubungkan relawan dengan kegiatan tanggap bencana dan kampanye pembersihan lingkungan, menciptakan wadah yang efektif bagi masyarakat untuk berkontribusi.</p>
                 
-                <p>Sigap Bersama bertemakan Sustainable Development Goals (SDGs), khususnya Sustainable Cities and Communities (11) yang mendorong terciptanya kota dan komunitas yang tangguh serta siap menghadapi bencana, serta Climate Action (13) yang bertujuan untuk menggerakkan aksi global dalam mengurangi dan mengatasi perubahan iklim. Dengan memfasilitasi kegiatan sukarela yang berkaitan dengan penanganan bencana dan kampanye kebersihan lingkungan, Sigap Bersama ingin menciptakan ruang bagi masyarakat untuk terlibat aktif dalam membangun komunitas yang lebih aman, sehat, dan berkelanjutan.</p>
+                <p className='tracking-wide'>Sigap Bersama bertemakan Sustainable Development Goals (SDGs), khususnya Sustainable Cities and Communities yang mendorong terciptanya kota dan komunitas yang tangguh serta siap menghadapi bencana, serta Climate Action yang bertujuan untuk menggerakkan aksi global dalam mengurangi dan mengatasi perubahan iklim. Dengan memfasilitasi kegiatan sukarela yang berkaitan dengan penanganan bencana dan kampanye kebersihan lingkungan, Sigap Bersama ingin menciptakan ruang bagi masyarakat untuk terlibat aktif dalam membangun komunitas yang aman dan berkelanjutan.</p>
 
                 <div className="buttonNav flex gap-6 mt-6">
                     <button
@@ -27,7 +27,7 @@ export default function Home() {
                     </button>
                     <button
                         className='w-28 p-2 bg-green-500 text-white font-bold'
-                        onClick={ () => router.push('/signup') }>
+                        onClick={ () => router.push('/signwhat') }>
                             Sign Up
                     </button>
                 </div>
