@@ -39,7 +39,8 @@ export default function Signin() {
 					<input type="password" placeholder="password" value={password} name='password' onChange={(e) => setPassword(e.target.value)}
 						className="p-6 h-10 focus:outline-none bg-[#CDF5FD] rounded-[12px] text-black" required/>
 
-					<button type="submit" className="mt-4 p-2 h-10 rounded-[12px] bg-[#008080] text-white font-bold">Sign In</button>
+					<button type="submit"
+					className="mt-4 p-2 h-14 rounded-[12px] bg-[#008080] text-white font-bold hover:bg-[#008080]/40">Sign In</button>
 				</div>
 
 				<p className="mt-2 mb-8">Belum punya akun? 
