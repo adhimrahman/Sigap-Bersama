@@ -47,17 +47,15 @@ export default function LandingPage() {
                 </div>
             </nav>
 
-            <main className="w-full h-[300%] lg:h-[500%] flex flex-col pt-[2%] bg-[#F0F0F0]">
+            <main className="w-full h-[300%] lg:h-[500%] flex flex-col pt-[3%] bg-[#F0F0F0]">
                 <div className="header w-full h-[25%] flex flex-col">
-                    <div className="hero bg-loginForm bg-center bg-cover w-full h-full lg:h-1/2 flex flex-col justify-center items-center">
+                    <div className="hero bg-loginForm bg-center bg-cover w-full h-1/2 lg:h-1/2 flex flex-col justify-center items-center">
                         <div className="top w-full h-fit flex justify-center items-center py-12">
-                            <p className="text-white text-3xl md:text-5xl lg:text-7xl font-extrabold uppercase tracking-wider shadow-2xl drop-shadow-2xl">sigap bersama</p>
+                            <p className="text-white shine text-3xl md:text-5xl lg:text-8xl font-extrabold uppercase tracking-wider shadow-2xl drop-shadow-2xl">sigap bersama</p>
                         </div>
-
-                        
                     </div>
 
-                    <div className="bottom w-full lg:flex hidden justify-center items-center mb-[-3rem]">
+                    <div className="infoAll w-full h-1/2 lg:flex hidden justify-center items-center bg-wotah bg-center">
                         <div className="box w-2/3 h-2/3 bg-gray-100 rounded-xl flex justify-center items-center shadow-2xl drop-shadow-2xl overflow-hidden py-16 px-9 pl-20">
                             <div className="leftSide w-1/3 h-full flex">
                                 <div className="leftSide w-1/3 h-full flex items-center">
