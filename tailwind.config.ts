@@ -20,7 +20,8 @@ export default {
 			},
 
 			backgroundImage: {
-				'loginForm': "url('../../public/images/bege.png')"
+				'loginForm': "url('../../public/images/bege.png')",
+				'wotah': "url('../../public/images/wotah.png')"
 			}
 		},
 	},
