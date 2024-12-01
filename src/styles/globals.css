@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* plus jakarta sans */
+/* @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap'); */
+
+/* poppins */
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
+
+:root {
+	--background: #ffffff;
+	--foreground: #171717;
+	--ijoTua: #365E32;
+	--ijoMuda: #9ed3a0;
+}
+
+html {
+    scroll-padding-top: 75px; /* Sesuaikan dengan tinggi navbar Anda */
+}
+
+body {
+    color: var(--foreground);
+    background: var(--background);
+    /* font-family: Roboto;	 */
+	/* font-family: Poppins; */
+	/* font-family: "Plus Jakarta Sans"; */
+}
+
+.arrowLeft {
+	width: 3vw;
+	height: 3vw;
+	border: 1vw solid;
+	border-color: var(--ijoTua) transparent transparent var(--ijoTua);
+	transform: rotate(-45deg);
+}
+
+.arrowRight {
+	width: 3vw;
+	height: 3vw;
+	border: 1vw solid;
+	border-color: var(--ijoTua) transparent transparent var(--ijoTua);
+	transform: rotate(135deg);
+}
