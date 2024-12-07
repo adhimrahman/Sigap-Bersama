@@ -20,7 +20,7 @@ export default function LandingPage() {
                     const targetClass =
                         label === 'About' ? 'about' : label === 'Bencana' ? 'bencana' :
                         label === 'Limbah' ? 'limbah' : label === 'Testimoni' ? 'testimoni' :
-                        label === 'Maps' ? 'maps' : label === 'Contact Us' ? 'footer' : 'hero';
+                        label === 'Maps' ? 'maps' : label === 'Contact Us' ? 'footer' : 'header';
                     const targetElement = document.querySelector(`.${targetClass}`);
                     targetElement?.scrollIntoView({ behavior: 'smooth' });
                 }}
@@ -30,7 +30,7 @@ export default function LandingPage() {
 
                 <div className="header w-full h-screen bg-loginForm bg-center bg-cover flex flex-col justify-center items-center gap-y-12">
                     <div className="top w-full h-fit flex justify-center items-center">
-                        <p className="text-white shine text-3xl md:text-5xl lg:text-8xl font-extrabold uppercase tracking-wider shadow-2xl drop-shadow-2xl mt-20">sigap bersama</p>
+                        <p className="text-white shine text-3xl md:text-5xl lg:text-8xl font-extrabold uppercase tracking-wider mt-20 text-shadow-green-400 text-shadow-x-xl">sigap bersama</p>
                     </div>
 
                     <div className="box w-2/3 h-fit bg-gray-100 rounded-xl flex justify-center items-center shadow-2xl drop-shadow-2xl overflow-hidden py-9 px-9 pl-20">
@@ -61,7 +61,7 @@ export default function LandingPage() {
                     </div>
                 </div>
 
-                <div className="about w-full bg-white flex flex-col justify-center items-center gap-y-9 py-24">
+                <div className="about w-full bg-[#F0F0F0] flex flex-col justify-center items-center gap-y-9 py-24">
                     <p className="text-black px-4 lg:px-56 pt-12 text-center tracking-wide text-xs lg:text-base leading-7">
                         Dalam beberapa tahun terakhir, peningkatan jumlah bencana alam dan pencemaran lingkungan, telah menjadi tantangan utama di Indonesia. Meskipun berbagai organisasi dan masyarakat berusaha untuk berpartisipasi, masih ada keterbatasan dalam akses informasi dan koordinasi untuk relawan yang ingin terlibat. Sigap Bersama hadir untuk menghubungkan relawan dengan kegiatan tanggap bencana dan kampanye pembersihan lingkungan, menciptakan wadah yang efektif bagi masyarakat untuk berkontribusi.
                     </p>
@@ -72,9 +72,9 @@ export default function LandingPage() {
 
                 <div className="events w-full h-fit flex flex-col gap-y-12 bg-red-500">
 
-                    <div className="bencana w-full h-1/4 bg-ijoMuda flex flex-col justify-center items-center"
+                    <div className="bencana w-full h-full bg-ijoMuda flex flex-col justify-center items-center"
                     style={{ background: "linear-gradient(to bottom, #F0F0F0 30%, #9ed3a0 20%)", }}>
-                        <div className="topSide w-3/4 h-2/5 rounded-lg overflow-hidden flex shadow-[19px_-15px_45px_5px_rgba(0,_0,_0,_0.2)]">
+                        <div className="topSide w-3/4 h-56 rounded-lg overflow-hidden flex shadow-[19px_-15px_45px_5px_rgba(0,_0,_0,_0.2)]">
                             <div className="leftSide h-full w-1/3">
                                 <img alt="" src={Bege} className="h-full w-fit"></img>
                             </div>
@@ -90,7 +90,7 @@ export default function LandingPage() {
                             </div>
                         </div>
 
-                        <div className="bottomSide w-3/4 h-2/5 pt-5 rounded-b-lg flex justify-between overflow-hidden">
+                        <div className="bottomSide w-3/4 h-60 pt-5 rounded-b-lg flex justify-between overflow-hidden">
                             <div className="card w-1/6 h-full bg-white rounded-lg"></div>
                             <div className="card w-1/6 h-full bg-white rounded-lg"></div>
                             <div className="card w-1/6 h-full bg-white rounded-lg"></div>
@@ -99,9 +99,9 @@ export default function LandingPage() {
                         </div>
                     </div>
 
-                    <div className="limbah w-full h-1/4 bg-ijoMuda flex flex-col justify-center items-center"
+                    <div className="limbah w-full h-full bg-ijoMuda flex flex-col justify-center items-center"
                     style={{ background: "linear-gradient(to bottom, #F0F0F0 30%, #9ed3a0 20%)", }}>
-                        <div className="topSide w-3/4 h-2/5 rounded-lg overflow-hidden flex shadow-[19px_-15px_45px_5px_rgba(0,_0,_0,_0.2)]">
+                        <div className="topSide w-3/4 h-56 rounded-lg overflow-hidden flex shadow-[19px_-15px_45px_5px_rgba(0,_0,_0,_0.2)]">
                             <div className="leftSide h-full w-1/3">
                                 <img alt="" src={Bege} className="h-full w-fit"></img>
                             </div>
@@ -117,7 +117,7 @@ export default function LandingPage() {
                             </div>
                         </div>
 
-                        <div className="bottomSide w-3/4 h-2/5 pt-5 rounded-b-lg flex justify-between overflow-hidden">
+                        <div className="bottomSide w-3/4 h-64 pt-5 rounded-b-lg flex justify-between overflow-hidden">
                             <div className="card w-1/6 h-full bg-white rounded-lg"></div>
                             <div className="card w-1/6 h-full bg-white rounded-lg"></div>
                             <div className="card w-1/6 h-full bg-white rounded-lg"></div>
@@ -125,6 +125,7 @@ export default function LandingPage() {
                             <div className="card w-1/6 h-full bg-white rounded-lg"></div>
                         </div>
                     </div>
+                </div>
 
                     <div className="testimoni w-full h-1/4 flex flex-col justify-center items-center">
                         <div className="title w-3/4 h-1/5 flex flex-col justify-center items-center">
@@ -165,7 +166,6 @@ export default function LandingPage() {
                             </div>
                         </div>
                     </div>
-                </div>
             </main>
 
             <footer className="footer w-full bg-black flex">
