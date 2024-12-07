@@ -28,59 +28,49 @@ export default function LandingPage() {
 
             <main className="w-full flex flex-col bg-[#F0F0F0]">
 
-                <div className="header w-full h-screen bg-loginForm bg-center bg-cover flex flex-col">
-                    <div className="hero w-full h-2/3 flex flex-col justify-center items-center">
-                        <div className="top w-full h-fit flex justify-center items-center py-12">
-                            <p className="text-white shine text-3xl md:text-5xl lg:text-8xl font-extrabold uppercase tracking-wider shadow-2xl drop-shadow-2xl mt-20">sigap bersama</p>
+                <div className="header w-full h-screen bg-loginForm bg-center bg-cover flex flex-col justify-center items-center gap-y-12">
+                    <div className="top w-full h-fit flex justify-center items-center">
+                        <p className="text-white shine text-3xl md:text-5xl lg:text-8xl font-extrabold uppercase tracking-wider shadow-2xl drop-shadow-2xl mt-20">sigap bersama</p>
+                    </div>
+
+                    <div className="box w-2/3 h-fit bg-gray-100 rounded-xl flex justify-center items-center shadow-2xl drop-shadow-2xl overflow-hidden py-9 px-9 pl-20">
+                        <div className="leftSide w-1/3 h-full flex">
+                            <div className="leftSide w-1/3 h-full flex items-center"><img src={Logo} alt="logo" className="w-[80%]"></img></div>
+                            <div className="rightSide w-2/3 h-full flex flex-col justify-center pl-1 capitalize text-2xl tracking-wide">
+                                <p className="font-bold">123.456</p><p>relawan</p>
+                            </div>
+                        </div>
+
+                        <div className="middleSide w-1/3 h-full flex">
+                            <div className="leftSide w-1/3 h-full flex items-center"><img src={Logo} alt="logo" className="w-[80%]"></img></div>
+                            <div className="rightSide w-2/3 h-full flex flex-col justify-center pl-1 capitalize text-2xl tracking-wide">
+                                <p className="font-bold">123.456</p><p>komunitas</p>
+                            </div>
+                        </div>
+
+                        <div className="rightSide w-1/3 h-full flex">
+                            <div className="leftSide w-1/3 h-full flex items-center"><img src={Logo} alt="logo" className="w-[80%]"></img></div>
+                            <div className="rightSide w-2/3 h-full flex flex-col justify-center pl-1 capitalize text-2xl tracking-wide">
+                                <p className="font-bold">123.456</p><p>event</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="infoAll w-full lg:flex flex-col hidden justify-center items-center  bg-center">
-                        <div className="box w-2/3 h-1/3 bg-gray-100 rounded-xl flex justify-center items-center shadow-2xl drop-shadow-2xl overflow-hidden py-16 px-9 pl-20">
-                            <div className="leftSide w-1/3 h-full flex">
-                                <div className="leftSide w-1/3 h-full flex items-center">
-                                    <img src={Logo} alt="logo" className="w-[80%]"></img>
-                                </div>
-                                <div className="rightSide w-2/3 h-full flex flex-col justify-center pl-1 capitalize text-2xl tracking-wide">
-                                    <p className="font-bold">123.456</p><p>relawan</p>
-                                </div>
-                            </div>
-
-                            <div className="middleSide w-1/3 h-full flex">
-                                <div className="leftSide w-1/3 h-full flex items-center">
-                                    <img src={Logo} alt="logo" className="w-[80%]"></img>
-                                </div>
-                                <div className="rightSide w-2/3 h-full flex flex-col justify-center pl-1 capitalize text-2xl tracking-wide">
-                                    <p className="font-bold">123.456</p><p>komunitas</p>
-                                </div>
-                            </div>
-
-                            <div className="rightSide w-1/3 h-full flex">
-                                <div className="leftSide w-1/3 h-full flex items-center">
-                                    <img src={Logo} alt="logo" className="w-[80%]"></img>
-                                </div>
-                                <div className="rightSide w-2/3 h-full flex flex-col justify-center pl-1 capitalize text-2xl tracking-wide">
-                                    <p className="font-bold">123.456</p><p>event</p>
-                                </div>
-                            </div>
-                        </div>
-                        {/* <button  onClick={scrollToHero} className=" bg-blue-500 text-white rounded-full hover:bg-blue-700 transition duration-300 animate-bounce w-12 h-12"></button> */}
-                        <div className="animate-bounce bg-white dark:bg-slate-800 p-2 w-12 h-12 ring-1 ring-slate-900/5 dark:ring-slate-200/20 shadow-lg rounded-full flex items-center justify-center mt-10 hover:cursor-pointer" onClick={scrollToDesc}>
-                            <svg className="w-9 h-9 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                        </div>
+                    <div className="animate-bounce dark:bg-slate-800 p-2 w-14 h-14 ring-2 ring-slate-900/5 dark:ring-slate-200/20 shadow-lg rounded-full flex items-center justify-center mt-9 hover:cursor-pointer" onClick={scrollToDesc}>
+                        <svg className="w-12 h-12 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
                     </div>
                 </div>
 
-                <div className="about w-full bg-ijoTua flex flex-col justify-center items-center gap-y-9">
-                    <p className="text-white px-4 lg:px-56 pt-12 text-center tracking-wide text-xs lg:text-base leading-7">
+                <div className="about w-full bg-white flex flex-col justify-center items-center gap-y-9 py-24">
+                    <p className="text-black px-4 lg:px-56 pt-12 text-center tracking-wide text-xs lg:text-base leading-7">
                         Dalam beberapa tahun terakhir, peningkatan jumlah bencana alam dan pencemaran lingkungan, telah menjadi tantangan utama di Indonesia. Meskipun berbagai organisasi dan masyarakat berusaha untuk berpartisipasi, masih ada keterbatasan dalam akses informasi dan koordinasi untuk relawan yang ingin terlibat. Sigap Bersama hadir untuk menghubungkan relawan dengan kegiatan tanggap bencana dan kampanye pembersihan lingkungan, menciptakan wadah yang efektif bagi masyarakat untuk berkontribusi.
                     </p>
-                    <p className="text-white px-4 lg:px-56 pb-12 text-center tracking-wide text-xs lg:text-base leading-7">
+                    <p className="text-black px-4 lg:px-56 pb-12 text-center tracking-wide text-xs lg:text-base leading-7">
                         Sigap Bersama bertemakan Sustainable Development Goals (SDGs), khususnya Sustainable Cities and Communities yang mendorong terciptanya kota dan komunitas yang tangguh serta siap menghadapi bencana, serta Climate Action yang bertujuan untuk menggerakkan aksi global dalam mengurangi dan mengatasi perubahan iklim. Dengan memfasilitasi kegiatan sukarela yang berkaitan dengan penanganan bencana dan kampanye kebersihan lingkungan, Sigap Bersama ingin menciptakan ruang bagi masyarakat untuk terlibat aktif dalam membangun komunitas yang lebih aman, sehat, dan berkelanjutan.
                     </p>
                 </div>
 
-                <div className="events w-full h-full flex flex-col gap-y-12">
+                <div className="events w-full h-fit flex flex-col gap-y-12 bg-red-500">
 
                     <div className="bencana w-full h-1/4 bg-ijoMuda flex flex-col justify-center items-center"
                     style={{ background: "linear-gradient(to bottom, #F0F0F0 30%, #9ed3a0 20%)", }}>
