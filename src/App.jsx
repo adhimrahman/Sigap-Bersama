@@ -9,6 +9,7 @@ import SignIn from "./pages/Auth/signin";
 import SignWhat from "./pages/Auth/signwhat";
 import SignupIndividu from "./components/forms/signupIndividu";
 import SignupKomunitas from "./components/forms/SignupKomunitas";
+import Profile from "./pages/Profile/page";
 import './index.css'; 
 
 const App = () => (
@@ -23,6 +24,7 @@ const App = () => (
 			<Route path="/limbahdetail" element={<LimbahDetail />} />
 			<Route path="/bencana" element={<Bencana />} /> 
 			<Route path="/bencanadetail" element={<BencanaDetail />} />
+			<Route path="/profile" element={<Profile />} />
 			<Route path="*" element={<NotFound />} /> 
 		</Routes>
 	</Router>
