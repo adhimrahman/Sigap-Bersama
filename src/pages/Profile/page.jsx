@@ -14,7 +14,7 @@ export default function Profile() {
                         <form>
                             <div className="mb-4">
                                 <label className="block text-gray-700 mb-2">Nama</label>
-                                <input type="text" className="w-full p-3 border border-gray-300 rounded-lg bg-gray-200" />
+                                <input type="name" className="w-full p-3 border border-gray-300 rounded-lg bg-gray-200" />
                             </div>
                             <div className="mb-4">
                                 <label className="block text-gray-700 mb-2">Email</label>
@@ -22,11 +22,11 @@ export default function Profile() {
                             </div>
                             <div className="mb-4">
                                 <label className="block text-gray-700 mb-2">No Handphone</label>
-                                <input type="text" className="w-full p-3 border border-gray-300 rounded-lg bg-gray-200" />
+                                <input type="tel" className="w-full p-3 border border-gray-300 rounded-lg bg-gray-200" />
                             </div>
                             <div className="mb-6">
                                 <label className="block text-gray-700 mb-2">Alamat Domisili</label>
-                                <input type="text" className="w-full p-3 border border-gray-300 rounded-lg bg-gray-200" />
+                                <input type="" className="w-full p-3 border border-gray-300 rounded-lg bg-gray-200" />
                             </div>
                             <button type="submit" className="bg-teal-600 text-white px-6 py-3 rounded-lg">Simpan</button>
                         </form>
