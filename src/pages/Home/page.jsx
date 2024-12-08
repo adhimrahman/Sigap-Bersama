@@ -7,9 +7,7 @@ import Bege from "../../assets/bege.png"
 import Helper from "../../assets/helper.png"
 import Content from "../../assets/bege.png"
 import Navbar from "../../components/layouts/Navbar";
-
-// (role ? individu : kelompok )
-{/* input dan output param harus jelas, metode jg harus jelas: apa yg akan dilakukan utk solve prob */}
+import MapAlerts from "../../components/cards/MapAlerts";
 
 export default function LandingPage() {
     const navigate = useNavigate();
@@ -22,40 +20,38 @@ export default function LandingPage() {
     return(
         <div className="w-full bg-[#F0F0F0]">
 
-            <Navbar menuItems={['About', 'Bencana', 'Limbah', 'Testimoni', 'Maps', 'Contact Us', 'My Event', 'My Interest', 'Profile']}
-                scrollHandler={(label) => {
-                    const targetClass =
-                        label === 'About' ? 'about' : label === 'Bencana' ? 'bencana' :
-                        label === 'Limbah' ? 'limbah' : label === 'Testimoni' ? 'testimoni' :
-                        label === 'Maps' ? 'maps' : label === 'Contact Us' ? 'footer' : 'about';
-                    const targetElement = document.querySelector(`.${targetClass}`);
-                    targetElement?.scrollIntoView({ behavior: 'smooth' });
-                }}
-            />
+            <Navbar menuItems={['About', 'Bencana', 'Limbah', 'Testimoni', 'Maps', 'Contact Us', 'My Event', 'My Interest', 'Profile']} scrollHandler={(label) => {
+                const targetClass =
+                    label === 'About' ? 'about' : label === 'Bencana' ? 'bencana' :
+                    label === 'Limbah' ? 'limbah' : label === 'Testimoni' ? 'testimoni' :
+                    label === 'Maps' ? 'maps' : label === 'Contact Us' ? 'footer' : 'about';
+                const targetElement = document.querySelector(`.${targetClass}`);
+                targetElement?.scrollIntoView({ behavior: 'smooth' });
+            }}/>
 
             <main className="w-full flex flex-col bg-[#F0F0F0]">
 
                 <div className="header w-full h-screen bg-loginForm bg-center bg-cover flex flex-col justify-center items-center gap-y-12">
                     <div className="top w-full h-fit flex justify-center items-center">
-                        <p className="text-white shine text-3xl md:text-5xl lg:text-8xl font-extrabold uppercase tracking-wider mt-36 text-shadow-green-400 text-shadow-x-xl">sigap bersama</p>
+                        <p className="text-white shine text-3xl sm:text-6xl md:text-6xl lg:text-8xl font-extrabold uppercase tracking-wider mt-36 text-shadow-green-400 text-shadow-x-xl">sigap bersama</p>
                     </div>
 
-                    <div className="box w-2/3 h-fit bg-gray-100 rounded-xl flex justify-center items-center shadow-2xl drop-shadow-2xl overflow-hidden py-9 px-9 pl-20">
-                        <div className="leftSide w-1/3 h-full flex">
+                    <div className="box w-2/3 h-fit bg-gray-100 rounded-xl flex flex-col lg:flex-row justify-center items-center shadow-2xl drop-shadow-2xl overflow-hidden py-3 lg:py-9 px-3 lg:px-9 lg:pl-20">
+                        <div className="leftSide  lg:w-1/3 h-full flex">
                             <div className="leftSide w-1/3 h-full flex items-center"><img src={Logo} alt="logo" className="w-[80%]"></img></div>
                             <div className="rightSide w-2/3 h-full flex flex-col justify-center pl-1 capitalize text-2xl tracking-wide">
                                 <p className="font-bold">123.456</p><p>relawan</p>
                             </div>
                         </div>
 
-                        <div className="middleSide w-1/3 h-full flex">
+                        <div className="middleSide lg:w-1/3 h-full flex">
                             <div className="leftSide w-1/3 h-full flex items-center"><img src={Logo} alt="logo" className="w-[80%]"></img></div>
                             <div className="rightSide w-2/3 h-full flex flex-col justify-center pl-1 capitalize text-2xl tracking-wide">
                                 <p className="font-bold">123.456</p><p>komunitas</p>
                             </div>
                         </div>
 
-                        <div className="rightSide w-1/3 h-full flex">
+                        <div className="rightSide lg:w-1/3 h-full flex">
                             <div className="leftSide w-1/3 h-full flex items-center"><img src={Logo} alt="logo" className="w-[80%]"></img></div>
                             <div className="rightSide w-2/3 h-full flex flex-col justify-center pl-1 capitalize text-2xl tracking-wide">
                                 <p className="font-bold">123.456</p><p>event</p>
@@ -68,11 +64,11 @@ export default function LandingPage() {
                     </div>
                 </div>
 
-                <div className="about w-full bg-[#F0F0F0] flex justify-center items-center gap-y-9 py-32 px-16">
-                    <div className="leftSide w-1/2 shadow-2xl">
+                <div className="about w-full bg-[#F0F0F0] flex flex-col lg:flex-row justify-center items-center gap-y-9 lg:py-32 lg:px-16">
+                    <div className="leftSide lg:w-1/2 shadow-2xl">
                         <img src={Helper} alt="" />
                     </div>
-                    <div className="rightSide w-1/2 flex flex-col pl-6 gap-y-6 text-center leading-8 tracking-wide text-xs lg:text-lg text-[#5f6368]">
+                    <div className="rightSide px-7 lg:w-1/2 flex flex-col pl-6 gap-y-6 text-center leading-8 tracking-wide text-xs lg:text-lg text-[#5f6368]">
                         <p className="">
                             Dalam beberapa tahun terakhir, peningkatan jumlah bencana alam dan pencemaran lingkungan, telah menjadi tantangan utama di Indonesia. Meskipun berbagai organisasi dan masyarakat berusaha untuk berpartisipasi, masih ada keterbatasan dalam akses informasi dan koordinasi untuk relawan yang ingin terlibat. Sigap Bersama hadir untuk menghubungkan relawan dengan kegiatan tanggap bencana dan kampanye pembersihan lingkungan, menciptakan wadah yang efektif bagi masyarakat untuk berkontribusi.
                         </p>
@@ -85,15 +81,15 @@ export default function LandingPage() {
                 <div className="events w-full h-fit flex flex-col">
                     <div className="bencana w-full h-fit bg-ijoMuda flex flex-col pt-14 pb-10 justify-center items-center"
                     style={{ background: "linear-gradient(to bottom, #F0F0F0 30%, #9ed3a0 20%)", }}>
-                        <div className="topSide w-4/5 h-56 rounded-lg overflow-hidden flex shadow-[19px_-15px_45px_5px_rgba(0,_0,_0,_0.2)]">
+                        <div className="topSide w-4/5 h-fit lg:h-56 rounded-lg overflow-hidden flex flex-col lg:flex-row shadow-[19px_-15px_45px_5px_rgba(0,_0,_0,_0.2)]">
                             <div className="leftSide h-full w-fit">
                                 <img alt="" src={Bege} className="h-full w-fit"></img>
                             </div>
-                            <div className="rightSide h-full w-3/4 px-8 py-6 bg-white">
+                            <div className="rightSide h-full lg:w-3/4 px-8 py-6 bg-white">
                                 <div className="title">
-                                    <p className="text-xl font-bold uppercase">limbah lembah lumba lumba</p>
+                                    <p className="lg:text-xl font-bold uppercase">limbah lembah lumba lumba</p>
                                 </div>
-                                <div className="caption mt-4 normal-case text-justify">
+                                <div className="caption mt-4 normal-case text-justify text-xs lg:text-base">
                                     <p>
                                         LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH 
                                     </p>
@@ -101,10 +97,10 @@ export default function LandingPage() {
                             </div>
                         </div>
 
-                        <div className="bottomSide w-4/5 pt-5 rounded-b-lg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-hidden gap-6">
+                        <div className="bottomSide w-4/5 pt-5 rounded-b-lg hidden lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-hidden gap-6">
                             <div className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01]">
                                 <div className="h-40 bg-gray-200 rounded-t-lg overflow-hidden">
-                                    <img src={Content} alt="" />
+                                    <img src={Content} alt="" className="h-full w-full object-cover" />
                                 </div>
                                 <div className="p-4">
                                     <h2 className="text-lg font-bold">Nama Campaign</h2>
@@ -207,15 +203,15 @@ export default function LandingPage() {
 
                     <div className="limbah w-full h-fit bg-ijoMuda flex flex-col pt-14 pb-10 justify-center items-center"
                     style={{ background: "linear-gradient(to bottom, #F0F0F0 30%, #9ed3a0 20%)", }}>
-                        <div className="topSide w-4/5 h-56 rounded-lg overflow-hidden flex shadow-[19px_-15px_45px_5px_rgba(0,_0,_0,_0.2)]">
+                        <div className="topSide w-4/5 h-fit lg:h-56 rounded-lg overflow-hidden flex flex-col lg:flex-row shadow-[19px_-15px_45px_5px_rgba(0,_0,_0,_0.2)]">
                             <div className="leftSide h-full w-fit">
                                 <img alt="" src={Bege} className="h-full w-fit"></img>
                             </div>
-                            <div className="rightSide h-full w-3/4 px-8 py-6 bg-white">
+                            <div className="rightSide h-full lg:w-3/4 px-8 py-6 bg-white">
                                 <div className="title">
-                                    <p className="text-xl font-bold uppercase">limbah lembah lumba lumba</p>
+                                    <p className="lg:text-xl font-bold uppercase">limbah lembah lumba lumba</p>
                                 </div>
-                                <div className="caption mt-4 normal-case text-justify">
+                                <div className="caption mt-4 normal-case text-justify text-xs lg:text-base">
                                     <p>
                                         LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH 
                                     </p>
@@ -223,7 +219,7 @@ export default function LandingPage() {
                             </div>
                         </div>
 
-                        <div className="bottomSide w-4/5 pt-5 rounded-b-lg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-hidden gap-6">
+                        <div className="bottomSide w-4/5 pt-5 rounded-b-lg hidden lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-hidden gap-6">
                             <div className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01]">
                                 <div className="h-40 bg-gray-200 rounded-t-lg overflow-hidden">
                                     <img src={Content} alt="" />
@@ -331,40 +327,25 @@ export default function LandingPage() {
                 <div className="testimoni w-full h-fit flex flex-col justify-center items-center pt-20 pb-24">
                     <div className="title w-3/4 h-40 flex flex-col justify-center items-center gap-4 pb-5">
                         <p className="text-5xl font-extrabold uppercase tracking-wider">testimoni</p>
-                        <p className="text-lg font-semibold capitalize tracking-wide leading-10">mereka yang pernah menggunakan sigap bersama</p>
+                        <p className="text-xs lg:text-lg font-semibold capitalize tracking-wide leading-10">mereka yang pernah menggunakan sigap bersama</p>
                     </div>
 
-                    <div className="cards w-3/4 h-96 flex flex-nowrap justify-start py-4 gap-9 overflow-x-auto">
-                        <div className="card w-1/4 h-full bg-yellow-300 flex-shrink-0 rounded-xl">
-
-                        </div>
-                        <div className="card w-1/4 h-full bg-yellow-300 flex-shrink-0 rounded-xl">
-
-                        </div>
-                        <div className="card w-1/4 h-full bg-yellow-300 flex-shrink-0 rounded-xl">
-
-                        </div>
-                        <div className="card w-1/4 h-full bg-yellow-300 flex-shrink-0 rounded-xl">
-
-                        </div>
-                        <div className="card w-1/4 h-full bg-yellow-300 flex-shrink-0 rounded-xl">
-
-                        </div>
-                        <div className="card w-1/4 h-full bg-yellow-300 flex-shrink-0 rounded-xl">
-
-                        </div>
+                    <div className="cards w-3/4 h-96 flex flex-col lg:flex-row flex-nowrap justify-start py-4 gap-9 overflow-x-auto">
+                        <div className="card lg:w-1/4 h-full bg-yellow-300 flex-shrink-0 rounded-xl"></div>
+                        <div className="card lg:w-1/4 h-full bg-yellow-300 flex-shrink-0 rounded-xl"></div>
+                        <div className="card lg:w-1/4 h-full bg-yellow-300 flex-shrink-0 rounded-xl"></div>
+                        <div className="card lg:w-1/4 h-full bg-yellow-300 flex-shrink-0 rounded-xl"></div>
+                        <div className="card lg:w-1/4 h-full bg-yellow-300 flex-shrink-0 rounded-xl"></div>
                     </div>
                 </div>
 
                 <div className="maps w-full h-fit flex flex-col justify-center items-center pt-9 pb-24 bg-[#9ed3a0]">
                     <div className="title w-3/4 h-40 flex flex-col justify-center items-center">
                         <p className="text-5xl font-extrabold uppercase tracking-wider">map alerts</p>
-                        <p className="text-lg font-semibold capitalize tracking-wide leading-10">mereka yang pernah menggunakan sigap bersama</p>
+                        <p className="text-xs lg:text-lg font-semibold capitalize tracking-wide leading-10">mereka yang pernah menggunakan sigap bersama</p>
                     </div>
 
-                    <div className="cards w-3/4 bg-blue-500 h-100 flex flex-nowrap justify-start py-4 gap-9 overflow-x-auto">
-                        
-                    </div>
+                    <MapAlerts />
                 </div>
             </main>
 
