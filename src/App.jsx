@@ -8,7 +8,7 @@ import NotFound from "./pages/404/page";
 import SignIn from "./pages/Auth/signin";
 import SignWhat from "./pages/Auth/signwhat";
 import SignupIndividu from "./components/forms/signupIndividu";
-import SignupKomunitas from "./components/forms/SignupKomunitas";
+import SignupKomunitas from "./components/forms/signupKomunitas";
 import Profile from "./pages/Profile/page";
 import './index.css'; 
 
