@@ -22,9 +22,9 @@ export default function Bencana() {
             <div className="flex justify-center mb-8">
                 <input type="text" className="w-full max-w-2xl p-4 rounded-lg shadow-md outline-none" placeholder="Search..." />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {Array.from({ length: 12 }).map((_, index) => (
-                    <div key={index} className="bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01]">
+                    <div key={index} className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01]">
                         <div className="h-40 bg-gray-200 rounded-t-lg overflow-hidden">
                             <img src={Content} alt="" />
                         </div>
