@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../api/firebaseConfig";
@@ -7,6 +8,7 @@ import Content from "../../assets/bege.png"
 
 export default function Bencana() {
     const [bencanaData, setBencanaData] = useState([]);
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchBencana = async () => {
@@ -49,7 +51,8 @@ export default function Bencana() {
             </div>
             <div className="cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {bencanaData.map((item) => (
-                    <div key={item.id} className="card bg-white rounded-lg shadow-2xl hover:cursor-pointer hover:scale-[1.01]">
+                    <div key={item.id} className="card bg-white rounded-lg shadow-2xl hover:cursor-pointer hover:scale-[1.01]"
+                        onClick={() => navigate(`/bencanadetail/${item.id}`)}>
                         <div className="bg-gray-200 rounded-t-lg overflow-hidden">
                             <img src={Content} alt="" className="w-fit h-fit" />
                         </div>
