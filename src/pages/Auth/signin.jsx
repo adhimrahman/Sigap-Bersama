@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../../api/firebaseConfig'; // Konfigurasi Firebase Anda
+import { auth } from '../../api/firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import Logo from "../../assets/logo.png"
