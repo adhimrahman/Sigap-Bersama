@@ -26,7 +26,7 @@ export default function Profile() {
                             </div>
                             <div className="mb-6">
                                 <label className="block text-gray-700 mb-2">Alamat Domisili</label>
-                                <input type="" className="w-full p-3 border border-gray-300 rounded-lg bg-gray-200" />
+                                <input type="text" className="w-full p-3 border border-gray-300 rounded-lg bg-gray-200" />
                             </div>
                             <button type="submit" className="bg-teal-600 text-white px-6 py-3 rounded-lg">Simpan</button>
                         </form>
