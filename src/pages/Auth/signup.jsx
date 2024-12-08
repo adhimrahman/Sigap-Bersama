@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { auth } from '../../lib/firebaseConfig'; // Sesuaikan path sesuai struktur proyek Anda
+import { auth } from '../../api/firebaseConfig'; // Sesuaikan path sesuai struktur proyek Anda
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate, useParams } from 'react-router-dom';
-import SignupIndividu from '../components/forms/signupIndividu';
-import SignupKomunitas from '../components/forms/signupKomunitas';
+import SignupIndividu from '../../components/forms/signupIndividu';
+import SignupKomunitas from '../../components/forms/signupKomunitas';
 
 function Signup() {
     const [role, setRole] = useState<'individu' | 'komunitas' | ''>('');
