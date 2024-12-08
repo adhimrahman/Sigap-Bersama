@@ -7,7 +7,12 @@ export default function Navbar({ menuItems, scrollHandler }) {
 
     return (
         <nav className="flex items-center justify-between px-24 py-4 bg-ijoTua fixed top-0 w-full h-20 z-10 shadow-lg">
-            <div className="flex items-center">
+            <div className="logo flex items-center hover:cursor-pointer" onClick={() => {
+                const headerElement = document.querySelector(".header");
+                if (headerElement) {
+                    headerElement.scrollIntoView({ behavior: "smooth" });
+                }
+            }}>
                 <img src={Logo} alt="Logo OKFT" className="w-8 md:w-12 drop-shadow-2xl shadow-2xl" />
                 <span className="ml-3 text-xl md:text-2xl font-bold text-white uppercase">sigap bersama</span>
             </div>
@@ -18,6 +23,7 @@ export default function Navbar({ menuItems, scrollHandler }) {
                         onClick={() => {
                             if (label === "Home") navigate("/")
                             if (label === "My Event") navigate("/myEvent")
+                            if (label === "My Interest") navigate("/myInterest")
                             if (label === "Profil") navigate("/profil")
                             else scrollHandler(label) }}
                     >
