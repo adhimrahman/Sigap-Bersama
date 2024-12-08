@@ -23,7 +23,7 @@ const App = () => (
 			<Route path="/limbah" element={<Limbah />} /> 
 			<Route path="/limbahdetail" element={<LimbahDetail />} />
 			<Route path="/bencana" element={<Bencana />} /> 
-			<Route path="/bencanadetail" element={<BencanaDetail />} />
+			<Route path="/bencanadetail/:id" element={<BencanaDetail />} />
 			<Route path="/profile" element={<Profile />} />
 			<Route path="*" element={<NotFound />} /> 
 		</Routes>
