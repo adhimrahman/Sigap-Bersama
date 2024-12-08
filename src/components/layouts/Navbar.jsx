@@ -24,7 +24,7 @@ export default function Navbar({ menuItems, scrollHandler }) {
                             if (label === "Home") navigate("/")
                             if (label === "My Event") navigate("/myEvent")
                             if (label === "My Interest") navigate("/myInterest")
-                            if (label === "Profil") navigate("/profil")
+                            if (label === "Profile") navigate("/profile")
                             else scrollHandler(label) }}
                     >
                         {label}
