@@ -4,16 +4,26 @@ import Limbah from "./pages/Limbah/page";
 import LimbahDetail from "./pages/Limbah/details";
 import Bencana from "./pages/Bencana/page";
 import BencanaDetail from "./pages/Bencana/details";
-import './index.css';
+import NotFound from "./pages/404/page";
+import SignIn from "./pages/Auth/signin";
+import SignWhat from "./pages/Auth/signwhat";
+import SignupIndividu from "./components/forms/signupIndividu";
+import SignupKomunitas from "./components/forms/SignupKomunitas";
+import './index.css'; 
 
 const App = () => (
 	<Router>
 		<Routes>
 			<Route path="/" element={<Home />} />
+			<Route path="/signin" element={<SignIn />} />
+			<Route path="/signwhat" element={<SignWhat />} />
+			<Route path="/signup/individu" element={<SignupIndividu />} />
+			<Route path="/signup/komunitas" element={<SignupKomunitas />} />
 			<Route path="/limbah" element={<Limbah />} /> 
-			<Route path="/limbahdetail" element={<LimbahDetail />} />{/* Untuk preview contoh halaman detail, nanti diubah routenya*/}
+			<Route path="/limbahdetail" element={<LimbahDetail />} />
 			<Route path="/bencana" element={<Bencana />} /> 
-			<Route path="/bencanadetail" element={<BencanaDetail />} />{/* Untuk preview contoh halaman detail, nanti diubah routenya*/}
+			<Route path="/bencanadetail" element={<BencanaDetail />} />
+			<Route path="*" element={<NotFound />} /> 
 		</Routes>
 	</Router>
 );
