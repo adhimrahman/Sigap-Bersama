@@ -1,16 +1,18 @@
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube, FaTiktok, FaLinkedin } from "react-icons/fa";
 import { FaMapLocation } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 
 import Logo from "../../assets/logo.png"
 import Bege from "../../assets/bege.png"
 import Helper from "../../assets/helper.png"
 import Content from "../../assets/bege.png"
-
 import Navbar from "../../components/layouts/Navbar";
+
 // (role ? individu : kelompok )
 {/* input dan output param harus jelas, metode jg harus jelas: apa yg akan dilakukan utk solve prob */}
 
 export default function LandingPage() {
+    const navigate = useNavigate();
 
     const scrollToDesc = () => {
         const heroElement = document.querySelector('.about');
@@ -81,7 +83,7 @@ export default function LandingPage() {
                 </div>
 
                 <div className="events w-full h-fit flex flex-col">
-                    <div className="bencana w-full h-fit bg-ijoMuda flex flex-col pt-20 pb-20 justify-center items-center"
+                    <div className="bencana w-full h-fit bg-ijoMuda flex flex-col pt-14 pb-10 justify-center items-center"
                     style={{ background: "linear-gradient(to bottom, #F0F0F0 30%, #9ed3a0 20%)", }}>
                         <div className="topSide w-4/5 h-56 rounded-lg overflow-hidden flex shadow-[19px_-15px_45px_5px_rgba(0,_0,_0,_0.2)]">
                             <div className="leftSide h-full w-fit">
@@ -197,9 +199,13 @@ export default function LandingPage() {
                                 </div>
                             </div>
                         </div>
+                        <button className="w-44 h-11 rounded-lg bg-ijoTua hover:opacity-80 text-white capitalize mt-7"
+                            onClick={() => navigate('/bencana')}>
+                            lihat aktivitas lain
+                        </button>
                     </div>
 
-                    <div className="limbah w-full h-fit bg-ijoMuda flex flex-col pt-20 pb-20 justify-center items-center"
+                    <div className="limbah w-full h-fit bg-ijoMuda flex flex-col pt-14 pb-10 justify-center items-center"
                     style={{ background: "linear-gradient(to bottom, #F0F0F0 30%, #9ed3a0 20%)", }}>
                         <div className="topSide w-4/5 h-56 rounded-lg overflow-hidden flex shadow-[19px_-15px_45px_5px_rgba(0,_0,_0,_0.2)]">
                             <div className="leftSide h-full w-fit">
@@ -315,6 +321,10 @@ export default function LandingPage() {
                                 </div>
                             </div>
                         </div>
+                        <button className="w-44 h-11 rounded-lg bg-ijoTua text-white capitalize mt-7 hover:opacity-80"
+                            onClick={() => navigate('/limbah')}>
+                            lihat aktivitas lain
+                        </button>
                     </div>
                 </div>
 
