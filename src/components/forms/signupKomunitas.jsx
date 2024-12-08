@@ -1,59 +1,79 @@
 import PropTypes from "prop-types";
 
+import Logo from "../../assets/logo.png"
+
 const SignupKomunitas = ({
     handleSignup, setEmail, setPassword, setConfirmPassword, setContactName, setPhone, setCommunityName, setCommunityType,
     email, password, confirmPassword, contactName, phone, communityName, communityType,
 }) => {
     return (
-        <form onSubmit={handleSignup} className="flex flex-col gap-4 bg-white p-6 rounded-md shadow-md w-full max-w-md">
-            <h2 className="text-2xl font-bold mb-4">Daftar Sebagai Komunitas</h2>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-loginForm bg-center bg-cover text-white">
 
-            <label>Nama Komunitas
-                <input type="text" value={communityName} onChange={(e) => setCommunityName(e.target.value)}
-                    className="border p-2 w-full rounded-md" placeholder="Nama Komunitas" required
-                />
-            </label>
+            <form onSubmit={handleSignup} className="flex flex-col items-center justify-center bg-[#282C34]/95 w-2/5 max-h-fit rounded-[16px] backdrop-blur-sm gap-3">
+                
+                <div className="flex items-center justify-center w-3/12 mt-8">
+                    <img src={Logo} alt="logo" width={550} height={550} />
+                </div>
+                
+                <h2 className="text-2xl font-bold mb-4">Daftar Sebagai Komunitas</h2>
 
-            <label>Jenis Komunitas
-                <input type="text" value={communityType} onChange={(e) => setCommunityType(e.target.value)}
-                    className="border p-2 w-full rounded-md" placeholder="Jenis Komunitas" required
-                />
-            </label>
+                <div className="container">
+                    <div className="leftSide">
 
-            <label>Nama Kontak
-                <input type="text" value={contactName} onChange={(e) => setContactName(e.target.value)}
-                    className="border p-2 w-full rounded-md" placeholder="Nama Kontak" required
-                />
-            </label>
+                    </div>
 
-            <label>Nomor Telepon
-                <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)}
-                    className="border p-2 w-full rounded-md" placeholder="Nomor Telepon" required
-                />
-            </label>
+                    <div className="rightSide">
+                        
+                    </div>
+                </div>
 
-            <label>Email
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                    className="border p-2 w-full rounded-md" placeholder="Email" required
-                />
-            </label>
+                <label>Nama Komunitas
+                    <input type="text" value={communityName} onChange={(e) => setCommunityName(e.target.value)}
+                        className="border p-2 w-full rounded-md" placeholder="Nama Komunitas" required
+                    />
+                </label>
 
-            <label> Password
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-                    className="border p-2 w-full rounded-md" placeholder="Password" required
-                />
-            </label>
+                <label>Jenis Komunitas
+                    <input type="text" value={communityType} onChange={(e) => setCommunityType(e.target.value)}
+                        className="border p-2 w-full rounded-md" placeholder="Jenis Komunitas" required
+                    />
+                </label>
 
-            <label> Konfirmasi Password
-                <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="border p-2 w-full rounded-md" placeholder="Konfirmasi Password" required
-                />
-            </label>
+                <label>Nama Kontak
+                    <input type="text" value={contactName} onChange={(e) => setContactName(e.target.value)}
+                        className="border p-2 w-full rounded-md" placeholder="Nama Kontak" required
+                    />
+                </label>
 
-            <button type="submit" className="bg-green-500 text-white py-2 rounded-md hover:bg-green-600">
-                Daftar
-            </button>
-        </form>
+                <label>Nomor Telepon
+                    <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)}
+                        className="border p-2 w-full rounded-md" placeholder="Nomor Telepon" required
+                    />
+                </label>
+
+                <label>Email
+                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                        className="border p-2 w-full rounded-md" placeholder="Email" required
+                    />
+                </label>
+
+                <label> Password
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+                        className="border p-2 w-full rounded-md" placeholder="Password" required
+                    />
+                </label>
+
+                <label> Konfirmasi Password
+                    <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+                        className="border p-2 w-full rounded-md" placeholder="Konfirmasi Password" required
+                    />
+                </label>
+
+                <button type="submit" className="bg-green-500 text-white py-2 rounded-md hover:bg-green-600">
+                    Daftar
+                </button>
+            </form>
+        </div>
     );
 };
 

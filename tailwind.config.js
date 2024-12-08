@@ -22,7 +22,8 @@ export default {
 				custom: '2px 4px 8px rgba(255, 0, 0, 0.75)',
 			},
 			height: {
-				'100': "26rem"
+				'100': "26rem",
+				'105': "30rem",
 			}
 		},
 	},

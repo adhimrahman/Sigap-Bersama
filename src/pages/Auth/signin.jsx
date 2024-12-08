@@ -28,7 +28,7 @@ function Signin() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-loginForm bg-center bg-cover">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-loginForm bg-center bg-cover text-white">
             <form
                 className="flex flex-col items-center justify-center bg-[#282C34]/95 w-2/5 max-h-fit rounded-[16px] backdrop-blur-sm gap-3"
                 onSubmit={handleSignin}
