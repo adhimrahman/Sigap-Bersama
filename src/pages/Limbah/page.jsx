@@ -1,8 +1,8 @@
 import Content from "../../assets/bege.png"
-
 import Navbar from "../../components/layouts/Navbar";
 
 export default function Limbah() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     
     return (
         <>
