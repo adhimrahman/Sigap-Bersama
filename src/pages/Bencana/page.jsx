@@ -25,7 +25,9 @@ export default function Bencana() {
             }
         };
         fetchBencana(); // call function saat komponen di-load
-    }, []);           
+    }, []);  
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
     
     return (
         <>
@@ -36,7 +38,7 @@ export default function Bencana() {
                     label === 'Limbah' ? 'limbah' : label === 'Testimoni' ? 'testimoni' :
                     label === 'Maps' ? 'maps' : label === 'Contact Us' ? 'footer' : 'hero';
                 const targetElement = document.querySelector(`.${targetClass}`);
-                targetElement?.scrollIntoView({ behavior: 'smooth' });
+                targetElement?.scrollIntoView({behavior: 'smooth' });
             }}
         />
 
