@@ -315,13 +315,13 @@ export default function LandingPage() {
                     </div>
                 </div>
 
-                <div className="testimoni w-full h-1/4 flex flex-col justify-center items-center">
-                    <div className="title w-3/4 h-1/5 flex flex-col justify-center items-center">
+                <div className="testimoni w-full h-fit flex flex-col justify-center items-center pt-9 pb-16">
+                    <div className="title w-3/4 h-40 flex flex-col justify-center items-center">
                         <p className="text-5xl font-extrabold uppercase tracking-wider">testimoni</p>
                         <p className="text-lg font-semibold capitalize tracking-wide leading-10">mereka yang pernah menggunakan sigap bersama</p>
                     </div>
 
-                    <div className="cards w-3/4 h-3/5 flex flex-nowrap justify-start py-5 gap-9 overflow-x-auto">
+                    <div className="cards w-3/4 h-96 flex flex-nowrap justify-start py-4 gap-9 overflow-x-auto">
                         <div className="card w-1/4 h-full bg-yellow-300 flex-shrink-0 rounded-xl">
 
                         </div>
@@ -343,16 +343,14 @@ export default function LandingPage() {
                     </div>
                 </div>
 
-                <div className="maps w-full h-1/4 flex flex-col justify-center items-center bg-pink-200">
-                    <div className="title">
-                        <p>testimoni</p>
-                        <p>mereka yang pernah menggunakan sigap bersama</p>
+                <div className="maps w-full h-fit flex flex-col justify-center items-center pt-9 pb-24 bg-[#9ed3a0]">
+                    <div className="title w-3/4 h-40 flex flex-col justify-center items-center">
+                        <p className="text-5xl font-extrabold uppercase tracking-wider">map alerts</p>
+                        <p className="text-lg font-semibold capitalize tracking-wide leading-10">mereka yang pernah menggunakan sigap bersama</p>
                     </div>
 
-                    <div className="cards">
-                        <div className="card">
-
-                        </div>
+                    <div className="cards w-3/4 bg-blue-500 h-100 flex flex-nowrap justify-start py-4 gap-9 overflow-x-auto">
+                        
                     </div>
                 </div>
             </main>
