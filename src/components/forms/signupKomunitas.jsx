@@ -1,76 +1,53 @@
 import PropTypes from "prop-types";
 
-import Logo from "../../assets/logo.png"
-
 const SignupKomunitas = ({
-    handleSignup, setEmail, setPassword, setConfirmPassword, setContactName, setPhone, setCommunityName, setCommunityType,
-    email, password, confirmPassword, contactName, phone, communityName, communityType,
-}) => {
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-loginForm bg-center bg-cover text-white">
+    handleSignup, setEmail, setPassword, setConfirmPassword, setContactName, setPhone, setCommunityName, setCommunityType, email, password, confirmPassword, contactName, phone, communityName, communityType,
+}) => { 
 
-            <form onSubmit={handleSignup} className="flex flex-col items-center justify-center bg-[#282C34]/95 w-2/5 max-h-fit rounded-[16px] backdrop-blur-sm gap-3">
-                
-                <div className="flex items-center justify-center w-3/12 mt-8">
-                    <img src={Logo} alt="logo" width={550} height={550} />
+    return (
+        <div className="flex flex-col w-full items-center justify-center min-h-screen bg-loginForm bg-center bg-cover text-white">
+            <form onSubmit={handleSignup} className="flex flex-col items-center justify-center bg-[#282C34]/95 w-2/3 rounded-[16px] backdrop-blur-sm gap-3 p-11 pb-14">              
+                <div className="flex items-center justify-center w-full mt-8">
+                    <h2 className="text-2xl font-bold mb-8">Daftar Sebagai Komunitas</h2>
                 </div>
                 
-                <h2 className="text-2xl font-bold mb-4">Daftar Sebagai Komunitas</h2>
-
-                <div className="container flex">
-                    <div className="leftSide">
+                <div className="container flex gap-9">
+                    <div className="leftSide w-1/2 h-fit flex flex-col gap-4">
                         <label>Nama Komunitas
-                            <input type="text" value={communityName} onChange={(e) => setCommunityName(e.target.value)}
-                                className="border p-2 w-full rounded-md" placeholder="Nama Komunitas" required
-                            />
+                            <input type="text" value={communityName} onChange={(e) => setCommunityName(e.target.value)} className="border text-black p-2 w-full rounded-md" placeholder="Nama Komunitas" required/>
                         </label>
 
                         <label>Jenis Komunitas
-                            <input type="text" value={communityType} onChange={(e) => setCommunityType(e.target.value)}
-                                className="border p-2 w-full rounded-md" placeholder="Jenis Komunitas" required
-                            />
+                            <input type="text" value={communityType} onChange={(e) => setCommunityType(e.target.value)} className="border text-black p-2 w-full rounded-md" placeholder="Jenis Komunitas" required/>
                         </label>
 
                         <label>Nama Kontak
-                            <input type="text" value={contactName} onChange={(e) => setContactName(e.target.value)}
-                                className="border p-2 w-full rounded-md" placeholder="Nama Kontak" required
-                            />
+                            <input type="text" value={contactName} onChange={(e) => setContactName(e.target.value)} className="border text-black p-2 w-full rounded-md" placeholder="Nama Kontak" required/>
                         </label>
 
                         <label>Nomor Telepon
-                            <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)}
-                                className="border p-2 w-full rounded-md" placeholder="Nomor Telepon" required
-                            />
+                            <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className="border text-black p-2 w-full rounded-md" placeholder="Nomor Telepon" required/>
                         </label>
-
                     </div>
 
-                    <div className="rightSide">
+                    <div className="rightSide w-1/2 h-fit flex flex-col gap-4">
                         <label>Email
-                            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                                className="border p-2 w-full rounded-md" placeholder="Email" required
-                            />
+                            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="border text-black p-2 w-full rounded-md" placeholder="Email" required />
                         </label>
 
                         <label> Password
-                            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-                                className="border p-2 w-full rounded-md" placeholder="Password" required
-                            />
+                            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="border text-black p-2 w-full rounded-md" placeholder="Password" required />
                         </label>
 
                         <label> Konfirmasi Password
-                            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-                                className="border p-2 w-full rounded-md" placeholder="Konfirmasi Password" required
-                            />
+                            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="border text-black p-2 w-full rounded-md" placeholder="Konfirmasi Password" required />
                         </label>
 
-                        <button type="submit" className="bg-green-500 text-white py-2 rounded-md hover:bg-green-600">
-                            Daftar
-                        </button>
+                        <label className="text-[#282C34]">1
+                            <button type="submit" className="bg-[#008080] text-white w-full py-2 rounded-md hover:bg-[#008080]/40">Daftar</button>
+                        </label>
                     </div>
                 </div>
-
-
             </form>
         </div>
     );
@@ -88,10 +65,10 @@ SignupKomunitas.propTypes = {
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     confirmPassword: PropTypes.string.isRequired,
-    contactName: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
-    communityName: PropTypes.string.isRequired,
-    communityType: PropTypes.string.isRequired,
+    contactName: PropTypes.string,
+    phone: PropTypes.string,
+    communityName: PropTypes.string,
+    communityType: PropTypes.string,
 };
 
 export default SignupKomunitas;

@@ -5,7 +5,7 @@ function SignWhat() {
 
     const handleSelectRole = (role) => {
         navigate(`/signup/${role}`);
-    };
+    };    
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-loginForm bg-center bg-cover text-white">
