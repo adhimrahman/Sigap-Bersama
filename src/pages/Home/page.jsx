@@ -71,7 +71,7 @@ export default function LandingPage() {
     return(
         <div className="w-full bg-[#F0F0F0]">
 
-            <Navbar menuItems={['Home', 'About', 'Bencana', 'Limbah', 'Testimoni', 'Maps', 'Contact Us', 'My Event']}
+            <Navbar menuItems={['About', 'Bencana', 'Limbah', 'Testimoni', 'Maps', 'Contact Us', 'My Event']}
             scrollHandler={(label) => {
                 const targetClass =
                     label === 'About' ? 'about' : label === 'Bencana' ? 'bencana' :
