@@ -1,8 +1,10 @@
 import Navbar from "../../components/layouts/Navbar";
-import React from 'react'; 
+import React, { useState } from 'react'; 
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';  // Import dari Heroicons
 
 export default function Profile() {
-    const [isEditing, setIsEditing] = React.useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
     const handleEditClick = () => {
         setIsEditing(true);
@@ -10,6 +12,10 @@ export default function Profile() {
 
     const handleSaveClick = () => {
         setIsEditing(false);
+    };
+
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
     };
     
     return (
@@ -61,6 +67,27 @@ export default function Profile() {
                             <div className="mb-4">
                                 <label className="block mb-2">No Handphone</label>
                                 <input type="tel" className="w-full p-2 border rounded" disabled={!isEditing} />
+                            </div>
+                            <div className="mb-4 relative">
+                                <label className="block mb-2">Password</label>
+                                <div className="flex items-center relative">
+                                    <input
+                                        type={passwordVisible ? "text" : "password"}
+                                        className="w-full p-2 border rounded pr-12"  // ruang tambahan untuk ikon
+                                        disabled={!isEditing}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={togglePasswordVisibility}
+                                        className="absolute right-2"
+                                    >
+                                        {passwordVisible ? (
+                                            <EyeSlashIcon className="h-5 w-5 text-gray-500" />
+                                        ) : (
+                                            <EyeIcon className="h-5 w-5 text-gray-500" />
+                                        )}
+                                    </button>
+                                </div>
                             </div>
                             {isEditing ? (
                                 <button type="button" className="bg-green-700 text-white px-4 py-2 rounded" onClick={handleSaveClick}>save</button>
