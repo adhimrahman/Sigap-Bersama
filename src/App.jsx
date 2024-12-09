@@ -7,8 +7,7 @@ import BencanaDetail from "./pages/Bencana/details";
 import NotFound from "./pages/404/page";
 import SignIn from "./pages/Auth/signin";
 import SignWhat from "./pages/Auth/signwhat";
-import SignupIndividu from "./components/forms/signupIndividu";
-import SignupKomunitas from "./components/forms/signupKomunitas";
+import Signup from "./pages/Auth/signup";
 import Profile from "./pages/Profile/page";
 import Voucher from "./pages/Voucher/page";
 import './index.css'; 
@@ -19,8 +18,7 @@ const App = () => (
 			<Route path="/" element={<Home />} />
 			<Route path="/signin" element={<SignIn />} />
 			<Route path="/signwhat" element={<SignWhat />} />
-			<Route path="/signup/individu" element={<SignupIndividu />} />
-			<Route path="/signup/komunitas" element={<SignupKomunitas />} />
+			<Route path="/signup/:role" element={<Signup />} />
 			<Route path="/limbah" element={<Limbah />} /> 
 			<Route path="/limbahdetail" element={<LimbahDetail />} />
 			<Route path="/bencana" element={<Bencana />} /> 
