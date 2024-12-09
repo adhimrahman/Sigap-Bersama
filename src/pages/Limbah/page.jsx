@@ -7,6 +7,7 @@ import Navbar from "../../components/layouts/Navbar";
 
 export default function Limbah() {
     const [limbahData, setLimbahData] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -28,6 +29,21 @@ export default function Limbah() {
         fetchLimbah(); // call function saat komponen di-load
     }, []);  
 
+        // Fungsi untuk menangani perubahan pada input pencarian
+        const handleSearch = (e) => {
+            setSearchQuery(e.target.value);
+        };
+    
+        // Filter limbah data berdasarkan query pencarian
+        const filteredLimbah = limbahData.filter((item) => {
+            const query = searchQuery.toLowerCase();
+            return (
+                item.name.toLowerCase().includes(query) ||
+                item.creator.toLowerCase().includes(query) ||
+                item.locate.toLowerCase().includes(query)
+            );
+        });
+
     window.scrollTo({ top: 0, behavior: "smooth" });
     
     return (
@@ -46,11 +62,17 @@ export default function Limbah() {
         <div className="w-full px-9 sm:px-12 md:px-12 lg:px-32 p-4 bg-[#F0F0F0] mt-20">
             <h1 className="text-4xl font-bold tracking-wider text-center pt-9 mb-8 capitalize">limbah</h1>
             <div className="flex justify-center mb-8">
-                <input type="text" className="w-full max-w-2xl p-4 rounded-lg shadow-md outline-none" placeholder="Search..." />
+                    < input
+                        type="text"
+                        className="w-full max-w-2xl p-4 rounded-lg shadow-md outline-none"
+                        placeholder="Search by creator, name, or location..."
+                        value={searchQuery}
+                        onChange={handleSearch}
+                    />
             </div>
             <div className="cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {limbahData.map((item) => (
-                    <div key={item.id} className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01]"
+                {filteredLimbah.map((item) => (
+                    <div key={item.id} className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01] capitalize"
                         onClick={() => navigate(`/limbahdetail/${item.id}`)}>
                         <div className="h-fit lg:h-56 bg-gray-200 rounded-t-lg overflow-hidden">
                             <img src={item.image || "https://placehold.co/600x400"} alt="" className="w-full h-full object-cover object-center" />
