@@ -5,9 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import Logo from "../../assets/logo.png"
 import Bege from "../../assets/bege.png"
 import Helper from "../../assets/helper.png"
-import Content from "../../assets/bege.png"
 import Navbar from "../../components/layouts/Navbar";
 import MapAlerts from "../../components/cards/MapAlerts";
+
+import { useState } from "react";
+import { useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { firestore } from "../../api/firebaseConfig";
 
 export default function LandingPage() {
     const navigate = useNavigate();
@@ -17,17 +21,66 @@ export default function LandingPage() {
         heroElement?.scrollIntoView({ behavior: 'smooth' });
     }
 
+    const [bencanaData, setBencanaData] = useState([])
+    const [limbahData, setLimbahData] = useState([])
+
+    useEffect(() => {
+        const fetchBencana = async () => {
+            try {
+                const bencanaCollection = collection(firestore, "bencana")
+                const bencanaSnapshot = await getDocs(bencanaCollection)
+
+                const bencanaList = bencanaSnapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data()
+                }))
+
+                .sort((a, b) => a.id - b.id)
+                .slice(0,4);
+
+                setBencanaData(bencanaList)
+            } catch(err) {
+                console.log("tolong jangan error : ", err)
+            }
+        };
+        fetchBencana(); // call function saat komponen di-load
+    }, []);  
+
+    useEffect(() => {
+        const fetchLimbah = async () => {
+            try {
+                const limbahCollection = collection(firestore, "limbah")
+                const limbahSnapshot = await getDocs(limbahCollection)
+
+                const limbahList = limbahSnapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data()
+                }))
+
+                .sort((a, b) => a.id - b.id)
+                .slice(0,4);
+
+                setLimbahData(limbahList)
+            } catch(err) {
+                console.log("tolong jangan error : ", err)
+            }
+        };
+        fetchLimbah(); // call function saat komponen di-load
+    }, []);
+
     return(
         <div className="w-full bg-[#F0F0F0]">
 
-            <Navbar menuItems={['About', 'Bencana', 'Limbah', 'Testimoni', 'Maps', 'Contact Us', 'My Event', 'My Interest', 'Profile']} scrollHandler={(label) => {
+            <Navbar menuItems={['Home', 'About', 'Bencana', 'Limbah', 'Testimoni', 'Maps', 'Contact Us', 'My Event']}
+            scrollHandler={(label) => {
                 const targetClass =
                     label === 'About' ? 'about' : label === 'Bencana' ? 'bencana' :
                     label === 'Limbah' ? 'limbah' : label === 'Testimoni' ? 'testimoni' :
-                    label === 'Maps' ? 'maps' : label === 'Contact Us' ? 'footer' : 'about';
+                    label === 'Maps' ? 'maps' : label === 'Contact Us' ? 'footer' : 'header'
                 const targetElement = document.querySelector(`.${targetClass}`);
                 targetElement?.scrollIntoView({ behavior: 'smooth' });
-            }}/>
+            }}
+            />
 
             <main className="w-full flex flex-col bg-[#F0F0F0]">
 
@@ -87,7 +140,7 @@ export default function LandingPage() {
                             </div>
                             <div className="rightSide h-full lg:w-3/4 px-8 py-6 bg-white">
                                 <div className="title">
-                                    <p className="lg:text-xl font-bold uppercase">limbah lembah lumba lumba</p>
+                                    <p className="lg:text-xl font-bold uppercase">sigap bencana</p>
                                 </div>
                                 <div className="caption mt-4 normal-case text-justify text-xs lg:text-base">
                                     <p>
@@ -98,102 +151,33 @@ export default function LandingPage() {
                         </div>
 
                         <div className="bottomSide w-4/5 pt-5 rounded-b-lg hidden lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-hidden gap-6">
-                            <div className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01]">
+                        {bencanaData.map((item) => (
+                            <div key={item.id} className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01]">
                                 <div className="h-40 bg-gray-200 rounded-t-lg overflow-hidden">
-                                    <img src={Content} alt="" className="h-full w-full object-cover" />
+                                    <img src={item.image} alt="" className="h-full w-full object-cover" />
                                 </div>
                                 <div className="p-4">
-                                    <h2 className="text-lg font-bold">Nama Campaign</h2>
-                                    <p className="text-sm text-gray-600">Nama Komunitas</p>
+                                    <h2 className="text-lg font-bold capitalize">{item.name}</h2>
+                                    <p className="text-sm text-gray-600 capitalize">{item.creator}</p>
 
                                     <div className="mt-4">
                                         <div className="top flex">
                                             <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                             </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Tanggal</p>
+                                            <p className="flex items-center text-sm text-gray-600">{item.date}</p>
                                         </div>
                                         <div className="bottom flex mt-2 pb-2">
                                             <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/>
                                             </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Lokasi</p>
+                                            <p className="flex items-center text-sm text-gray-600">{item.locate}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01]">
-                                <div className="h-40 bg-gray-200 rounded-t-lg overflow-hidden">
-                                    <img src={Content} alt="" />
-                                </div>
-                                <div className="p-4">
-                                    <h2 className="text-lg font-bold">Nama Campaign</h2>
-                                    <p className="text-sm text-gray-600">Nama Komunitas</p>
-
-                                    <div className="mt-4">
-                                        <div className="top flex">
-                                            <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Tanggal</p>
-                                        </div>
-                                        <div className="bottom flex mt-2 pb-2">
-                                            <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/>
-                                            </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Lokasi</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01]">
-                                <div className="h-40 bg-gray-200 rounded-t-lg overflow-hidden">
-                                    <img src={Content} alt="" />
-                                </div>
-                                <div className="p-4">
-                                    <h2 className="text-lg font-bold">Nama Campaign</h2>
-                                    <p className="text-sm text-gray-600">Nama Komunitas</p>
-
-                                    <div className="mt-4">
-                                        <div className="top flex">
-                                            <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Tanggal</p>
-                                        </div>
-                                        <div className="bottom flex mt-2 pb-2">
-                                            <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/>
-                                            </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Lokasi</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01]">
-                                <div className="h-40 bg-gray-200 rounded-t-lg overflow-hidden">
-                                    <img src={Content} alt="" />
-                                </div>
-                                <div className="p-4">
-                                    <h2 className="text-lg font-bold">Nama Campaign</h2>
-                                    <p className="text-sm text-gray-600">Nama Komunitas</p>
-
-                                    <div className="mt-4">
-                                        <div className="top flex">
-                                            <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Tanggal</p>
-                                        </div>
-                                        <div className="bottom flex mt-2 pb-2">
-                                            <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/>
-                                            </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Lokasi</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        ))}
+                
                         </div>
                         <button className="w-44 h-11 rounded-lg bg-ijoTua hover:opacity-80 text-white capitalize mt-7"
                             onClick={() => navigate('/bencana')}>
@@ -209,7 +193,7 @@ export default function LandingPage() {
                             </div>
                             <div className="rightSide h-full lg:w-3/4 px-8 py-6 bg-white">
                                 <div className="title">
-                                    <p className="lg:text-xl font-bold uppercase">limbah lembah lumba lumba</p>
+                                    <p className="lg:text-xl font-bold uppercase">sigap lingkungan</p>
                                 </div>
                                 <div className="caption mt-4 normal-case text-justify text-xs lg:text-base">
                                     <p>
@@ -220,102 +204,32 @@ export default function LandingPage() {
                         </div>
 
                         <div className="bottomSide w-4/5 pt-5 rounded-b-lg hidden lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-hidden gap-6">
-                            <div className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01]">
-                                <div className="h-40 bg-gray-200 rounded-t-lg overflow-hidden">
-                                    <img src={Content} alt="" />
-                                </div>
-                                <div className="p-4">
-                                    <h2 className="text-lg font-bold">Nama Campaign</h2>
-                                    <p className="text-sm text-gray-600">Nama Komunitas</p>
+                            {limbahData.map((item) => (
+                                <div key={item.id} className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01]">
+                                    <div className="h-40 bg-gray-200 rounded-t-lg overflow-hidden">
+                                        <img src={item.image} alt="" />
+                                    </div>
+                                    <div className="p-4">
+                                        <h2 className="text-lg font-bold capitalize">{item.name}</h2>
+                                        <p className="text-sm text-gray-600 capitalize">{item.creator}</p>
 
-                                    <div className="mt-4">
-                                        <div className="top flex">
-                                            <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Tanggal</p>
-                                        </div>
-                                        <div className="bottom flex mt-2 pb-2">
-                                            <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/>
-                                            </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Lokasi</p>
+                                        <div className="mt-4">
+                                            <div className="top flex">
+                                                <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                </svg>
+                                                <p className="flex items-center text-sm text-gray-600">{item.date}</p>
+                                            </div>
+                                            <div className="bottom flex mt-2 pb-2">
+                                                <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/>
+                                                </svg>
+                                                <p className="flex items-center text-sm text-gray-600">{item.locate}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01]">
-                                <div className="h-40 bg-gray-200 rounded-t-lg overflow-hidden">
-                                    <img src={Content} alt="" />
-                                </div>
-                                <div className="p-4">
-                                    <h2 className="text-lg font-bold">Nama Campaign</h2>
-                                    <p className="text-sm text-gray-600">Nama Komunitas</p>
-
-                                    <div className="mt-4">
-                                        <div className="top flex">
-                                            <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Tanggal</p>
-                                        </div>
-                                        <div className="bottom flex mt-2 pb-2">
-                                            <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/>
-                                            </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Lokasi</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01]">
-                                <div className="h-40 bg-gray-200 rounded-t-lg overflow-hidden">
-                                    <img src={Content} alt="" />
-                                </div>
-                                <div className="p-4">
-                                    <h2 className="text-lg font-bold">Nama Campaign</h2>
-                                    <p className="text-sm text-gray-600">Nama Komunitas</p>
-
-                                    <div className="mt-4">
-                                        <div className="top flex">
-                                            <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Tanggal</p>
-                                        </div>
-                                        <div className="bottom flex mt-2 pb-2">
-                                            <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/>
-                                            </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Lokasi</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01]">
-                                <div className="h-40 bg-gray-200 rounded-t-lg overflow-hidden">
-                                    <img src={Content} alt="" />
-                                </div>
-                                <div className="p-4">
-                                    <h2 className="text-lg font-bold">Nama Campaign</h2>
-                                    <p className="text-sm text-gray-600">Nama Komunitas</p>
-
-                                    <div className="mt-4">
-                                        <div className="top flex">
-                                            <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Tanggal</p>
-                                        </div>
-                                        <div className="bottom flex mt-2 pb-2">
-                                            <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="green" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/>
-                                            </svg>
-                                            <p className="flex items-center text-sm text-gray-600">Lokasi</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                         <button className="w-44 h-11 rounded-lg bg-ijoTua text-white capitalize mt-7 hover:opacity-80"
                             onClick={() => navigate('/limbah')}>
