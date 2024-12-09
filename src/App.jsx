@@ -21,7 +21,7 @@ const App = () => (
 			<Route path="/signwhat" element={<SignWhat />} />
 			<Route path="/signup/:role" element={<Signup />} />
 			<Route path="/limbah" element={<Limbah />} /> 
-			<Route path="/limbahdetail" element={<LimbahDetail />} />
+			<Route path="/limbahdetail/:id" element={<LimbahDetail />} />
 			<Route path="/bencana" element={<Bencana />} /> 
 			<Route path="/bencanadetail/:id" element={<BencanaDetail />} />
 			<Route path="/profile" element={<Profile />} />
