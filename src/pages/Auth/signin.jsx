@@ -63,7 +63,7 @@ function Signin() {
                 });
             }
     
-            navigate('/landingPage');
+            navigate('/');
         } catch (error) {
             setErrorMessage('Google sign-in failed. Please try again.');
             console.error('Google sign-in error:', error);
