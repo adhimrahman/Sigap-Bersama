@@ -231,7 +231,7 @@ export default function LandingPage() {
                 
                         </div>
                         <button className="w-44 h-11 rounded-lg bg-ijoTua hover:opacity-80 text-white capitalize mt-7"
-                            onClick={() => navigate('/bencana')}>
+                            onClick={() => navigate('/limbah')}>
                             lihat aktivitas lain
                         </button>
                     </div>
