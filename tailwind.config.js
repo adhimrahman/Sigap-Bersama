@@ -9,7 +9,7 @@ export default {
 	theme: {
 		extend: {
 			backgroundImage: {
-				'loginForm': "url('./src/assets/bege.png')",
+				'loginForm': "url('/src/assets/bege.png')",
 				'wotah': "url('./src/assets/bgWater.png')",
 			},
 			colors: {

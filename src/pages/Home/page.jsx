@@ -342,7 +342,7 @@ export default function LandingPage() {
                 <div className="maps w-full h-fit flex flex-col justify-center items-center pt-9 pb-24 bg-[#9ed3a0]">
                     <div className="title w-3/4 h-40 flex flex-col justify-center items-center">
                         <p className="text-5xl font-extrabold uppercase tracking-wider">map alerts</p>
-                        <p className="text-xs lg:text-lg font-semibold capitalize tracking-wide leading-10">mereka yang pernah menggunakan sigap bersama</p>
+                        <p className="text-xs lg:text-lg font-semibold capitalize tracking-wide leading-10 mt-2">sigap tanggap bencana</p>
                     </div>
 
                     <MapAlerts />

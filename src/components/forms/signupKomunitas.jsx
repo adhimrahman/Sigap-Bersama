@@ -17,61 +17,60 @@ const SignupKomunitas = ({
                 
                 <h2 className="text-2xl font-bold mb-4">Daftar Sebagai Komunitas</h2>
 
-                <div className="container">
+                <div className="container flex">
                     <div className="leftSide">
+                        <label>Nama Komunitas
+                            <input type="text" value={communityName} onChange={(e) => setCommunityName(e.target.value)}
+                                className="border p-2 w-full rounded-md" placeholder="Nama Komunitas" required
+                            />
+                        </label>
+
+                        <label>Jenis Komunitas
+                            <input type="text" value={communityType} onChange={(e) => setCommunityType(e.target.value)}
+                                className="border p-2 w-full rounded-md" placeholder="Jenis Komunitas" required
+                            />
+                        </label>
+
+                        <label>Nama Kontak
+                            <input type="text" value={contactName} onChange={(e) => setContactName(e.target.value)}
+                                className="border p-2 w-full rounded-md" placeholder="Nama Kontak" required
+                            />
+                        </label>
+
+                        <label>Nomor Telepon
+                            <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)}
+                                className="border p-2 w-full rounded-md" placeholder="Nomor Telepon" required
+                            />
+                        </label>
 
                     </div>
 
                     <div className="rightSide">
-                        
+                        <label>Email
+                            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                                className="border p-2 w-full rounded-md" placeholder="Email" required
+                            />
+                        </label>
+
+                        <label> Password
+                            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+                                className="border p-2 w-full rounded-md" placeholder="Password" required
+                            />
+                        </label>
+
+                        <label> Konfirmasi Password
+                            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+                                className="border p-2 w-full rounded-md" placeholder="Konfirmasi Password" required
+                            />
+                        </label>
+
+                        <button type="submit" className="bg-green-500 text-white py-2 rounded-md hover:bg-green-600">
+                            Daftar
+                        </button>
                     </div>
                 </div>
 
-                <label>Nama Komunitas
-                    <input type="text" value={communityName} onChange={(e) => setCommunityName(e.target.value)}
-                        className="border p-2 w-full rounded-md" placeholder="Nama Komunitas" required
-                    />
-                </label>
 
-                <label>Jenis Komunitas
-                    <input type="text" value={communityType} onChange={(e) => setCommunityType(e.target.value)}
-                        className="border p-2 w-full rounded-md" placeholder="Jenis Komunitas" required
-                    />
-                </label>
-
-                <label>Nama Kontak
-                    <input type="text" value={contactName} onChange={(e) => setContactName(e.target.value)}
-                        className="border p-2 w-full rounded-md" placeholder="Nama Kontak" required
-                    />
-                </label>
-
-                <label>Nomor Telepon
-                    <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)}
-                        className="border p-2 w-full rounded-md" placeholder="Nomor Telepon" required
-                    />
-                </label>
-
-                <label>Email
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                        className="border p-2 w-full rounded-md" placeholder="Email" required
-                    />
-                </label>
-
-                <label> Password
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-                        className="border p-2 w-full rounded-md" placeholder="Password" required
-                    />
-                </label>
-
-                <label> Konfirmasi Password
-                    <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="border p-2 w-full rounded-md" placeholder="Konfirmasi Password" required
-                    />
-                </label>
-
-                <button type="submit" className="bg-green-500 text-white py-2 rounded-md hover:bg-green-600">
-                    Daftar
-                </button>
             </form>
         </div>
     );

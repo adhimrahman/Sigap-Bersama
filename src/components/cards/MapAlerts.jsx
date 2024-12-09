@@ -51,8 +51,8 @@ const MapAlerts = () => {
     }
 
     return (
-        <div className="cards lg:w-2/4 lg:h-fit flex flex-col lg:flex-row rounded-lg shadow-md p-3 bg-gray-200 mb-9">
-            <div className="leftside lg:w-2/3 h-105 py-9 pl-9 flex flex-col gap-y-3">
+        <div className="cards lg:w-3/5 lg:h-fit flex flex-col lg:flex-row rounded-lg shadow-md p-3 bg-gray-200 mb-9">
+            <div className="leftside lg:w-2/3 h-100 py-9 pl-9 flex flex-col gap-y-2">
                 <p><strong>Tanggal:</strong> {data.tanggal}</p>
                 <p><strong>Jam:</strong> {data.jam}</p>
                 <p><strong>DateTime:</strong> {data.datetime}</p>
@@ -66,7 +66,7 @@ const MapAlerts = () => {
                 <p><strong>Dirasakan:</strong> {data.dirasakan}</p>
             </div>
             
-            <div className="rightSide lg:w-1/3 h-105 flex justify-center hover:cursor-pointer">
+            <div className="rightSide lg:w-1/3 h-100 flex justify-center hover:cursor-pointer">
                 <div className="shakemap h-full">
                     <img src={`https://data.bmkg.go.id/DataMKG/TEWS/${data.shakemap}`} alt="Shakemap" className="h-full" onClick={handleModalOpen} />
                 </div>

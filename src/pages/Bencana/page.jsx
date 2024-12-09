@@ -4,7 +4,6 @@ import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../api/firebaseConfig";
 
 import Navbar from "../../components/layouts/Navbar";
-import Content from "../../assets/bege.png"
 
 export default function Bencana() {
     const [bencanaData, setBencanaData] = useState([]);
@@ -53,8 +52,8 @@ export default function Bencana() {
                 {bencanaData.map((item) => (
                     <div key={item.id} className="card bg-white rounded-lg shadow-2xl hover:cursor-pointer hover:scale-[1.01]"
                         onClick={() => navigate(`/bencanadetail/${item.id}`)}>
-                        <div className="bg-gray-200 rounded-t-lg overflow-hidden">
-                            <img src={Content} alt="" className="w-fit h-fit" />
+                        <div className="h-fit lg:h-56 bg-gray-200 rounded-t-lg overflow-hidden">
+                            <img src={item.image || "https://placehold.co/600x400"} alt="" className="w-full h-full object-cover object-center" />
                         </div>
                         <div className="p-4">
                             <h2 className="text-lg font-bold">{item.name}</h2>
