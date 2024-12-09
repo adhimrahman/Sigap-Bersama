@@ -15,9 +15,7 @@ export default function Navbar({ scrollHandler, menuItems = [] }) {
             await signOut(auth); // Sign out dari Firebase
             setUser(null); // Hapus data user dari context
             navigate('/'); // Arahkan kembali ke halaman utama
-        } catch (error) {
-            console.error("Error signing out:", error);
-        }
+        } catch (error) { console.error("Error signing out:", error) }
     }
 
     return (
@@ -29,48 +27,25 @@ export default function Navbar({ scrollHandler, menuItems = [] }) {
 
             <ul className="hidden md:flex space-x-8 text-white text-sm md:text-base font-medium">
                 {menuItems.map((item, index) => (
-                    <li
-                        key={index}
-                        className="relative cursor-pointer hover:text-red-400 transition duration-300"
-                        onClick={() => {
-                            if (['Home', 'About', 'Bencana', 'Limbah', 'Testimoni', 'Maps', 'Contact Us'].includes(item)) {
-                                scrollHandler(item);
-                            } else if (item === 'My Event') {
-                                navigate('/myEvent');
-                            }
-                        }}
-                    >
-                        {item}
-                        <div className="absolute left-0 bottom-[-4px] h-[2px] w-0 bg-red-400 transition-all duration-300 hover:w-full"></div>
+                    <li key={index} className="relative cursor-pointer hover:text-red-400 transition duration-300"
+                    onClick={() => {
+                        if (['Home', 'About', 'Bencana', 'Limbah', 'Testimoni', 'Maps', 'Contact Us'].includes(item)) { scrollHandler(item) }
+                        else if (item === 'My Event') { navigate('/myEvent') }
+                    }}>{item}
                     </li>
                 ))}
                 {user ? (
                     <>
-                        {/* Profil Menu */}
-                        <li
-                            className="relative cursor-pointer hover:text-red-400 transition duration-300"
-                            onClick={() => navigate('/profile')}
-                        >
-                            Profil
-                            <div className="absolute left-0 bottom-[-4px] h-[2px] w-0 bg-red-400 transition-all duration-300 hover:w-full"></div>
-                        </li>
-                        {/* Sign Out Menu */}
-                        <li
-                            className="relative cursor-pointer hover:text-red-400 transition duration-300"
-                            onClick={handleSignout}
-                        >
-                            Sign Out
-                            <div className="absolute left-0 bottom-[-4px] h-[2px] w-0 bg-red-400 transition-all duration-300 hover:w-full"></div>
-                        </li>
+                    <li onClick={() => navigate('/profile')} className="relative cursor-pointer hover:text-red-400 transition duration-300">
+                        Profil {/* Profil Menu */}
+                    </li>
+                    <li onClick={handleSignout} className="relative cursor-pointer hover:text-red-400 transition duration-300">
+                        Sign Out {/* Sign Out Menu */}
+                    </li>
                     </>
                 ) : (
-                    // Sign In Menu for Guest
-                    <li
-                        className="relative cursor-pointer hover:text-red-400 transition duration-300"
-                        onClick={() => navigate('/signin')}
-                    >
-                        Sign In
-                        <div className="absolute left-0 bottom-[-4px] h-[2px] w-0 bg-red-400 transition-all duration-300 hover:w-full"></div>
+                    <li onClick={() => navigate('/signin')} className="relative cursor-pointer hover:text-red-400 transition duration-300">
+                        Sign In     {/*Sign In Menu for Guest*/}
                     </li>
                 )}
             </ul>
