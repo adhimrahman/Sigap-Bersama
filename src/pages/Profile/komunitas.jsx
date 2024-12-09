@@ -2,7 +2,7 @@ import Navbar from "../../components/layouts/Navbar";
 import React, { useState } from 'react'; 
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';  // Import dari Heroicons
 
-export default function Profile() {
+export default function Komunitas() {
     const [isEditing, setIsEditing] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -33,14 +33,14 @@ export default function Profile() {
             <main className="p-8 mt-16 bg-[#f0f0f0]">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="bg-white p-4 rounded-lg shadow-md">
-                        <h2 className="text-lg font-extrabold mb-4">Profil</h2>
+                        <h2 className="text-lg font-extrabold mb-4">Profil Komunitas</h2>
                         <div className="flex flex-col items-center">
                             <div className="w-24 h-24 bg-[#d9d9d9] rounded-full mb-2"></div>
-                            <p className="text-center m-3">Nama</p>
+                            <p className="text-center m-3">Nama Komunitas</p>
                         </div>
                         <div className="mt-4">
                             <div className="flex justify-between border-t border-black py-5 px-2">
-                                <span>Aktivitas yang telah diikuti</span>
+                                <span>Aktivitas yang telah dibuat</span>
                                 <span>10</span>
                             </div>
                             <div className="flex justify-between border-t border-black py-5 px-2">
@@ -54,10 +54,14 @@ export default function Profile() {
                         </div>
                     </div>
                     <div className="md:col-span-2 bg-white p-4 rounded-lg shadow-md">
-                        <h2 className="text-lg font-extrabold mb-4">Data Pribadi</h2>
+                        <h2 className="text-lg font-extrabold mb-4">Data Komunitas</h2>
                         <form>
                             <div className="mb-4">
-                                <label className="block mb-2">Nama</label>
+                                <label className="block mb-2">Nama Komunitas</label>
+                                <input type="text" className="w-full p-2 border rounded" disabled={!isEditing} />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block mb-2">Jenis Komunitas</label>
                                 <input type="text" className="w-full p-2 border rounded" disabled={!isEditing} />
                             </div>
                             <div className="mb-4">
@@ -65,7 +69,11 @@ export default function Profile() {
                                 <input type="email" className="w-full p-2 border rounded" disabled={!isEditing} />
                             </div>
                             <div className="mb-4">
-                                <label className="block mb-2">No Handphone</label>
+                                <label className="block mb-2">Nama Kontak</label>
+                                <input type="text" className="w-full p-2 border rounded" disabled={!isEditing} />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block mb-2">Nomor Kontak</label>
                                 <input type="tel" className="w-full p-2 border rounded" disabled={!isEditing} />
                             </div>
                             <div className="mb-4 relative">
@@ -90,9 +98,9 @@ export default function Profile() {
                                 </div>
                             </div>
                             {isEditing ? (
-                                <button type="button" className="bg-green-700 text-white px-4 py-2 rounded" onClick={handleSaveClick}>save</button>
+                                <button type="button" className="bg-green-700 text-white px-4 py-2 rounded" onClick={handleSaveClick}>Save</button>
                             ) : (
-                                <button type="button" className="bg-green-700 text-white px-4 py-2 rounded" onClick={handleEditClick}>edit</button>
+                                <button type="button" className="bg-green-700 text-white px-4 py-2 rounded" onClick={handleEditClick}>Edit</button>
                             )}
                         </form>
                     </div>
