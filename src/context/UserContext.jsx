@@ -12,18 +12,26 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
-                const userDocRef = doc(firestore, 'users', currentUser.uid);
-                const userDoc = await getDoc(userDocRef);
+                // Ambil data tambahan dari Firestore jika diperlukan
+                try {
+                    const userDocRef = doc(firestore, 'users', currentUser.uid);
+                    const userDoc = await getDoc(userDocRef);
 
-                if (userDoc.exists()) {
-                    setUser({ uid: currentUser.uid, role: userDoc.data().role });
+                    setUser({
+                        uid: currentUser.uid,
+                        email: currentUser.email,
+                        role: userDoc.exists() ? userDoc.data().role : 'guest',
+                    });
+                } catch (error) {
+                    console.error("Error fetching user data:", error);
+                    setUser({ uid: currentUser.uid, email: currentUser.email, role: 'guest' });
                 }
             } else {
-                setUser(null); // Guest
+                setUser(null); // Guest mode
             }
         });
 
-        return () => unsubscribe(); // Cleanup listener
+        return () => unsubscribe(); // Cleanup listener saat komponen unmount
     }, []);
 
     return (
