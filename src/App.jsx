@@ -10,6 +10,7 @@ import SignWhat from "./pages/Auth/signwhat";
 import SignupIndividu from "./components/forms/signupIndividu";
 import SignupKomunitas from "./components/forms/signupKomunitas";
 import Profile from "./pages/Profile/page";
+import Voucher from "./pages/Voucher/page";
 import './index.css'; 
 
 const App = () => (
@@ -25,6 +26,7 @@ const App = () => (
 			<Route path="/bencana" element={<Bencana />} /> 
 			<Route path="/bencanadetail/:id" element={<BencanaDetail />} />
 			<Route path="/profile" element={<Profile />} />
+			<Route path="/voucher" element={<Voucher />} />
 			<Route path="*" element={<NotFound />} /> 
 		</Routes>
 	</Router>
