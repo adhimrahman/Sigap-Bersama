@@ -29,12 +29,14 @@ function Navbar() {
     const komunitasMenu = [
         ...template,
         { label: 'My Event', onClick: () => navigate('/myevent') },
+        { label: 'Profile', onClick: () => navigate('/profile') },
         { label: 'Sign Out', onClick: handleSignOut },
     ];
-
+    
     const individuMenu = [
         ...template,
         { label: 'My Interest', onClick: () => navigate('/myinterest') },
+        { label: 'Profile', onClick: () => navigate('/profile') },
         { label: 'Sign Out', onClick: handleSignOut },
     ];
 
