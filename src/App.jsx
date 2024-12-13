@@ -11,10 +11,16 @@ import Signup from "./pages/Auth/signup";
 import Profile from "./pages/Profile/page";
 import Komunitas from "./pages/Profile/komunitas";
 import Voucher from "./pages/Voucher/page";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './index.css'; 
 
 const App = () => (
 	<Router>
+		<ToastContainer />
+		{/* <Navbar /> */}
 		<Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="/signin" element={<SignIn />} />
@@ -24,7 +30,7 @@ const App = () => (
 			<Route path="/limbahdetail/:id" element={<LimbahDetail />} />
 			<Route path="/bencana" element={<Bencana />} /> 
 			<Route path="/bencanadetail/:id" element={<BencanaDetail />} />
-			<Route path="/profile" element={<Profile />} />
+			<Route path="/profile" element={<ProtectedRoute element={<Profile />}/>} />
 			<Route path="/komunitas" element={<Komunitas />} />
 			<Route path="/voucher" element={<Voucher />} />
 			<Route path="*" element={<NotFound />} /> 
