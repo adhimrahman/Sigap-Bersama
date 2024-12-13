@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
 
 const SignupKomunitas = ({
-    handleSignup, setEmail, setPassword, setConfirmPassword, setContactName, setPhone, setCommunityName, setCommunityType, email, password, confirmPassword, contactName, phone, communityName, communityType,
+    handleSignup, setEmail, setPassword, setConfirmPassword, setContactName, setPhone, setCommunityName, setCommunityType, email, password, confirmPassword, contactName, phone, communityName, communityType, errorMessage
 }) => { 
 
     return (
         <div className="flex flex-col w-full items-center justify-center min-h-screen bg-loginForm bg-center bg-cover text-white">
+            {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
             <form onSubmit={handleSignup} className="flex flex-col items-center justify-center bg-[#282C34]/95 w-2/3 rounded-[16px] backdrop-blur-sm gap-3 p-11 pb-14">              
                 <div className="flex items-center justify-center w-full mt-8">
                     <h2 className="text-2xl font-bold mb-8">Daftar Sebagai Komunitas</h2>
@@ -69,6 +70,7 @@ SignupKomunitas.propTypes = {
     phone: PropTypes.string,
     communityName: PropTypes.string,
     communityType: PropTypes.string,
+    errorMessage: PropTypes.string
 };
 
 export default SignupKomunitas;

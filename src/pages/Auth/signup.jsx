@@ -18,7 +18,7 @@ function Signup() {
     const [phone, setPhone] = useState('');
     const [communityName, setCommunityName] = useState('');
     const [communityType, setCommunityType] = useState('');
-    const [setErrorMessage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
     const { setUser } = useUser();
 
     const navigate = useNavigate();
@@ -26,9 +26,7 @@ function Signup() {
     const handleSignup = async (event) => {
         event.preventDefault();
     
-        if (password !== confirmPassword) { 
-            return setErrorMessage('Passwords do not match'); 
-        }
+        if (password !== confirmPassword) return setErrorMessage('Passwords do not match')
     
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -49,18 +47,16 @@ function Signup() {
     
             setUser({ uid: user.uid, role }); // Update UserContext
             navigate('/'); // Redirect ke home
-        } catch (error) {
-            setErrorMessage(error.message);
-        }
+        } catch (error) { setErrorMessage(error.message) }
     };    
 
     if (role === "individu") {
         return (
-            <SignupIndividu handleSignup={handleSignup} setEmail={setEmail} setPassword={setPassword} setConfirmPassword={setConfirmPassword} setFullName={setFullName} email={email} password={password} confirmPassword={confirmPassword} fullName={fullName}/>
+            <SignupIndividu handleSignup={handleSignup} setEmail={setEmail} setPassword={setPassword} setConfirmPassword={setConfirmPassword} setFullName={setFullName} email={email} password={password} confirmPassword={confirmPassword} fullName={fullName} errorMessage={errorMessage}/>
         );
     } else if (role === "komunitas") {
         return (
-            <SignupKomunitas handleSignup={handleSignup} setEmail={setEmail} setPassword={setPassword} setConfirmPassword={setConfirmPassword} setContactName={setContactName} setPhone={setPhone} setCommunityName={setCommunityName} setCommunityType={setCommunityType} email={email} password={password} confirmPassword={confirmPassword} contactName={contactName} phone={phone} communityName={communityName} communityType={communityType}/>
+            <SignupKomunitas handleSignup={handleSignup} setEmail={setEmail} setPassword={setPassword} setConfirmPassword={setConfirmPassword} setContactName={setContactName} setPhone={setPhone} setCommunityName={setCommunityName} setCommunityType={setCommunityType} email={email} password={password} confirmPassword={confirmPassword} contactName={contactName} phone={phone} communityName={communityName} communityType={communityType} errorMessage={errorMessage}/>
         );
     } else {
         return <div>Role not found</div>;
