@@ -69,7 +69,7 @@ export default function LandingPage() {
     return(
         <div className="w-full bg-[#F0F0F0]">
 
-            <Navbar />
+            <Navbar pageKeys={['home', 'about', 'bencana', 'limbah', 'maps', 'contactUs']} />
 
             <main className="w-full flex flex-col bg-[#F0F0F0]">
                 <div className="header w-full h-screen bg-loginForm bg-center bg-cover flex flex-col justify-center items-center gap-y-12">
