@@ -16,7 +16,7 @@ body {
 }
 
 html {
-    scroll-padding-top: 80px; /* Sesuaikan dengan tinggi navbar Anda */
+    scroll-padding-top: 4rem; /* Sesuaikan dengan tinggi navbar Anda */
 }
 
 .shine {
@@ -43,4 +43,15 @@ html {
 	100% {
 		background-position: 1000px;
 	}
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+html::-webkit-scrollbar {
+	display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+html {
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
 }
