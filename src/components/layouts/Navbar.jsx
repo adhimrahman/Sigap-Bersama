@@ -1,74 +1,50 @@
 import { useNavigate } from 'react-router-dom';
 import useUser from '../../context/useUser';
+import PropTypes from 'prop-types';
 import Logo from '../../assets/logo.png';
-import { auth } from "../../api/firebaseConfig";
+import { auth } from '../../api/firebaseConfig';
 import { toast } from 'react-toastify';
 
-function Navbar() {
+export default function Navbar({ pageKeys }) {
     const navigate = useNavigate();
-    const { user } = useUser(); // Mendapatkan data user dari UserContext
+    const { user } = useUser();
 
-    const scrollToElement = (className) => {
-        const targetElement = document.querySelector(`.${className}`);
-        if (targetElement) { targetElement.scrollIntoView({ behavior: 'smooth' }) }
+    // Mapping semua label dengan aksi terkait
+    const menuMapping = {
+        landingPage: { label: 'Home', onClick: () => navigate('/') },
+        home: { label: 'Home', onClick: () => document.querySelector('.header')?.scrollIntoView({ behavior: 'smooth' }) },
+        about: { label: 'About', onClick: () => document.querySelector('.about')?.scrollIntoView({ behavior: 'smooth' }) },
+        bencana: { label: 'Bencana', onClick: () => document.querySelector('.bencana')?.scrollIntoView({ behavior: 'smooth' }) },
+        limbah: { label: 'Limbah', onClick: () => document.querySelector('.limbah')?.scrollIntoView({ behavior: 'smooth' }) },
+        maps: { label: 'Maps', onClick: () => document.querySelector('.maps')?.scrollIntoView({ behavior: 'smooth' }) },
+        contactUs: { label: 'Contact Us', onClick: () => document.querySelector('.footer')?.scrollIntoView({ behavior: 'smooth' }) },
+        myEvent: { label: 'My Event', onClick: () => navigate('/myevent') },
+        myInterest: { label: 'My Interest', onClick: () => navigate('/myinterest') },
+        profile: { label: 'Profile', onClick: () => navigate('/profile') },
+        signIn: { label: 'Sign In', onClick: () => navigate('/signin') },
+        signOut: { label: 'Sign Out', onClick: () => { auth.signOut().then(() => {
+            toast.success('Logout successful!', {
+                position: 'bottom-right', autoClose: 3000, hideProgressBar: false, closeOnClick: true,
+                pauseOnHover: true, draggable: true, progress: undefined, theme: 'light',
+            }); navigate('/');
+        })}},
     };
 
-    const template = [
-        { label: 'Home', onClick: () => scrollToElement('header') },
-        { label: 'About', onClick: () => scrollToElement('about') },
-        { label: 'Bencana', onClick: () => scrollToElement('bencana') },
-        { label: 'Limbah', onClick: () => scrollToElement('limbah') },
-        { label: 'Maps', onClick: () => scrollToElement('maps') },
-        { label: 'Contact Us', onClick: () => scrollToElement('footer') },
-    ]
+    const roleMenuKeys =
+        user?.role === 'komunitas' ? ['myEvent', 'profile', 'signOut'] :
+        user?.role === 'individu' ? ['myInterest', 'profile', 'signOut'] :
+        ['signIn'];
 
-    const guestMenu = [
-        ...template,
-        { label: 'Sign In', onClick: () => navigate('/signin') },
-    ];
-
-    const komunitasMenu = [
-        ...template,
-        { label: 'My Event', onClick: () => navigate('/myevent') },
-        { label: 'Profile', onClick: () => navigate('/profile') },
-        { label: 'Sign Out', onClick: handleSignOut },
-    ];
-    
-    const individuMenu = [
-        ...template,
-        { label: 'My Interest', onClick: () => navigate('/myinterest') },
-        { label: 'Profile', onClick: () => navigate('/profile') },
-        { label: 'Sign Out', onClick: handleSignOut },
-    ];
-
-    function handleSignOut() {
-        auth.signOut()
-            .then(() => {
-                toast.success('Logout successful!', {
-                    position: 'bottom-right', autoClose: 3000, hideProgressBar: false, closeOnClick: true,
-                    pauseOnHover: true, draggable: true, progress: undefined, theme: 'light',
-                }); navigate('/');
-            })
-            .catch((error) => {
-                console.error('Error signing out:', error);
-                toast.error('Logout failed. Please try again.', {
-                    position: 'bottom-right', autoClose: 3000, hideProgressBar: false, closeOnClick: true,
-                    pauseOnHover: true, draggable: true, progress: undefined, theme: 'light',
-                });
-            });
-    }
-
-    const menuItems =
-        user?.role === 'komunitas' ? komunitasMenu :
-        user?.role === 'individu' ? individuMenu : guestMenu;
+    // merge menu role dan page-specific
+    const menuKeys = [...pageKeys, ...roleMenuKeys];
+    const menuItems = menuKeys.map((key) => menuMapping[key]);
 
     return (
         <nav className="flex items-center justify-between px-24 py-4 bg-ijoTua fixed top-0 w-full h-16 z-10 shadow-lg">
-            <div className="logo flex items-center cursor-pointer" onClick={() => scrollToElement('home')}>  
+            <div className="logo flex items-center cursor-pointer">
                 <img src={Logo} alt="Logo" className="w-10 drop-shadow-xl" />
                 <span className="ml-3 text-lg font-bold text-white uppercase">Sigap Bersama</span>
             </div>
-
             <ul className="flex space-x-6 text-white text-sm font-medium">
                 {menuItems.map((item, index) => (
                     <li key={index} className="cursor-pointer hover:text-red-400 transition duration-300" onClick={item.onClick}>{item.label}</li>
@@ -78,4 +54,10 @@ function Navbar() {
     );
 }
 
-export default Navbar;
+Navbar.propTypes = {
+    pageKeys: PropTypes.arrayOf(PropTypes.string), // Memastikan pageKeys adalah array string
+};
+
+Navbar.defaultProps = {
+    pageKeys: [], // Default-nya tidak ada menu tambahan
+};
