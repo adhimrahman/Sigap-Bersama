@@ -19,8 +19,8 @@ export default function Navbar({ pageKeys }) {
         contactUs: { label: 'Contact Us', onClick: () => document.querySelector('.footer')?.scrollIntoView({ behavior: 'smooth' }) },
 
         landingPage: { label: 'Home', onClick: () => navigate('/') },
-        navLimbah: { label: 'Home', onClick: () => navigate('/limbah') },
-        navBencana: { label: 'Home', onClick: () => navigate('/bencana') },
+        navBencana: { label: 'Bencana', onClick: () => navigate('/bencana') },
+        navLimbah: { label: 'Limbah', onClick: () => navigate('/limbah') },
         myEvent: { label: 'My Event', onClick: () => navigate('/myevent') },
         myInterest: { label: 'My Interest', onClick: () => navigate('/myinterest') },
         profile: { label: 'Profile', onClick: () => navigate('/profile') },
