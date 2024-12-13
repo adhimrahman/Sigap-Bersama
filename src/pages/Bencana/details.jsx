@@ -7,15 +7,7 @@ export default function BencanaDetail() {
     return (
         <div className="w-full bg-gray-100">
 
-            <Navbar
-                menuItems={['Home', 'About', 'Bencana', 'Limbah', 'Testimoni', 'Maps', 'Contact Us', 'My Event', 'Profil']}
-                scrollHandler={(label) => {
-                const targetClass =
-                    label === 'About' ? 'about' : label === 'Bencana' ? 'bencana' :
-                    label === 'Limbah' ? 'limbah' : label === 'Testimoni' ? 'testimoni' :
-                    label === 'Maps' ? 'maps' : label === 'Contact Us' ? 'footer' : 'hero';
-                }}
-            />
+            <Navbar pageKeys={['landingPage', 'bencana', 'limbah', 'contactUs']} />
 
             {/* Event Details Section */}
             <section className="max-w-6xl mx-auto py-12 pt-24 px-6">
