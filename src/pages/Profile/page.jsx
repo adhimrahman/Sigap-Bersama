@@ -20,16 +20,8 @@ export default function Profile() {
     
     return (
         <div>
-            <Navbar menuItems={['Home', 'About', 'Bencana', 'Limbah', 'Testimoni', 'Maps', 'Contact Us', 'My Event', 'Profil']}
-                scrollHandler={(label) => {
-                    const targetClass =
-                        label === 'About' ? 'about' : label === 'Bencana' ? 'bencana' :
-                        label === 'Limbah' ? 'limbah' : label === 'Testimoni' ? 'testimoni' :
-                        label === 'Maps' ? 'maps' : label === 'Contact Us' ? 'footer' : 'hero';
-                    const targetElement = document.querySelector(`.${targetClass}`);
-                    targetElement?.scrollIntoView({behavior: 'smooth' });
-                }}
-            />
+            <Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah']} />
+
             <main className="p-8 mt-16 bg-[#f0f0f0]">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="bg-white p-4 rounded-lg shadow-md">

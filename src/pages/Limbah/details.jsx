@@ -7,7 +7,7 @@ export default function LimbahDetail() {
     return (
         <div className="w-full bg-gray-100">
 
-            <Navbar pageKeys={['landingPage', 'bencana', 'limbah', 'contactUs']} />
+            <Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah', 'contactUs']} />
 
             {/* Event Details Section */}
             <section className="max-w-6xl mx-auto py-12 pt-24 px-6">

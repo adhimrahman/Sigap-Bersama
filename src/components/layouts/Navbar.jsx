@@ -11,13 +11,16 @@ export default function Navbar({ pageKeys }) {
 
     // Mapping semua label dengan aksi terkait
     const menuMapping = {
-        landingPage: { label: 'Home', onClick: () => navigate('/') },
         home: { label: 'Home', onClick: () => document.querySelector('.header')?.scrollIntoView({ behavior: 'smooth' }) },
         about: { label: 'About', onClick: () => document.querySelector('.about')?.scrollIntoView({ behavior: 'smooth' }) },
         bencana: { label: 'Bencana', onClick: () => document.querySelector('.bencana')?.scrollIntoView({ behavior: 'smooth' }) },
         limbah: { label: 'Limbah', onClick: () => document.querySelector('.limbah')?.scrollIntoView({ behavior: 'smooth' }) },
         maps: { label: 'Maps', onClick: () => document.querySelector('.maps')?.scrollIntoView({ behavior: 'smooth' }) },
         contactUs: { label: 'Contact Us', onClick: () => document.querySelector('.footer')?.scrollIntoView({ behavior: 'smooth' }) },
+
+        landingPage: { label: 'Home', onClick: () => navigate('/') },
+        navLimbah: { label: 'Home', onClick: () => navigate('/limbah') },
+        navBencana: { label: 'Home', onClick: () => navigate('/bencana') },
         myEvent: { label: 'My Event', onClick: () => navigate('/myevent') },
         myInterest: { label: 'My Interest', onClick: () => navigate('/myinterest') },
         profile: { label: 'Profile', onClick: () => navigate('/profile') },
