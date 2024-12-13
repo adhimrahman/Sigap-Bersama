@@ -28,11 +28,8 @@ const MapAlerts = () => {
                     shakemap: gempa.getElementsByTagName("Shakemap")[0]?.textContent,
                 };
                 setData(gempaData);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
+            } catch (error) { console.error("Error fetching data:", error) }
         };
-
         fetchData();
     }, []);
 
@@ -46,12 +43,10 @@ const MapAlerts = () => {
         document.body.style.overflow = "auto";
     };
 
-    if (!data) {
-        return <p>Loading...</p>;
-    }
+    if (!data) { return <p>Loading...</p> }
 
     return (
-        <div className="cards lg:w-3/5 lg:h-fit flex flex-col lg:flex-row rounded-lg shadow-md p-3 bg-gray-200 mb-9">
+        <div className="cards lg:w-4/6 lg:h-fit flex flex-col lg:flex-row rounded-lg shadow-md p-3 bg-green-100 mb-9">
             <div className="leftside lg:w-2/3 h-100 py-9 pl-9 flex flex-col gap-y-2">
                 <p><strong>Tanggal:</strong> {data.tanggal}</p>
                 <p><strong>Jam:</strong> {data.jam}</p>
@@ -73,25 +68,15 @@ const MapAlerts = () => {
             </div>
 
             {isModalOpen && (
-                <div
-                    className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
-                    onClick={handleModalClose}
-                >
-                    <div className="relative bg-white p-5 rounded-lg shadow-lg max-w-3xl">
-                        {/* Modal Content */}
-                        <button
-                            className="absolute top-2 right-2 text-gray-600 hover:text-black"
-                            onClick={handleModalClose}
-                        >
-                            &#x2715; {/* Close Icon */}
-                        </button>
-                        <img
-                            src={`https://data.bmkg.go.id/DataMKG/TEWS/${data.shakemap}`}
-                            alt="Shakemap"
-                            className="w-full h-auto"
-                        />
-                    </div>
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" onClick={handleModalClose}>
+                <div className="relative bg-white p-5 rounded-lg shadow-lg max-w-3xl">
+                    <button className="absolute top-4 right-8 text-gray-600 hover:text-black"
+                    onClick={handleModalClose}>
+                        &#x2715;
+                    </button>
+                    <img src={`https://data.bmkg.go.id/DataMKG/TEWS/${data.shakemap}`} alt="Shakemap" className="w-full h-auto"/>
                 </div>
+            </div>
             )}
         </div>
     );

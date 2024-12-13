@@ -15,9 +15,7 @@ export default function NotFound() {
                         <p className="pb-2 font-semibold">Error 404</p>
                         <h1 className="pb-4 text-5xl font-bold lg:text-6xl capitalize">Oopsss 🤪🤪</h1>
                         <p className="pb-8 font-semibold">We cant seem to find the page <br />you are looking for.</p>
-                        {/* <a href="#" className="inline-flex items-center justify-center rounded-full bg-gray-900 py-4 px-8 font-bold text-white">Go Home</a> */}
-                        <button className="inline-flex items-center justify-center rounded-full bg-gray-900 py-4 px-8 font-bold text-white hover:bg-gray-600"
-                            onClick={() => navigate("/")}>
+                        <button className="inline-flex items-center justify-center rounded-full bg-gray-900 py-4 px-8 font-bold text-white hover:bg-gray-600" onClick={() => navigate("/")}>
                             Go Home
                         </button>
                     </div>

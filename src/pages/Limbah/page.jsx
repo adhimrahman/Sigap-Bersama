@@ -4,6 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../api/firebaseConfig";
 
 import Navbar from "../../components/layouts/Navbar";
+import Footer from "../../components/layouts/Footer";
 
 export default function Limbah() {
     const [limbahData, setLimbahData] = useState([]);
@@ -48,29 +49,19 @@ export default function Limbah() {
     
     return (
         <>
-        <Navbar menuItems={['Home', 'About', 'Bencana', 'Limbah', 'Testimoni', 'Maps', 'Contact Us', 'My Event', 'Profil']}
-            scrollHandler={(label) => {
-                const targetClass =
-                    label === 'About' ? 'about' : label === 'Bencana' ? 'bencana' :
-                    label === 'Limbah' ? 'limbah' : label === 'Testimoni' ? 'testimoni' :
-                    label === 'Maps' ? 'maps' : label === 'Contact Us' ? 'footer' : 'hero';
-                const targetElement = document.querySelector(`.${targetClass}`);
-                targetElement?.scrollIntoView({ behavior: 'smooth' });
-            }}
-        />
+        <Navbar menuItems={["Contact Us", "My Event"]} scrollHandler={(label) => {
+            const targetClass = label === "Contact Us" ? "footer" : "hero";
+            const targetElement = document.querySelector(`.${targetClass}`);
+            targetElement?.scrollIntoView({ behavior: "smooth" });
+        }}/>
 
-        <div className="w-full px-9 sm:px-12 md:px-12 lg:px-32 p-4 bg-[#F0F0F0] mt-20">
+        <div className="w-full px-9 sm:px-12 md:px-12 lg:px-24 p-4 mt-20 mb-12">
             <h1 className="text-4xl font-bold tracking-wider text-center pt-9 mb-8 capitalize">limbah</h1>
             <div className="flex justify-center mb-8">
-                    < input
-                        type="text"
-                        className="w-full max-w-2xl p-4 rounded-lg shadow-md outline-none"
-                        placeholder="Search by creator, name, or location..."
-                        value={searchQuery}
-                        onChange={handleSearch}
-                    />
+                < input type="text" className="w-full max-w-2xl p-4 rounded-lg shadow-md outline-none outline-2 outline-gray-300 my-5" placeholder="Search by creator, name, or location..."
+                value={searchQuery} onChange={handleSearch} />
             </div>
-            <div className="cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-9">
                 {filteredLimbah.map((item) => (
                     <div key={item.id} className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01] capitalize"
                         onClick={() => navigate(`/limbahdetail/${item.id}`)}>
@@ -100,6 +91,8 @@ export default function Limbah() {
                 ))}
             </div>
         </div>
+
+        <Footer />
         </>
     );
 };
