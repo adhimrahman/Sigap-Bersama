@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import useUser from '../../context/useUser';
 import Logo from '../../assets/logo.png';
 import { auth } from "../../api/firebaseConfig";
+import { toast } from 'react-toastify';
 
 function Navbar() {
     const navigate = useNavigate();
@@ -43,10 +44,18 @@ function Navbar() {
     function handleSignOut() {
         auth.signOut()
             .then(() => {
-                console.log('User signed out.');
-                navigate('/signin');
+                toast.success('Logout successful!', {
+                    position: 'bottom-right', autoClose: 3000, hideProgressBar: false, closeOnClick: true,
+                    pauseOnHover: true, draggable: true, progress: undefined, theme: 'light',
+                }); navigate('/');
             })
-            .catch((error) => console.error('Error signing out:', error));
+            .catch((error) => {
+                console.error('Error signing out:', error);
+                toast.error('Logout failed. Please try again.', {
+                    position: 'bottom-right', autoClose: 3000, hideProgressBar: false, closeOnClick: true,
+                    pauseOnHover: true, draggable: true, progress: undefined, theme: 'light',
+                });
+            });
     }
 
     const menuItems =
@@ -62,9 +71,7 @@ function Navbar() {
 
             <ul className="flex space-x-6 text-white text-sm font-medium">
                 {menuItems.map((item, index) => (
-                    <li key={index} className="cursor-pointer hover:text-red-400 transition duration-300" onClick={item.onClick}>
-                        {item.label}
-                    </li>
+                    <li key={index} className="cursor-pointer hover:text-red-400 transition duration-300" onClick={item.onClick}>{item.label}</li>
                 ))}
             </ul>
         </nav>
