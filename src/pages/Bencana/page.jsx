@@ -26,9 +26,9 @@ export default function Bencana() {
     }, []);
 
     // Fungsi untuk menangani perubahan pada input pencarian
-    const handleSearch = (e) => {
-        setSearchQuery(e.target.value);
-    };
+    // const handleSearch = (e) => {
+    //     setSearchQuery(e.target.value);
+    // };
 
     // Filter bencana data berdasarkan query pencarian
     const filteredBencana = bencanaData.filter((item) => {

@@ -1,5 +1,5 @@
 import Navbar from "../../components/layouts/Navbar";
-import React, { useState } from 'react'; 
+import { useState } from 'react'; 
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';  // Import dari Heroicons
 
 export default function Komunitas() {

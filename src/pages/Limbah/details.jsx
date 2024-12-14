@@ -32,7 +32,7 @@ export default function LimbahDetail() {
                         <div className="event-details mt-4">
                             <div className="detail-aktivitas p2 mb-4">
                               <h3 className="text-lg font-bold text-gray-700 mb-2">Detail Aktivitas</h3>
-                                <p><strong>Metode Briefing:</strong> Peserta seleksi yang dinyatakan lolos diberi 2 pilihan (opsional) untuk mengikuti PO selempang bertuliskan "Part of GenLeaders Indonesia", dan mentoring.</p>
+                                <p><strong>Metode Briefing:</strong> Peserta seleksi yang dinyatakan lolos diberi 2 pilihan (opsional) untuk mengikuti PO selempang bertuliskan `Part of GenLeaders Indonesia`, dan mentoring.</p>
                             </div>
                             <hr></hr>
                             <div className="detail-pekerjaan p2">
