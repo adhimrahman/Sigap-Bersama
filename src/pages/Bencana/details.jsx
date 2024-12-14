@@ -4,6 +4,8 @@ import { UserIcon, EnvelopeIcon, HeartIcon } from '@heroicons/react/20/solid'; /
 
 export default function BencanaDetail() {
 
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
     return (
         <div className="w-full bg-gray-100">
 
