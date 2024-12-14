@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { auth, firestore  } from '../../api/firebaseConfig'; // Sesuaikan path sesuai struktur proyek Anda
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate, useParams } from 'react-router-dom';
 import SignupIndividu from '../../components/forms/signupIndividu';
@@ -31,6 +31,8 @@ function Signup() {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
+
+            await sendEmailVerification(user);
     
             const userDocRef = doc(firestore, 'users', user.uid);
             const userData = {
@@ -41,12 +43,13 @@ function Signup() {
                 communityName: role === 'komunitas' ? communityName : null,
                 communityType: role === 'komunitas' ? communityType : null,
                 createdAt: serverTimestamp(),
+                verified: false,
             };
     
             await setDoc(userDocRef, userData);
     
             setUser({ uid: user.uid, role }); // Update UserContext
-            navigate('/'); // Redirect ke home
+            navigate('/signin');
         } catch (error) { setErrorMessage(error.message) }
     };    
 
