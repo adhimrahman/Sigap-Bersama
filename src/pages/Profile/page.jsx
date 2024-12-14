@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { firestore, auth } from "../../api/firebaseConfig"; // Import Firestore
-import { updatePassword } from "firebase/auth";
+import { firestore, auth } from "../../api/firebaseConfig";
+import { updatePassword, signOut, deleteUser } from "firebase/auth";
 
+import Swal from "sweetalert2";
 import Navbar from "../../components/layouts/Navbar";
 import Spinner from "../../components/Spinner";
 import useUser from "../../context/useUser";
 
 export default function ProfilePage() {
-    const { user } = useUser(); // Ambil data user dari UserContext
+    const { user } = useUser();
     const [profileData, setProfileData] = useState(null);
     const [editedData, setEditedData] = useState({});
     const [loading, setLoading] = useState(true);
@@ -21,7 +22,7 @@ export default function ProfilePage() {
         else {
             const fetchProfileData = async () => {
                 try {
-                    const userDocRef = doc(firestore, "users", user.uid); // Ambil dokumen user dari Firestore
+                    const userDocRef = doc(firestore, "users", user.uid);
                     const userDoc = await getDoc(userDocRef);
 
                     if (userDoc.exists()) {
@@ -70,7 +71,70 @@ export default function ProfilePage() {
     const handleCancelClick = () => {
         setIsEditing(false);
         setEditedData(profileData);
-    };    
+    };
+
+    const handleSignOut = async () => {
+        const confirmation = await Swal.fire({
+            title: "Konfirmasi Logout",
+            text: "Apakah Anda yakin ingin logout?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#365E32",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Logout",
+        });
+    
+        if (confirmation.isConfirmed) {
+            try {
+                await signOut(auth);
+                Swal.fire({
+                    title: "Logout Berhasil",
+                    text: "Anda telah logout.",
+                    icon: "success",
+                    confirmButtonColor: "#365E32",
+                    confirmButtonText: "OK",
+                });
+                navigate("/");
+            } catch (error) {
+                console.error("Error saat logout:", error);
+                Swal.fire("Error", "Gagal logout. Silakan coba lagi.", "error");
+            }
+        }
+    };
+    
+    const handleDeleteAccount = async () => {
+        const confirmation = await Swal.fire({
+            title: "Konfirmasi Hapus Akun",
+            text: "Apakah Anda yakin ingin menghapus akun? Tindakan ini tidak dapat dibatalkan.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#365E32",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Ya, Hapus Akun",
+        });
+    
+        if (confirmation.isConfirmed) {
+            try {
+                const currentUser = auth.currentUser;
+                const userDocRef = doc(firestore, "users", currentUser.uid);
+    
+                await deleteUser(currentUser); 
+                await setDoc(userDocRef, {}, { merge: true });
+    
+                Swal.fire({
+                    title: "Akun Dihapus",
+                    text: "Akun Anda telah dihapus.",
+                    icon: "success",
+                    confirmButtonColor: "#365E32",
+                    confirmButtonText: "OK",
+                });
+                navigate("/");
+            } catch (error) {
+                console.error("Error saat menghapus akun:", error);
+                Swal.fire("Error", "Gagal menghapus akun. Silakan coba lagi.", "error");
+            }
+        }
+    };
 
     return (
         <div>
@@ -153,15 +217,32 @@ export default function ProfilePage() {
                                 <input type="password" name="password" className="w-full p-2 border rounded" value={editedData.password || "********"} onChange={handleInputChange} disabled={!isEditing} />
                             </div>
 
-                            {isEditing ? (
-                            <div className="flex gap-4">
-                                <button type="button" className="w-32 bg-green-700 text-white px-4 py-2 rounded" onClick={handleSaveClick} >Save</button>
-                                <button type="button" className="w-32 bg-red-500 text-white px-4 py-2 rounded" onClick={handleCancelClick} >Cancel</button>
+                            <div className="flex justify-between h-12 mt-9">
+                                <div className="left flex gap-4">
+                                    {isEditing ? (
+                                    <div className="flex gap-4">
+                                        <button type="button" className="w-32 bg-green-700 text-white px-4 py-2 rounded" onClick={handleSaveClick} >
+                                            Save
+                                        </button>
+                                        <button type="button" className="w-32 bg-red-500 text-white px-4 py-2 rounded" onClick={handleCancelClick} >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                    ) : (
+                                    <button type="button" className="w-32 bg-green-700 text-white px-4 py-2 rounded" onClick={handleEditClick} >Edit</button>
+                                    )}
+                                </div>
+                                <div className="right flex gap-4">
+                                    <button type="button" className="w-32 bg-blue-500 text-white px-4 py-2 rounded" onClick={handleSignOut} >
+                                        Sign Out
+                                    </button>
+                                    <button type="button" className="w-36 bg-red-500 text-white px-4 py-2 rounded" onClick={handleDeleteAccount}>
+                                        Delete Account
+                                    </button>
+                                </div>
                             </div>
-                            ) : (
-                            <button type="button" className="w-32 bg-green-700 text-white px-4 py-2 rounded" onClick={handleEditClick} >Edit</button>
-                            )}
                         </form>
+
                     </div>
                 </div>
             </main>
