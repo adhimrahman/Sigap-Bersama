@@ -12,8 +12,8 @@ function Signin() {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
     const { setUser } = useUser();
+    const navigate = useNavigate();
 
     const handleSignin = async (event) => {
         event.preventDefault();
@@ -23,6 +23,10 @@ function Signin() {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
+
+            if (!user.emailVerified) {
+                return setErrorMessage('Please verify your email before logging in.')
+            }
     
             const userDocRef = doc(firestore, 'users', user.uid);
             const userDoc = await getDoc(userDocRef);
