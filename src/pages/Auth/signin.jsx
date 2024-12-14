@@ -33,6 +33,9 @@ function Signin() {
     
             if (userDoc.exists()) {
                 const userData = userDoc.data();
+
+                if (!userData.verified) { await setDoc( userDocRef, { verified: true }, { merge: true } ) }
+
                 setUser({ uid: user.uid, role: userData.role }); // Update UserContext
                 navigate('/'); // Redirect ke home
             } else {
