@@ -1,6 +1,6 @@
 import Bege from "../../assets/bege.png";
-
 import Navbar from "../../components/layouts/Navbar";
+import { UserIcon, EnvelopeIcon, HeartIcon } from '@heroicons/react/20/solid'; // Import Heroicons
 
 export default function LimbahDetail() {
 
@@ -65,8 +65,21 @@ export default function LimbahDetail() {
                         <p className="mt-4 text-gray-600"><strong>Jadwal:</strong> 01 Januari 2024 - 15 Januari 2024</p>
                         <p className="mt-4 text-gray-600"><strong>Lokasi:</strong> Jakarta, Indonesia</p>
                         <p className="mt-4 text-gray-600"><strong>Batas Registrasi:</strong> 31 Desember 2023</p>
-                        <button className="w-full mt-6 px-6 py-2 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700">Jadi Relawan</button>
-                        <button className="w-full mt-4 px-6 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700">Kontak Organisasi</button>
+                        {/* Tombol "Jadi Relawan" */}
+                        <button className="w-full mt-6 px-6 py-2 bg-green-600 text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-green-700">
+                            <UserIcon className="h-5 w-5 text-white" />
+                            Jadi Relawan
+                        </button>
+                        {/* Tombol "Kontak Organisasi" */}
+                        <button className="w-full mt-2 px-6 py-2 bg-blue-600 text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-blue-700">
+                            <EnvelopeIcon className="h-5 w-5 text-white" />
+                            Kontak Organisasi
+                        </button>
+                        {/* Tombol "Donasi" */}
+                        <button className="w-full mt-2 px-6 py-2 bg-red-600 text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-red-700">
+                            <HeartIcon className="h-5 w-5 text-white" />
+                            Donasi
+                        </button>
                     </div>
                 </div>
             </section>
