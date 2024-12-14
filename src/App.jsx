@@ -16,6 +16,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css'; 
+import MyEvent from "./pages/My/event";
+import MyInterest from "./pages/My/interest";
 
 const App = () => (
 	<Router>
@@ -33,6 +35,8 @@ const App = () => (
 			<Route path="/profile" element={<ProtectedRoute element={<Profile />}/>} />
 			<Route path="/komunitas" element={<Komunitas />} />
 			<Route path="/voucher" element={<Voucher />} />
+			<Route path="/myevent" element={<MyEvent />} />
+			<Route path="/myinterest" element={<MyInterest />} />
 			<Route path="*" element={<NotFound />} /> 
 		</Routes>
 	</Router>
