@@ -19,11 +19,15 @@ const SignupKomunitas = ({
                         </label>
 
                         <label>Jenis Komunitas
-                            <input type="text" value={communityType} onChange={(e) => setCommunityType(e.target.value)} className="border text-black p-2 w-full rounded-md" placeholder="Jenis Komunitas" required/>
+                            <select value={communityType} onChange={(e) => setCommunityType(e.target.value)} className="border text-black p-2 w-full rounded-md" required>
+                                <option value="" disabled hidden>Pilih jenis komunitas</option>
+                                <option value="bencana">Bencana</option>
+                                <option value="lingkungan">Lingkungan</option>
+                            </select>
                         </label>
 
                         <label>Nama Kontak
-                            <input type="text" value={contactName} onChange={(e) => setContactName(e.target.value)} className="border text-black p-2 w-full rounded-md" placeholder="Nama Kontak" required/>
+                            <input type="text" value={contactName} onChange={(e) => setContactName(e.target.value)} className="border text-black p-2 w-full rounded-md" placeholder="Penanggung Jawab" required/>
                         </label>
 
                         <label>Nomor Telepon
