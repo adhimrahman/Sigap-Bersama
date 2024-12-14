@@ -7,7 +7,7 @@ import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import Logo from "../../assets/logo.png"
 import useUser from '../../context/useUser';
 
-function Signin() {
+export default function Signin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -37,7 +37,7 @@ function Signin() {
                 if (!userData.verified) { await setDoc( userDocRef, { verified: true }, { merge: true } ) }
 
                 setUser({ uid: user.uid, role: userData.role }); // Update UserContext
-                navigate('/'); // Redirect ke home
+                navigate('/');
             } else {
                 setErrorMessage('User role not found!');
             }
@@ -61,15 +61,20 @@ function Signin() {
             const userDocRef = doc(firestore, 'users', user.uid);
             const userDoc = await getDoc(userDocRef);
     
+            let userData
             if (!userDoc.exists()) {
-                await setDoc(userDocRef, {
+                userData = {
                     fullName: user.displayName || '',
                     email: user.email,
-                    role: 'individu', // Default role
+                    role: 'individu',
                     createdAt: serverTimestamp(),
-                });
+                    verified: true,
+                };
+                await setDoc(userDocRef, userData);
+            } else {
+                userData = userDoc.data()
             }
-    
+            setUser({ uid: user.uid, role: userData.role });
             navigate('/');
         } catch (error) {
             setErrorMessage('Google sign-in failed. Please try again.');
@@ -118,5 +123,3 @@ function Signin() {
         </div>
     );
 }
-
-export default Signin;
