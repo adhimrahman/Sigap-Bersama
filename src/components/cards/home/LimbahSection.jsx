@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import Bege from "../../assets/bege.png"
+import Bege from "../../../assets/bege.png"
 
 export default function LimbahSection({ data, navigate }) {
     return (
