@@ -1,4 +1,4 @@
-// components/cards/Card.jsx
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
 export default function CardEvent({ id, image, name, creator, date, locate, detailPath }) {
@@ -27,3 +27,17 @@ export default function CardEvent({ id, image, name, creator, date, locate, deta
         </div>
     );
 }
+
+CardEvent.propTypes = {
+    id: PropTypes.string.isRequired,
+    image: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    creator: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    locate: PropTypes.string.isRequired,
+    detailPath: PropTypes.string.isRequired,
+};
+
+CardEvent.defaultProps = {
+    image: "https://placehold.co/600x400",
+};

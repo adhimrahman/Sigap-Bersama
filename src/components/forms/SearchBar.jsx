@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 
 export default function SearchBar({ query, onChange }) {
     return (
@@ -7,3 +8,7 @@ export default function SearchBar({ query, onChange }) {
     );
 }
 
+SearchBar.propTypes = {
+    query: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+};

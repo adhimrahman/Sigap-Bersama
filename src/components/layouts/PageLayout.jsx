@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
@@ -9,4 +10,8 @@ export default function PageLayout({ children }) {
             <Footer />
         </>
     );
+}
+
+PageLayout.propTypes = {
+    children: PropTypes.node.isRequired,
 }

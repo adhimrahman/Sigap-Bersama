@@ -58,9 +58,9 @@ export default function Navbar({ pageKeys }) {
 }
 
 Navbar.propTypes = {
-    pageKeys: PropTypes.arrayOf(PropTypes.string), // Memastikan pageKeys adalah array string
+    pageKeys: PropTypes.arrayOf(PropTypes.string),
 };
 
 Navbar.defaultProps = {
-    pageKeys: [], // Default-nya tidak ada menu tambahan
+    pageKeys: [], // Default nya tidak ada menu tambahan
 };
