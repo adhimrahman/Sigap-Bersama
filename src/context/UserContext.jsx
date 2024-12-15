@@ -8,9 +8,11 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            setLoading(true);
             if (currentUser) {
                 console.log("Current User UID:", currentUser.uid); // Debug UID
 
@@ -33,15 +35,17 @@ export const UserProvider = ({ children }) => {
                     setUser({ uid: currentUser.uid, email: currentUser.email, role: 'guest' });
                 }
             } else {
+                console.log("No user authenticated, setting guest mode.");
                 setUser(null); // Guest mode
             }
+            setLoading(false);
         });
 
         return () => unsubscribe(); // Cleanup listener saat komponen unmount
     }, []);
 
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, setUser, loading }}>
             {children}
         </UserContext.Provider>
     );
