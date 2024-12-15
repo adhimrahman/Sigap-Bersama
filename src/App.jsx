@@ -11,6 +11,7 @@ import Signup from "./pages/Auth/signup";
 import Profile from "./pages/Profile/page";
 import Voucher from "./pages/Voucher/page";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AddEvent from "./pages/My/addEvent";
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -34,6 +35,7 @@ const App = () => (
 			<Route path="/profile" element={<ProtectedRoute element={<Profile />}/>} />
 			<Route path="/voucher" element={<Voucher />} />
 			<Route path="/myevent" element={<MyEvent />} />
+			<Route path="/addevent" element={<AddEvent />} />
 			<Route path="/myinterest" element={<MyInterest />} />
 			<Route path="*" element={<NotFound />} /> 
 		</Routes>
