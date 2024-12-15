@@ -41,7 +41,7 @@ export default function AddEvent() {
 
         try {
             // Tentukan koleksi berdasarkan communityType
-            const collectionName = user.communityType === "limbah" ? "limbah" : "bencana";
+            const collectionName = user.communityType === "lingkungan" ? "limbah" : "bencana";
             const collectionRef = collection(firestore, collectionName);
 
             // Hitung ID baru berdasarkan jumlah dokumen di koleksi
