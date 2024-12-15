@@ -25,6 +25,7 @@ export const UserProvider = ({ children }) => {
                         uid: currentUser.uid,
                         email: currentUser.email,
                         communityName: userDoc.data().communityName,
+                        communityType: userDoc.data().communityType,
                         role: userDoc.exists() ? userDoc.data().role : 'guest',
                     });
                 } catch (error) {
