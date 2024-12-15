@@ -23,3 +23,5 @@ let analytics;
 if (typeof window !== "undefined") { analytics = getAnalytics(app); }
 
 export { app, analytics, firestore, auth, storage };
+
+// import.meta.env.
