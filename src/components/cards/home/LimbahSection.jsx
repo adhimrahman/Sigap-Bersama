@@ -29,7 +29,7 @@ export default function LimbahSection({ data, navigate }) {
                         <img src={item.image} alt="" className="h-full w-full object-cover" />
                     </div>
                     <div className="p-4">
-                        <h2 className="text-lg font-bold capitalize">{item.name}</h2>
+                        <h2 className="text-lg font-bold capitalize">{item.title}</h2>
                         <p className="text-sm text-gray-600 capitalize">{item.creator}</p>
 
                         <div className="mt-4">
