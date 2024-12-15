@@ -1,6 +1,13 @@
-import Bege from "../../assets/bege.png";
-import Navbar from "../../components/layouts/Navbar";
 import { UserIcon, EnvelopeIcon, HeartIcon } from '@heroicons/react/20/solid'; // Import Heroicons
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { firestore } from "../../api/firebaseConfig";
+import { getCreatorName } from "../../utils/firestoreUtils";
+
+import Navbar from "../../components/layouts/Navbar";
+import Spinner from "../../components/Spinner";
+import Footer from "../../components/layouts/Footer";
 
 export default function LimbahDetail() {
 
