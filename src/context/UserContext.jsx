@@ -7,19 +7,24 @@ import PropTypes from 'prop-types';
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    const [user, setUser] = useState(null); // { uid, role } untuk user, atau `null` untuk guest
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
+                console.log("Current User UID:", currentUser.uid); // Debug UID
+
                 // Ambil data tambahan dari Firestore jika diperlukan
                 try {
                     const userDocRef = doc(firestore, 'users', currentUser.uid);
                     const userDoc = await getDoc(userDocRef);
 
+                    console.log("User Doc Data:", userDoc.data()); // Debug user data
+
                     setUser({
                         uid: currentUser.uid,
                         email: currentUser.email,
+                        communityName: userDoc.data().communityName,
                         role: userDoc.exists() ? userDoc.data().role : 'guest',
                     });
                 } catch (error) {
@@ -42,7 +47,7 @@ export const UserProvider = ({ children }) => {
 };
 
 UserProvider.propTypes = {
-    children: PropTypes.node.isRequired, // `children` harus ada dan merupakan node React
+    children: PropTypes.node.isRequired,
 };
 
 export default UserContext;

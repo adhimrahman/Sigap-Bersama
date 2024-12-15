@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
-export default function CardEvent({ id, image, name, creator, date, locate, detailPath }) {
+export default function CardEvent({ id, image = "https://placehold.co/600x400", title, creator, date, locate, detailPath }) {
     const navigate = useNavigate();
 
     return (
@@ -11,7 +11,7 @@ export default function CardEvent({ id, image, name, creator, date, locate, deta
                 <img src={image || "https://placehold.co/600x400"} alt={name} className="w-full h-full object-cover object-center" />
             </div>
             <div className="p-4">
-                <h2 className="text-lg font-bold">{name}</h2>
+                <h2 className="text-lg font-bold">{title}</h2>
                 <p className="text-sm text-gray-600 mt-1">{creator}</p>
                 <div className="mt-4">
                     <p className="flex items-center text-sm text-gray-600">
@@ -31,13 +31,9 @@ export default function CardEvent({ id, image, name, creator, date, locate, deta
 CardEvent.propTypes = {
     id: PropTypes.string.isRequired,
     image: PropTypes.string,
-    name: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     creator: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
     locate: PropTypes.string.isRequired,
     detailPath: PropTypes.string.isRequired,
-};
-
-CardEvent.defaultProps = {
-    image: "https://placehold.co/600x400",
 };

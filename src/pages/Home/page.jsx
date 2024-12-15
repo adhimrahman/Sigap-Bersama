@@ -12,6 +12,7 @@ import BencanaSection from '../../components/cards/home/BencanaSection';
 import LimbahSection from '../../components/cards/home/LimbahSection';
 import AboutSection from '../../components/cards/home/AboutSection';
 import HeaderSection from '../../components/cards/home/HeaderSection';
+import { getCreatorName } from '../../utils/firestoreUtils';
 
 export default function LandingPage() {
     const [isLoading, setIsLoading] = useState(true);
@@ -24,11 +25,29 @@ export default function LandingPage() {
             try {
                 const bencanaCollection = collection(firestore, "bencana");
                 const bencanaSnapshot = await getDocs(bencanaCollection);
-                const bencanaList = bencanaSnapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    ...doc.data(),
-                })).sort((a, b) => a.id - b.id).slice(0, 4);
-                setBencanaData(bencanaList);
+                const bencanaList = await Promise.all(
+                    bencanaSnapshot.docs.map(async (doc) => {
+                        const data = doc.data();
+                        const date = data.date instanceof Date
+                            ? data.date.toLocaleString()
+                            : data.date?.toDate?.()?.toLocaleString() || "Tanggal tidak valid";
+                        const creatorName = await getCreatorName(data.creator);
+        
+                        return {
+                            id: doc.id,
+                            ...data,
+                            date,
+                            creator: creatorName, // Ganti reference dengan nama
+                        };
+                    })
+                )
+
+                const sortedBencana = bencanaList
+                    .filter((item) => item !== null) // Filter untuk menghindari nilai null
+                    .sort((a, b) => a.id - b.id)
+                    .slice(0, 4);
+
+                setBencanaData(sortedBencana);
 
                 const limbahCollection = collection(firestore, "limbah");
                 const limbahSnapshot = await getDocs(limbahCollection);

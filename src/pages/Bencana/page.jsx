@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../api/firebaseConfig";
+import { getCreatorName } from '../../utils/firestoreUtils';
 
 import SearchBar from "../../components/forms/SearchBar";
 import CardEvent from "../../components/cards/cardEvent";
@@ -18,49 +19,66 @@ export default function Bencana() {
             try {
                 const bencanaCollection = collection(firestore, "bencana");
                 const bencanaSnapshot = await getDocs(bencanaCollection);
-                const bencanaList = bencanaSnapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    ...doc.data()
-                }));
+
+                const bencanaList = await Promise.all(
+                    bencanaSnapshot.docs.map(async (doc) => {
+                        const data = doc.data();
+                        const date = data.date instanceof Date
+                            ? data.date.toLocaleString()
+                            : data.date?.toDate?.()?.toLocaleString() || "Tanggal tidak valid";
+                        const creatorName = await getCreatorName(data.creator);
+        
+                        return {
+                            id: doc.id,
+                            ...data,
+                            date,
+                            registUntil: data.registUntil?.toDate().toLocaleString(),
+                            creator: creatorName,
+                        };
+                    })
+                )
                 setBencanaData(bencanaList);
-            } catch (err) { console.log("tolong jangan error : ", err)
-            } finally { setTimeout(() => setIsLoading(false), 350) }
+            } catch (err) {
+                console.log("tolong jangan error : ", err);
+            } finally {
+                setTimeout(() => setIsLoading(false), 350);
+            }
         };
         fetchBencana(); // call function saat komponen di-load
-    }, []);
+    }, []);    
 
     // Filter bencana data berdasarkan query pencarian
     const filteredBencana = bencanaData.filter((item) => {
         const query = searchQuery.toLowerCase();
         return (
-            item.name.toLowerCase().includes(query) ||
-            item.creator.toLowerCase().includes(query) ||
-            item.locate.toLowerCase().includes(query)
+            (item.name?.toLowerCase()?.includes(query) || false) ||
+            (item.creator?.toLowerCase()?.includes(query) || false) ||
+            (item.locate?.toLowerCase()?.includes(query) || false)
         );
-    });
+    });    
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 
     return (
         <>
         {isLoading ? ( <Spinner /> ) : (
-            <>
-            <Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah', 'contactUs']} />
+            <div className="">
+                <Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah', 'contactUs']} />
 
-            <div className="w-full px-9 sm:px-12 md:px-12 lg:px-24 p-4 mt-20 mb-12">
-                <h1 className="text-4xl font-bold tracking-wider text-center pt-9 mb-8 capitalize">Bencana</h1>
-                
-                <SearchBar query={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-                
-                <div className="cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-9">
-                    {filteredBencana.map((item) => (
-                        <CardEvent key={item.id} {...item} detailPath="bencanadetail" />
-                    ))}
+                <div className="w-full px-9 sm:px-12 md:px-12 lg:px-24 p-4 mt-20 mb-12">
+                    <h1 className="text-4xl font-bold tracking-wider text-center pt-9 mb-8 capitalize">Bencana</h1>
+                    
+                    <SearchBar query={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+                    
+                    <div className="cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-9">
+                        {filteredBencana.map((item) => (
+                            <CardEvent key={item.id} {...item} detailPath="bencanadetail" />
+                        ))}
+                    </div>
                 </div>
-            </div>
 
-            <Footer />
-            </>
+                <Footer />
+            </div>
         )}
         </>
     );
