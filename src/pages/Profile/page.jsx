@@ -256,7 +256,7 @@ export default function ProfilePage() {
                     </div>
                 </div>
                 <div className="grid gap-4">
-                    <div className="redeemed w-full h-105 rounded-lg bg-white shadow-lg p-9">
+                    <div className="redeemed w-full h-105 rounded-lg bg-white shadow-lg p-9 overflow-y-scroll">
                         <h2 className="text-2xl font-extrabold mb-4">My Voucher</h2>
                         {redeemedVouchers.length > 0 ? (
                             <ul className="space-y-3">
