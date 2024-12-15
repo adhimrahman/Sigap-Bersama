@@ -3,11 +3,11 @@ import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../api/firebaseConfig";
 import { getCreatorName } from '../../utils/firestoreUtils';
 
+import Navbar from "../../components/layouts/Navbar";
+import Footer from "../../components/layouts/Footer";
 import SearchBar from "../../components/forms/SearchBar";
 import CardEvent from "../../components/cards/cardEvent";
 import Spinner from "../../components/Spinner";
-import Navbar from "../../components/layouts/Navbar";
-import Footer from "../../components/layouts/Footer";
 
 export default function Bencana() {
     const [bencanaData, setBencanaData] = useState([]);
@@ -28,21 +28,15 @@ export default function Bencana() {
                             : data.date?.toDate?.()?.toLocaleString() || "Tanggal tidak valid";
                         const creatorName = await getCreatorName(data.creator);
         
-                        return {
-                            id: doc.id,
-                            ...data,
-                            date,
+                        return { id: doc.id, ...data, date,
                             registUntil: data.registUntil?.toDate().toLocaleString(),
                             creator: creatorName,
                         };
                     })
                 )
                 setBencanaData(bencanaList);
-            } catch (err) {
-                console.log("tolong jangan error : ", err);
-            } finally {
-                setTimeout(() => setIsLoading(false), 350);
-            }
+            } catch (err) { console.log("tolong jangan error : ", err)
+            } finally { setTimeout(() => setIsLoading(false), 350) }
         };
         fetchBencana(); // call function saat komponen di-load
     }, []);    
@@ -62,9 +56,7 @@ export default function Bencana() {
     return (
         <>
         {isLoading ? ( <Spinner /> ) : (
-            <div className="">
-                <Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah', 'contactUs']} />
-
+            <><Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah', 'contactUs']} />
                 <div className="w-full px-9 sm:px-12 md:px-12 lg:px-24 p-4 mt-20 mb-12">
                     <h1 className="text-4xl font-bold tracking-wider text-center pt-9 mb-8 capitalize">Bencana</h1>
                     
@@ -76,9 +68,7 @@ export default function Bencana() {
                         ))}
                     </div>
                 </div>
-
-                <Footer />
-            </div>
+                <Footer /></>
         )}
         </>
     );
