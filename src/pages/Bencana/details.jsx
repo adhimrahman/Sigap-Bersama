@@ -1,6 +1,7 @@
-import { UserIcon, EnvelopeIcon, HeartIcon } from '@heroicons/react/20/solid';
+import { UserIcon, HeartIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "../../api/firebaseConfig";
 import { getCreatorName } from "../../utils/firestoreUtils";
@@ -11,6 +12,7 @@ import Footer from "../../components/layouts/Footer";
 
 export default function BencanaDetail() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [bencana, setBencana] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -84,11 +86,10 @@ export default function BencanaDetail() {
                             <UserIcon className="h-5 w-5 text-white" />Jadi Relawan
                         </button>
                         
-                        <button className="w-full mt-2 px-6 py-2 bg-blue-600 text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-blue-700">
-                            <EnvelopeIcon className="h-5 w-5 text-white" />Kontak Organisasi
-                        </button>
-                        
-                        <button className="w-full mt-2 px-6 py-2 bg-red-600 text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-red-700">
+                        <button
+                            className="w-full mt-2 px-6 py-2 bg-red-600 text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-red-700"
+                            onClick={() => navigate(`/bencanadetail/${id}/donate/`)}
+                        >
                             <HeartIcon className="h-5 w-5 text-white" />Donasi
                         </button>
                     </div>

@@ -4,6 +4,7 @@ import Limbah from "./pages/Limbah/page";
 import LimbahDetail from "./pages/Limbah/details";
 import Bencana from "./pages/Bencana/page";
 import BencanaDetail from "./pages/Bencana/details";
+import BencanaDonatePage from "./pages/Bencana/donate";
 import NotFound from "./pages/404/page";
 import SignIn from "./pages/Auth/signin";
 import SignWhat from "./pages/Auth/signwhat";
@@ -32,6 +33,7 @@ const App = () => (
 			<Route path="/limbahdetail/:id" element={<LimbahDetail />} />
 			<Route path="/bencana" element={<Bencana />} /> 
 			<Route path="/bencanadetail/:id" element={<BencanaDetail />} />
+			<Route path="/bencanadetail/:id/donate/" element={<BencanaDonatePage />} />
 			<Route path="/profile" element={<ProtectedRoute element={<Profile />}/>} />
 			<Route path="/voucher" element={<Voucher />} />
 			<Route path="/myevent" element={<MyEvent />} />
