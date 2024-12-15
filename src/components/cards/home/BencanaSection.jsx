@@ -15,7 +15,7 @@ export default function BencanaSection({ data, navigate }) {
                     </div>
                     <div className="caption mt-4 normal-case text-justify text-xs lg:text-base">
                         <p>
-                            LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH 
+                        Sigap Bencana adalah ruang bagi komunitas untuk memposting dan mengelola kegiatan relawan yang bertujuan membantu masyarakat yang terdampak bencana alam. Melalui inisiatif ini, relawan dapat berkolaborasi dalam berbagai aksi kemanusiaan seperti distribusi bantuan, pendampingan korban, hingga pemulihan pasca-bencana. Sigap Bencana hadir sebagai langkah nyata untuk memperkuat solidaritas dan kesiapsiagaan dalam menghadapi situasi darurat.
                         </p>
                     </div>
                 </div>
