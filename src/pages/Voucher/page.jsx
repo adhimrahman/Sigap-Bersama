@@ -178,7 +178,7 @@ export default function Voucher() {
         }
     };
     
-
+    window.scrollTo({ top: 0, behavior: "smooth" });
     return (
         <div>
             <Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah', 'contactUs']} />
