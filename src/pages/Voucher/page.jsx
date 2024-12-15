@@ -1,39 +1,98 @@
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { firestore } from "../../api/firebaseConfig";
+import Navbar from "../../components/layouts/Navbar";
+import Footer from "../../components/layouts/Footer";
+
 export default function Voucher() {
-    const vouchers = [
-    { id: 1, name: "Amazon Gift Card", points: 500, image: "https://placehold.co/100x100?text=Amazon+Gift+Card" },
-    { id: 2, name: "Starbucks Voucher", points: 300, image: "https://placehold.co/100x100?text=Starbucks+Voucher" },
-    { id: 3, name: "Netflix Subscription", points: 700, image: "https://placehold.co/100x100?text=Netflix+Subscription" },
-    { id: 4, name: "Spotify Premium", points: 400, image: "https://placehold.co/100x100?text=Spotify+Premium" },
-    { id: 5, name: "Google Play Credit", points: 600, image: "https://placehold.co/100x100?text=Google+Play+Credit" },
-    { id: 6, name: "Apple iTunes Gift Card", points: 550, image: "https://placehold.co/100x100?text=Apple+iTunes+Gift+Card" },
-    { id: 7, name: "Uber Ride Credit", points: 450, image: "https://placehold.co/100x100?text=Uber+Ride+Credit" },
-    { id: 8, name: "Walmart Gift Card", points: 500, image: "https://placehold.co/100x100?text=Walmart+Gift+Card" },
-    { id: 9, name: "Target Gift Card", points: 350, image: "https://placehold.co/100x100?text=Target+Gift+Card" },
-    { id: 10, name: "Best Buy Gift Card", points: 650, image: "https://placehold.co/100x100?text=Best+Buy+Gift+Card" },
-    { id: 11, name: "Sephora Gift Card", points: 400, image: "https://placehold.co/100x100?text=Sephora+Gift+Card" },
-    { id: 12, name: "Nike Gift Card", points: 500, image: "https://placehold.co/100x100?text=Nike+Gift+Card" },
-    { id: 13, name: "Adidas Gift Card", points: 450, image: "https://placehold.co/100x100?text=Adidas+Gift+Card" },
-    { id: 14, name: "Airbnb Credit", points: 800, image: "https://placehold.co/100x100?text=Airbnb+Credit" },
-    { id: 15, name: "Disney+ Subscription", points: 600, image: "https://placehold.co/100x100?text=Disney+Subscription" }
-];
+    const [vouchers, setVouchers] = useState([]);
+
+    useEffect(() => {
+        const fetchVouchers = async () => {
+            const querySnapshot = await getDocs(collection(firestore, "voucher"));
+            const voucherList = querySnapshot.docs.map(doc => {
+                const data = doc.data();
+    
+                // Format validFrom dan validUntil ke hanya tanggal (tanpa waktu)
+                const validFrom = data.validFrom?.toDate().toLocaleDateString("id-ID", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                });
+                const validUntil = data.validUntil?.toDate().toLocaleDateString("id-ID", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                });
+    
+                return {
+                    id: doc.id,
+                    ...data,
+                    validFrom, // Tanggal saja
+                    validUntil, // Tanggal saja
+                };
+            });
+            setVouchers(voucherList);
+        };
+    
+        fetchVouchers();
+    }, []);
+    
 
     return (
-        <div className="min-h-screen bg-gray-100 p-4">
-            <header className="bg-white shadow p-4 mb-6">
-                <h1 className="text-2xl font-bold text-center">Redeem Points for Vouchers</h1>
-            </header>
-            <main className="container mx-auto">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {vouchers.map(voucher => (
-                        <div key={voucher.id} className="bg-white p-4 rounded-lg shadow">
-                            <img src={voucher.image} alt={`Image of ${voucher.name}`} className="w-full h-32 object-cover mb-4 rounded" />
-                            <h2 className="text-xl font-bold mb-2">{voucher.name}</h2>
-                            <p className="text-gray-700 mb-4">Points: {voucher.points}</p>
-                            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Redeem</button>
-                        </div>
-                    ))}
-                </div>
-            </main>
+        <div>
+            <Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah', 'contactUs']} />
+            <div className="min-h-screen bg-gray-50 mt-20">
+                <header className="bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow p-6 mb-8">
+                    <h1 className="text-3xl font-extrabold text-center">🎁 Redeem Points for Vouchers 🎁</h1>
+                </header>
+                <main className="container mx-auto px-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                        {vouchers.map(voucher => (
+                            <div
+                                key={voucher.id}
+                                className={`bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:scale-105 hover:shadow-2xl 
+                                    ${voucher.isActive ? "border-t-4 border-blue-500" : "border-t-4 border-gray-400"}`}
+                            >
+                                {/* Gambar Voucher */}
+                                <div className="relative">
+                                    <img 
+                                        src={voucher.image} 
+                                        alt={voucher.name} 
+                                        className="w-full h-40 object-cover"
+                                    />
+                                    {!voucher.isActive && (
+                                        <div className="absolute top-0 left-0 w-full h-full bg-gray-600 bg-opacity-70 flex items-center justify-center">
+                                            <span className="text-white text-lg font-bold">Unavailable</span>
+                                        </div>
+                                    )}
+                                </div>
+    
+                                {/* Konten Voucher */}
+                                <div className="p-5">
+                                    <h2 className="text-xl font-bold text-gray-800 mb-2">{voucher.name}</h2>
+                                    <p className="text-sm text-gray-700 mb-1">
+                                        Points Required: <span className="font-semibold text-blue-600">{voucher.points}</span>
+                                    </p>
+                                    <p className="text-sm text-gray-500">
+                                        Valid Until: <span className="font-semibold">{voucher.validUntil}</span>
+                                    </p>
+                                    <button
+                                        disabled={!voucher.isActive}
+                                        className={`mt-4 w-full px-4 py-2 text-white font-medium text-sm rounded-md transition 
+                                            ${voucher.isActive 
+                                                ? "bg-blue-500 hover:bg-blue-600" 
+                                                : "bg-gray-400 cursor-not-allowed"}`}
+                                    >
+                                        {voucher.isActive ? "Redeem Now" : "Not Available"}
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </main>
+            </div>
+            <Footer />
         </div>
     );
-}
+}    
