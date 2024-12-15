@@ -1,20 +1,24 @@
 import { UserIcon, HeartIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { useParams, useNavigate  } from "react-router-dom";
+import { doc, getDoc, collection, setDoc, getDocs, serverTimestamp, increment, updateDoc } from "firebase/firestore";
 import { firestore } from "../../api/firebaseConfig";
 import { getCreatorName } from "../../utils/firestoreUtils";
 
+import Swal from "sweetalert2";
 import Navbar from "../../components/layouts/Navbar";
 import Spinner from "../../components/Spinner";
 import Footer from "../../components/layouts/Footer";
+import useUser from "../../context/useUser";
 
 export default function BencanaDetail() {
-    const { id } = useParams();
     const navigate = useNavigate();
+    const { id } = useParams();
+    const { user } = useUser();
     const [bencana, setBencana] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [isJoined, setIsJoined] = useState(false);
+    const [userPoints, setUserPoints] = useState(0);
 
     useEffect(() => {
         const fetchBencanaDetail = async () => {
@@ -25,20 +29,105 @@ export default function BencanaDetail() {
                 if (bencanaDoc.exists()) {
                     const data = bencanaDoc.data();
                     const creatorName = await getCreatorName(data.creator);
-                    const formattedData = {
+
+                    setBencana({
                         ...data,
                         creator: creatorName,
                         date: data.date?.toDate().toLocaleString(),
                         registUntil: data.registUntil?.toDate().toLocaleString(),
-                    };
-                    setBencana(formattedData);
-                } else { console.error("Data tidak ditemukan!") }
-            } catch (error) { console.error("Error fetching detail:", error)
-            } finally { setIsLoading(false) }
-        };
-        fetchBencanaDetail();
-    }, [id]);    
+                    });
 
+                    if (user) {
+                        // Cek apakah user sudah join
+                        const relawanRef = collection(firestore, "bencana", id, "relawan");
+                        const snapshot = await getDocs(relawanRef);
+                        const joined = snapshot.docs.some((doc) => doc.data().userId === user.uid);
+                        setIsJoined(joined);
+
+                        // Ambil points user
+                        const userDocRef = doc(firestore, "users", user.uid);
+                        const userDoc = await getDoc(userDocRef);
+                        if (userDoc.exists()) {
+                            setUserPoints(userDoc.data().points || 0);
+                        }
+                    }
+                } else {
+                    console.error("Data tidak ditemukan!");
+                }
+            } catch (error) {
+                console.error("Error fetching detail:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchBencanaDetail();
+    }, [id, user]);
+
+    const handleJoinRelawan = async () => {
+        if (!id) {
+            console.error("Event ID not found.");
+            Swal.fire("Error", "ID event tidak ditemukan.", "error");
+            return;
+        }
+
+        if (!user) {
+            Swal.fire("Tidak Diizinkan", "Anda harus login terlebih dahulu.", "warning");
+            return;
+        }
+
+        try {
+            // Ambil data user dari Firestore
+            const userDocRef = doc(firestore, "users", user.uid);
+            const userDoc = await getDoc(userDocRef);
+            const userData = userDoc.exists() ? userDoc.data() : null;
+
+            if (!userData || userData.role !== "individu") {
+                Swal.fire("Tidak Diizinkan", "Hanya akun individu yang bisa menjadi relawan.", "warning");
+                return;
+            }
+
+            // Referensi koleksi relawan
+            const relawanRef = collection(firestore, "bencana", id, "relawan");
+
+            // Ambil jumlah dokumen untuk ID baru
+            const snapshot = await getDocs(relawanRef);
+            const newId = (snapshot.size + 1).toString();
+
+            // SweetAlert konfirmasi
+            const result = await Swal.fire({
+                title: "Gabung Sebagai Relawan?",
+                text: "Anda yakin ingin menjadi relawan untuk event ini?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Ya, Gabung!",
+                cancelButtonText: "Batal",
+            });
+
+            if (result.isConfirmed) {
+                // Simpan data relawan ke Firestore
+                await setDoc(doc(relawanRef, newId), {
+                    userId: user.uid,
+                    fullName: userData?.fullName || "Relawan Tanpa Nama",
+                    joinedAt: serverTimestamp(),
+                });
+
+                // Tambahkan points ke akun user (50 points)
+                await updateDoc(userDocRef, {
+                    points: increment(100),
+                });
+                console.log(userPoints)
+
+                Swal.fire("Berhasil!", "Anda telah bergabung sebagai relawan dan mendapatkan 50 points.", "success");
+                setIsJoined(true);
+                setUserPoints((prev) => prev + 50); // Update state points
+            }
+        } catch (error) {
+            console.error("Error joining event:", error);
+            Swal.fire("Gagal!", "Terjadi kesalahan saat mendaftar sebagai relawan.", "error");
+        }
+    };
+    
     window.scrollTo({ top: 0, behavior: "smooth" });
 
     return (
@@ -81,9 +170,15 @@ export default function BencanaDetail() {
                         <p className="mt-4"><strong>Jadwal:</strong> {bencana.date}</p>
                         <p className="mt-4"><strong>Lokasi:</strong> {bencana.locate}</p>
                         <p className="mt-4"><strong>Batas Registrasi:</strong> {bencana.registUntil}</p>
+                        <p className="mt-4 font-bold">Point : <span className="text-blue-600">100</span></p>
                         
-                        <button className="w-full mt-6 px-6 py-2 bg-green-600 text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-green-700">
-                            <UserIcon className="h-5 w-5 text-white" />Jadi Relawan
+                        <button
+                            onClick={handleJoinRelawan}
+                            className={`w-full mt-6 px-6 py-2 ${isJoined ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"} text-white font-bold rounded-lg flex items-center justify-center gap-2`}
+                            disabled={isJoined}
+                        >
+                            <UserIcon className="h-5 w-5 text-white" />
+                            {isJoined ? "Joined" : "Jadi Relawan"}
                         </button>
                         
                         <button
