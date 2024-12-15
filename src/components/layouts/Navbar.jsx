@@ -21,6 +21,7 @@ export default function Navbar({ pageKeys = [] }) {
         navLimbah: { label: 'Limbah', onClick: () => navigate('/limbah') },
         myEvent: { label: 'My Event', onClick: () => navigate('/myevent') },
         myInterest: { label: 'My Interest', onClick: () => navigate('/myinterest') },
+        shop: { label: 'Shop', onClick: () => navigate('/voucher') },
         profile: { label: 'Profile', onClick: () => navigate('/profile') },
         signIn: { label: 'Sign In', onClick: () => navigate('/signin') },
     };
