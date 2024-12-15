@@ -15,7 +15,7 @@ export default function LimbahSection({ data, navigate }) {
                     </div>
                     <div className="caption mt-4 normal-case text-justify text-xs lg:text-base">
                         <p>
-                            LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH LEMBAH LUMBA LUMBA LIMBAH 
+                        Sigap Lingkungan adalah platform untuk komunitas yang berkomitmen menjaga kelestarian alam melalui kegiatan relawan yang berfokus pada pelestarian lingkungan. Dari aksi bersih-bersih, penanaman pohon, hingga kampanye edukasi, Sigap Lingkungan mendukung para relawan untuk menciptakan dampak positif dan berkelanjutan bagi bumi. Bersama, kita bisa menjaga lingkungan untuk generasi mendatang.
                         </p>
                     </div>
                 </div>
