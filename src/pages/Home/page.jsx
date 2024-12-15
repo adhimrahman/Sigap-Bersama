@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../api/firebaseConfig";
+import { getCreatorName } from '../../utils/firestoreUtils';
 
 import Navbar from "../../components/layouts/Navbar";
 import MapAlerts from "../../components/cards/MapAlerts";
@@ -12,7 +13,6 @@ import BencanaSection from '../../components/cards/home/BencanaSection';
 import LimbahSection from '../../components/cards/home/LimbahSection';
 import AboutSection from '../../components/cards/home/AboutSection';
 import HeaderSection from '../../components/cards/home/HeaderSection';
-import { getCreatorName } from '../../utils/firestoreUtils';
 
 export default function LandingPage() {
     const [isLoading, setIsLoading] = useState(true);
@@ -32,35 +32,29 @@ export default function LandingPage() {
                             ? data.date.toLocaleString()
                             : data.date?.toDate?.()?.toLocaleString() || "Tanggal tidak valid";
                         const creatorName = await getCreatorName(data.creator);
-        
-                        return {
-                            id: doc.id,
-                            ...data,
-                            date,
-                            creator: creatorName, // Ganti reference dengan nama
-                        };
+                        return { id: doc.id, ...data, date, creator: creatorName };
                     })
                 )
-
-                const sortedBencana = bencanaList
-                    .filter((item) => item !== null) // Filter untuk menghindari nilai null
-                    .sort((a, b) => a.id - b.id)
-                    .slice(0, 4);
-
+                const sortedBencana = bencanaList.filter((item) => item !== null).sort((a, b) => a.id - b.id).slice(0, 4);
                 setBencanaData(sortedBencana);
-
+                
                 const limbahCollection = collection(firestore, "limbah");
                 const limbahSnapshot = await getDocs(limbahCollection);
-                const limbahList = limbahSnapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    ...doc.data(),
-                })).sort((a, b) => a.id - b.id).slice(0, 4);
-                setLimbahData(limbahList);
-            } catch (err) {
-                console.error("Error fetching data:", err);
-            } finally {
-                setTimeout(() => setIsLoading(false), 350)
-            }
+                const limbahList = await Promise.all(
+                    limbahSnapshot.docs.map(async (doc) => {
+                        const data = doc.data();
+                        const date = data.date instanceof Date
+                            ? data.date.toLocaleString()
+                            : data.date?.toDate?.()?.toLocaleString() || "Tanggal tidak valid";
+                        const creatorName = await getCreatorName(data.creator);
+                        return { id: doc.id, ...data, date, creator: creatorName };
+                    })
+                )
+                const sortedLimbah = limbahList.filter((item) => item !== null).sort((a, b) => a.id - b.id).slice(0, 4);
+                setLimbahData(sortedLimbah);
+
+            } catch (err) { console.error("Error fetching data:", err);
+            } finally { setTimeout(() => setIsLoading(false), 350) }
         };
         fetchData();
     }, []);
@@ -68,12 +62,9 @@ export default function LandingPage() {
     return(
         <div className="w-full bg-[#F0F0F0]">
             {isLoading ? ( <Spinner /> ) : (
-                <>
-                <Navbar pageKeys={['home', 'about', 'bencana', 'limbah', 'maps', 'contactUs']} />
-    
+                <><Navbar pageKeys={['home', 'about', 'bencana', 'limbah', 'maps', 'contactUs']} />
                 <main className="w-full flex flex-col bg-[#F0F0F0]">
                     <HeaderSection />
-    
                     <AboutSection />
     
                     <div className="events w-full h-fit flex flex-col">
@@ -86,13 +77,10 @@ export default function LandingPage() {
                             <p className="text-5xl font-extrabold uppercase tracking-wider">map alerts</p>
                             <p className="text-xs lg:text-lg font-semibold capitalize tracking-wide leading-10 mt-2">by. BMKG (Badan Meteorologi, Klimatologi, dan Geofisika)</p>
                         </div>
-    
                         <MapAlerts />
                     </div>
                 </main>
-    
-                <Footer />
-                </>
+                <Footer /></>
             )}
         </div>
     )
