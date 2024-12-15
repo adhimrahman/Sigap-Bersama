@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore";
 import { firestore, auth } from "../../api/firebaseConfig";
 import { updatePassword, signOut, deleteUser } from "firebase/auth";
 
@@ -15,6 +15,9 @@ export default function ProfilePage() {
     const [editedData, setEditedData] = useState({});
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
+    const [points, setPoints] = useState(0);
+    const [redeemedVouchers, setRedeemedVouchers] = useState([]);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,6 +32,13 @@ export default function ProfilePage() {
                         const data = userDoc.data();
                         setProfileData(data);
                         setEditedData(data);
+                        setPoints(data.points || 0);
+
+                        // Ambil data voucher yang di-redeem
+                        const redeemedVouchersRef = collection(userDocRef, "redeemedVouchers");
+                        const vouchersSnapshot = await getDocs(redeemedVouchersRef);
+                        const vouchers = vouchersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                        setRedeemedVouchers(vouchers);
                     } else { console.error("User profile not found") }
                 } catch (error) { console.error("Error fetching profile:", error)
                 } finally { setLoading(false) }
@@ -162,8 +172,8 @@ export default function ProfilePage() {
                                 <span>{profileData.badge === 'komunitas' ? '-' : 'soon'}</span>
                             </div>
                             <div className="flex justify-between border-y border-black py-5 px-2">
-                                <span>Poin</span>
-                                <span>soon</span>
+                                <span>Points</span>
+                                <span>{points}</span>
                             </div>
                         </div>
                     </div>
@@ -248,9 +258,19 @@ export default function ProfilePage() {
                 <div className="grid gap-4">
                     <div className="redeemed w-full h-105 rounded-lg bg-white shadow-lg p-9">
                         <h2 className="text-2xl font-extrabold mb-4">My Voucher</h2>
-                        <div className="cards w-full h-fit bg-red-200">
-                            
-                        </div>
+                        {redeemedVouchers.length > 0 ? (
+                            <ul className="space-y-3">
+                                {redeemedVouchers.map((voucher) => (
+                                    <li key={voucher.id} className="p-4 border rounded-lg bg-gray-300">
+                                        <p className="text-lg font-semibold">{voucher.name}</p>
+                                        <p>Kode Voucher: <span className="font-mono text-blue-600">{voucher.code}</span></p>
+                                        <p>Redeemed At: {new Date(voucher.redeemedAt).toLocaleString()}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p className="text-gray-500">Belum ada voucher yang di-redeem.</p>
+                        )}
                     </div>
                 </div>
             </main>
