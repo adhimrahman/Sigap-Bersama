@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs, doc, updateDoc, getDoc, addDoc, increment, runTransaction } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc, addDoc, increment, runTransaction } from "firebase/firestore";
 import { firestore } from "../../api/firebaseConfig";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Navbar from "../../components/layouts/Navbar";
@@ -178,7 +178,7 @@ export default function Voucher() {
         }
     };
     
-
+    window.scrollTo({ top: 0, behavior: "smooth" });
     return (
         <div>
             <Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah', 'contactUs']} />

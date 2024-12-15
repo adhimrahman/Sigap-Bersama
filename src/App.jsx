@@ -33,12 +33,12 @@ const App = () => (
 			<Route path="/limbahdetail/:id" element={<LimbahDetail />} />
 			<Route path="/bencana" element={<Bencana />} /> 
 			<Route path="/bencanadetail/:id" element={<BencanaDetail />} />
-			<Route path="/bencanadetail/:id/donate/" element={<BencanaDonatePage />} />
+			<Route path="/bencanadetail/:id/donate/" element={<ProtectedRoute element={<BencanaDonatePage />}/>} />
 			<Route path="/profile" element={<ProtectedRoute element={<Profile />}/>} />
 			<Route path="/voucher" element={<Voucher />} />
-			<Route path="/myevent" element={<MyEvent />} />
-			<Route path="/addevent" element={<AddEvent />} />
-			<Route path="/myinterest" element={<MyInterest />} />
+			<Route path="/myevent" element={<ProtectedRoute element={<MyEvent />}/>} />
+			<Route path="/addevent" element={<ProtectedRoute element={<AddEvent />}/>} />
+			<Route path="/myinterest" element={<ProtectedRoute element={<MyInterest />}/>} />
 			<Route path="*" element={<NotFound />} /> 
 		</Routes>
 	</Router>

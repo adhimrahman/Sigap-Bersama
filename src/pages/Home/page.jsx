@@ -62,7 +62,7 @@ export default function LandingPage() {
     return(
         <div className="w-full bg-[#F0F0F0]">
             {isLoading ? ( <Spinner /> ) : (
-                <><Navbar pageKeys={['home', 'about', 'bencana', 'limbah', 'maps', 'contactUs']} />
+                <><Navbar pageKeys={['home', 'about', 'bencana', 'limbah', 'maps', 'shop', 'contactUs']} />
                 <main className="w-full flex flex-col bg-[#F0F0F0]">
                     <HeaderSection />
                     <AboutSection />
