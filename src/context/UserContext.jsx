@@ -24,10 +24,10 @@ export const UserProvider = ({ children }) => {
                     setUser({
                         uid: currentUser.uid,
                         email: currentUser.email,
-                        communityName: userDoc.data().communityName,
-                        communityType: userDoc.data().communityType,
-                        role: userDoc.exists() ? userDoc.data().role : 'guest',
-                    });
+                        communityName: userDoc.data()?.communityName || "Unknown",
+                        communityType: userDoc.data()?.communityType || "Undefined",
+                        role: userDoc.exists() ? userDoc.data().role : "guest",
+                    });                    
                 } catch (error) {
                     console.error("Error fetching user data:", error);
                     setUser({ uid: currentUser.uid, email: currentUser.email, role: 'guest' });
