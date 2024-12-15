@@ -2,10 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import useUser from '../../context/useUser';
 import PropTypes from 'prop-types';
 import Logo from '../../assets/logo.png';
-import { auth } from '../../api/firebaseConfig';
-import { toast } from 'react-toastify';
 
-export default function Navbar({ pageKeys }) {
+export default function Navbar({ pageKeys = [] }) {
     const navigate = useNavigate();
     const { user } = useUser();
 
@@ -25,17 +23,11 @@ export default function Navbar({ pageKeys }) {
         myInterest: { label: 'My Interest', onClick: () => navigate('/myinterest') },
         profile: { label: 'Profile', onClick: () => navigate('/profile') },
         signIn: { label: 'Sign In', onClick: () => navigate('/signin') },
-        signOut: { label: 'Sign Out', onClick: () => { auth.signOut().then(() => {
-            toast.success('Logout successful!', {
-                position: 'bottom-right', autoClose: 3000, hideProgressBar: false, closeOnClick: true,
-                pauseOnHover: true, draggable: true, progress: undefined, theme: 'light',
-            }); navigate('/');
-        })}},
     };
 
     const roleMenuKeys =
-        user?.role === 'komunitas' ? ['myEvent', 'profile', 'signOut'] :
-        user?.role === 'individu' ? ['myInterest', 'profile', 'signOut'] :
+        user?.role === 'komunitas' ? ['myEvent', 'profile',] :
+        user?.role === 'individu' ? ['myInterest', 'profile',] :
         ['signIn'];
 
     // merge menu role dan page-specific
@@ -59,8 +51,4 @@ export default function Navbar({ pageKeys }) {
 
 Navbar.propTypes = {
     pageKeys: PropTypes.arrayOf(PropTypes.string),
-};
-
-Navbar.defaultProps = {
-    pageKeys: [], // Default nya tidak ada menu tambahan
 };

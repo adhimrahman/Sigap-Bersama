@@ -139,7 +139,7 @@ export default function ProfilePage() {
     return (
         <div>
             <Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah']} />
-            <main className="p-8 mt-16 bg-[#f0f0f0]">
+            <main className="p-8 mt-16 bg-gray-200 flex flex-col gap-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {/* Card Profil */}
                     <div className="bg-white p-4 rounded-lg shadow-md">
@@ -243,6 +243,14 @@ export default function ProfilePage() {
                             </div>
                         </form>
 
+                    </div>
+                </div>
+                <div className="grid gap-4">
+                    <div className="redeemed w-full h-105 rounded-lg bg-white shadow-lg p-9">
+                        <h2 className="text-2xl font-extrabold mb-4">My Voucher</h2>
+                        <div className="cards w-full h-fit bg-red-200">
+                            
+                        </div>
                     </div>
                 </div>
             </main>
