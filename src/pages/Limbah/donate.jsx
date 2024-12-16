@@ -7,7 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import Swal from "sweetalert2";
 import Navbar from "../../components/layouts/Navbar";
 
-export default function BencanaDonatePage() {
+export default function LimbahDonatePage() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [donationType, setDonationType] = useState("uang");
@@ -96,7 +96,7 @@ export default function BencanaDonatePage() {
         }
 
         try {
-            const donationRef = collection(firestore, `bencana/${id}/donasi`);
+            const donationRef = collection(firestore, `limbah/${id}/donasi`);
             const snapshot = await getDocs(donationRef);
             const newId = snapshot.size + 1;
 
@@ -117,7 +117,7 @@ export default function BencanaDonatePage() {
                 icon: "success",
             });
 
-            navigate(`/bencanadetail/${id}`);
+            navigate(`/limbah/${id}`);
         } catch (error) {
             console.error("Error submitting donation:", error);
             Swal.fire("Error!", "Terjadi kesalahan saat mengirim donasi.", "error");
@@ -128,7 +128,7 @@ export default function BencanaDonatePage() {
         <div className="w-full bg-gray-300 min-h-screen">
             <Navbar />
             <div className="max-w-3xl mx-auto py-12 px-6 pt-24">
-                <h1 className="text-3xl font-bold mb-6 text-center">Donasi untuk Bencana #{id}</h1>
+                <h1 className="text-3xl font-bold mb-6 text-center">Donasi untuk Limbah #{id}</h1>
                 <form onSubmit={(e) => e.preventDefault()} className="bg-white p-6 rounded-lg shadow-xl">
                     {/* Switch antara Donasi Uang dan Barang */}
                     <div className="flex mb-6">

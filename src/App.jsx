@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/page";
 import Limbah from "./pages/Limbah/page";
 import LimbahDetail from "./pages/Limbah/details";
+import LimbahDonatePage from "./pages/Limbah/donate";
 import Bencana from "./pages/Bencana/page";
 import BencanaDetail from "./pages/Bencana/details";
 import BencanaDonatePage from "./pages/Bencana/donate";
@@ -14,6 +15,7 @@ import Voucher from "./pages/Voucher/page";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AddEvent from "./pages/My/addEvent";
 import EditEvent from "./pages/My/editEvent";
+
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -32,6 +34,7 @@ const App = () => (
 			<Route path="/signup/:role" element={<Signup />} />
 			<Route path="/limbah" element={<Limbah />} /> 
 			<Route path="/limbahdetail/:id" element={<LimbahDetail />} />
+			<Route path="/limbahdetail/:id/donate" element={<LimbahDonatePage />} />
 			<Route path="/bencana" element={<Bencana />} /> 
 			<Route path="/bencanadetail/:id" element={<BencanaDetail />} />
 			<Route path="/bencanadetail/:id/donate/" element={<ProtectedRoute element={<BencanaDonatePage />}/>} />
@@ -39,7 +42,7 @@ const App = () => (
 			<Route path="/voucher" element={<Voucher />} />
 			<Route path="/myevent" element={<ProtectedRoute element={<MyEvent />}/>} />
 			<Route path="/addevent" element={<ProtectedRoute element={<AddEvent />}/>} />
-			<Route path="/editEvent/:id" element={<EditEvent />} />
+			<Route path="/editEvent/:type/:id" element={<EditEvent />} />
 			<Route path="/myinterest" element={<ProtectedRoute element={<MyInterest />}/>} />
 			<Route path="*" element={<NotFound />} /> 
 		</Routes>

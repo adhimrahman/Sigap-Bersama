@@ -1,4 +1,4 @@
-import { UserIcon, HeartIcon } from '@heroicons/react/20/solid';
+import { UserIcon, HeartIcon, PencilIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from "react";
 import { useParams, useNavigate  } from "react-router-dom";
 import { doc, getDoc, collection, setDoc, getDocs, serverTimestamp, increment, updateDoc } from "firebase/firestore";
@@ -35,7 +35,8 @@ export default function BencanaDetail() {
                         creator: creatorName,
                         date: data.date?.toDate().toLocaleString(),
                         registUntil: data.registUntil?.toDate().toLocaleString(),
-                    });
+                        isCreator: data.creator?.id === user?.uid,
+                    })
 
                     if (user) {
                         // Cek apakah user sudah join
@@ -51,16 +52,10 @@ export default function BencanaDetail() {
                             setUserPoints(userDoc.data().points || 0);
                         }
                     }
-                } else {
-                    console.error("Data tidak ditemukan!");
-                }
-            } catch (error) {
-                console.error("Error fetching detail:", error);
-            } finally {
-                setIsLoading(false);
-            }
+                } else { console.error("Data tidak ditemukan!") }
+            } catch (error) { console.error("Error fetching detail:", error);
+            } finally { setIsLoading(false) }
         };
-
         fetchBencanaDetail();
     }, [id, user]);
 
@@ -171,21 +166,17 @@ export default function BencanaDetail() {
                         <p className="mt-4"><strong>Batas Registrasi:</strong> {bencana.registUntil}</p>
                         <p className="mt-4 font-bold">Point : <span className="text-blue-600">100</span></p>
                         
-                        <button
-                            onClick={handleJoinRelawan}
-                            className={`w-full mt-6 px-6 py-2 ${isJoined ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"} text-white font-bold rounded-lg flex items-center justify-center gap-2`}
-                            disabled={isJoined}
-                        >
-                            <UserIcon className="h-5 w-5 text-white" />
-                            {isJoined ? "Joined" : "Jadi Relawan"}
+                        <button onClick={handleJoinRelawan} className={`w-full mt-6 px-6 py-2 ${isJoined ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"} text-white font-bold rounded-lg flex items-center justify-center gap-2`} disabled={isJoined}>
+                            <UserIcon className="h-5 w-5 text-white" />{isJoined ? "Joined" : "Jadi Relawan"}
                         </button>
                         
-                        <button
-                            className="w-full mt-2 px-6 py-2 bg-red-600 text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-red-700"
-                            onClick={() => navigate(`/bencanadetail/${id}/donate/`)}
-                        >
+                        <button className="w-full mt-2 px-6 py-2 bg-red-500 text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-red-600" onClick={() => navigate(`/bencanadetail/${id}/donate/`)}>
                             <HeartIcon className="h-5 w-5 text-white" />Donasi
-                        </button>
+                        </button>{bencana.isCreator && (
+                            <button className="w-full mt-2 px-6 py-2 bg-ijoTua text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-green-800" onClick={() => navigate(`/editEvent/bencana/${id}`)}>
+                                <PencilIcon className="h-5 w-5 text-white" />Edit
+                            </button>
+                        )}
                     </div>
                 </div>
             </section>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { firestore } from "../../api/firebaseConfig";
-import { collection, setDoc, getDocs, doc, serverTimestamp } from "firebase/firestore";
+import { collection, setDoc, getDocs, doc, serverTimestamp, updateDoc, increment } from "firebase/firestore";
 
 import Swal from "sweetalert2";
 import useUser from "../../context/useUser";
@@ -23,6 +23,31 @@ export default function AddEvent() {
             setCurrentPerlengkapan(""); // reset
         }
     };
+
+    const extractGoogleMapsLink = (input) => {
+        console.log("Input sebelum diproses:", input);
+    
+        // Regex untuk mencari URL di dalam atribut src dalam tag iframe
+        const regex = /<iframe[^>]+src=["']([^"']+)["']/i;
+        const match = input.match(regex);
+    
+        // Jika menemukan src di dalam iframe, ambil URL
+        if (match) {
+            console.log("Ditemukan dalam iframe:", match[1]);
+            return match[1];
+        }
+    
+        // Jika input sudah berupa URL embed langsung
+        if (input.startsWith("https://www.google.com/maps/embed")) {
+            console.log("Input berupa URL langsung:", input.trim());
+            return input.trim();
+        }
+    
+        // Jika tidak valid sama sekali
+        console.warn("Input tidak valid untuk link embed Google Maps");
+        return "";
+    };
+        
 
     const handleAddEvent = async (e) => {
         e.preventDefault();
@@ -66,6 +91,12 @@ export default function AddEvent() {
                 confirmButtonColor: "#365E32",
             });
 
+            // Tambahkan 100 points ke user komunitas
+            const userRef = doc(firestore, "users", user.uid);
+            await updateDoc(userRef, {
+                points: increment(100),
+            });
+
             navigate("/myevent");
         } catch (error) {
             console.error("Error adding event:", error);
@@ -85,7 +116,7 @@ export default function AddEvent() {
                 <img src="https://img.icons8.com/external-freebies-bomsymbols-/91/external-audio-doodle-audio-video-game-freebies-bomsymbols--33.png" alt="" />
             </button>
             <div className="max-w-7xl mx-auto py-12 px-6 pt-24">
-                <h1 className="text-3xl font-bold mb-6">Tambah Event ({user?.communityType || "bencana"})</h1>
+                <h1 className="text-3xl font-bold mb-6">Tambah Event ({user?.communityType || ""})</h1>
                 <form onSubmit={handleAddEvent} className="bg-[#F0F0F0] p-6 rounded-lg grid grid-cols-1 md:grid-cols-2 gap-6 shadow-2xl">
                     <div>
                         <label>Nama Event</label>
@@ -115,7 +146,18 @@ export default function AddEvent() {
                     </div>
                     <div>
                         <label>Link Embed Map</label>
-                        <input type="text" value={newEvent.embedMapLink} onChange={(e) => setNewEvent({ ...newEvent, embedMapLink: e.target.value })} className="w-full border-ijoTua p-2 border rounded mb-4" required placeholder="Masukkan Link Embeded Google Maps" />
+                        <input
+                            type="text"
+                            value={newEvent.embedMapLink}
+                            onChange={(e) => {
+                                const cleanedLink = extractGoogleMapsLink(e.target.value);
+                                setNewEvent({ ...newEvent, embedMapLink: cleanedLink });
+                            }}
+                            className="w-full border-ijoTua p-2 border rounded mb-4"
+                            required
+                            placeholder="Masukkan Link Embed Google Maps"
+                        />
+
 
                         <label>Detail Aktivitas</label>
                         <textarea value={newEvent.detailActivity} onChange={(e) => setNewEvent({ ...newEvent, detailActivity: e.target.value })} className="w-full border-ijoTua p-2 border rounded mb-4" required placeholder="Deskripsi Kegiatan" />
@@ -126,7 +168,7 @@ export default function AddEvent() {
                         <label>Perlengkapan Relawan</label>
                         <div className="flex gap-2 mb-4">
                             <input type="text" value={currentPerlengkapan} onChange={(e) => setCurrentPerlengkapan(e.target.value)} placeholder="Tambahkan perlengkapan" className="w-full border-ijoTua p-2 border rounded" />
-                            <button type="button" onClick={addPerlengkapanItem} className="bg-ijoTua text-white px-4 rounded">Tambah</button>
+                            <button type="button" onClick={addPerlengkapanItem} className="bg-ijoTua text-white hover:bg-green-600 px-4 rounded">Tambah</button>
                         </div>
                         <ul className="list-disc pl-5 mb-4">
                             {newEvent.perlengkapanRelawan.map((item, index) => (
@@ -140,7 +182,7 @@ export default function AddEvent() {
                         <input type="number" placeholder="Jumlah Relawan" value={newEvent.detailJob.jobNeeded} onChange={(e) => setNewEvent({ ...newEvent, detailJob: { ...newEvent.detailJob, jobNeeded: parseInt(e.target.value) || 0 } })} className="w-full p-2 border rounded border-ijoTua" required />
                     </div>
                     <div className="col-span-2 text-right">
-                        <button type="submit" className="bg-ijoTua text-white px-4 py-2 rounded hover:bg-blue-600">
+                        <button type="submit" className="bg-ijoTua text-white px-4 py-2 rounded hover:bg-green-600">
                             Tambah Event
                         </button>
                     </div>
