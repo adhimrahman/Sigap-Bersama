@@ -18,11 +18,27 @@ export default function LandingPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [bencanaData, setBencanaData] = useState([])
     const [limbahData, setLimbahData] = useState([])
+    const [komunitasCount, setKomunitasCount] = useState(0);
+    const [relawanCount, setRelawanCount] = useState(0);
+    const [eventCount, setEventCount] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const usersCollection = collection(firestore, "users");
+                const usersSnapshot = await getDocs(usersCollection);
+                let komunitasTotal = 0;
+                let relawanTotal = 0;
+
+                usersSnapshot.forEach((doc) => {
+                    const user = doc.data();
+                    if (user.role === "komunitas") komunitasTotal++;
+                    if (user.role === "individu") relawanTotal++;
+                });
+                setKomunitasCount(komunitasTotal);
+                setRelawanCount(relawanTotal);
+
                 const bencanaCollection = collection(firestore, "bencana");
                 const bencanaSnapshot = await getDocs(bencanaCollection);
                 const bencanaList = await Promise.all(
@@ -53,6 +69,8 @@ export default function LandingPage() {
                 const sortedLimbah = limbahList.filter((item) => item !== null).sort((a, b) => a.id - b.id).slice(0, 4);
                 setLimbahData(sortedLimbah);
 
+                setEventCount(bencanaSnapshot.size + limbahSnapshot.size);
+
             } catch (err) { console.error("Error fetching data:", err);
             } finally { setTimeout(() => setIsLoading(false), 350) }
         };
@@ -64,7 +82,7 @@ export default function LandingPage() {
             {isLoading ? ( <Spinner /> ) : (
                 <><Navbar pageKeys={['home', 'about', 'bencana', 'limbah', 'maps', 'shop', 'contactUs']} />
                 <main className="w-full flex flex-col bg-[#F0F0F0]">
-                    <HeaderSection />
+                    <HeaderSection relawanCount={relawanCount} komunitasCount={komunitasCount} eventCount={eventCount} />
                     <AboutSection />
     
                     <div className="events w-full h-fit flex flex-col">

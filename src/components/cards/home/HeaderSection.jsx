@@ -1,6 +1,7 @@
+import PropTypes from "prop-types"
 import Logo from "../../../assets/logo.png"
 
-export default function HeaderSection() {
+export default function HeaderSection({ relawanCount, komunitasCount, eventCount }) {
     const scrollToDesc = () => {
         const heroElement = document.querySelector('.about');
         heroElement?.scrollIntoView({ behavior: 'smooth' });
@@ -16,21 +17,21 @@ export default function HeaderSection() {
                 <div className="leftSide  lg:w-1/3 h-full flex">
                     <div className="leftSide w-1/3 h-full flex items-center"><img src={Logo} alt="logo" className="w-[80%]"></img></div>
                     <div className="rightSide w-2/3 h-full flex flex-col justify-center pl-1 capitalize text-2xl tracking-wide">
-                        <p className="font-bold">123.456</p><p>relawan</p>
+                        <p className="font-bold">{relawanCount.toLocaleString()}</p><p>relawan</p>
                     </div>
                 </div>
 
                 <div className="middleSide lg:w-1/3 h-full flex">
                     <div className="leftSide w-1/3 h-full flex items-center"><img src={Logo} alt="logo" className="w-[80%]"></img></div>
                     <div className="rightSide w-2/3 h-full flex flex-col justify-center pl-1 capitalize text-2xl tracking-wide">
-                        <p className="font-bold">123.456</p><p>komunitas</p>
+                        <p className="font-bold">{komunitasCount.toLocaleString()}</p><p>komunitas</p>
                     </div>
                 </div>
 
                 <div className="rightSide lg:w-1/3 h-full flex">
                     <div className="leftSide w-1/3 h-full flex items-center"><img src={Logo} alt="logo" className="w-[80%]"></img></div>
                     <div className="rightSide w-2/3 h-full flex flex-col justify-center pl-1 capitalize text-2xl tracking-wide">
-                        <p className="font-bold">123.456</p><p>event</p>
+                        <p className="font-bold">{eventCount.toLocaleString()}</p><p>event</p>
                     </div>
                 </div>
             </div>
@@ -40,4 +41,10 @@ export default function HeaderSection() {
             </div>
         </div>
     )
+}
+
+HeaderSection.propTypes = {
+    relawanCount: PropTypes.number.isRequired,
+    komunitasCount: PropTypes.number.isRequired,
+    eventCount: PropTypes.number.isRequired,
 }
