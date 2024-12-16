@@ -1,9 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/page";
-import Limbah from "./pages/Limbah/page";
-import LimbahDetail from "./pages/Limbah/details";
-import Bencana from "./pages/Bencana/page";
-import BencanaDetail from "./pages/Bencana/details";
 import NotFound from "./pages/404/page";
 import SignIn from "./pages/Auth/signin";
 import SignWhat from "./pages/Auth/signwhat";
@@ -14,6 +10,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AddEvent from "./pages/My/addEvent";
 import EditEvent from "./pages/My/editEvent";
 import DonationPage from "./pages/payment/DonationPage";
+import EventPage from "./pages/Event/page";
+import EventDetail from "./pages/Event/details";
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -30,10 +28,8 @@ const App = () => (
 			<Route path="/signin" element={<SignIn />} />
 			<Route path="/signwhat" element={<SignWhat />} />
 			<Route path="/signup/:role" element={<Signup />} />
-			<Route path="/limbah" element={<Limbah />} /> 
-			<Route path="/limbahdetail/:id" element={<LimbahDetail />} />
-			<Route path="/bencana" element={<Bencana />} />
-			<Route path="/bencanadetail/:id" element={<BencanaDetail />} />
+			<Route path="/:eventType" element={<EventPage />} />
+			<Route path="/:eventType/detail/:id" element={<EventDetail />} />
 			<Route path="/donate/:category/:id" element={<DonationPage />} />
 			<Route path="/profile" element={<ProtectedRoute element={<Profile />}/>} />
 			<Route path="/voucher" element={<Voucher />} />
