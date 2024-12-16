@@ -19,6 +19,7 @@ export default function LimbahDetail() {
     const [isLoading, setIsLoading] = useState(true);
     const [isJoined, setIsJoined] = useState(false);
     const [userPoints, setUserPoints] = useState(0);
+    const [relawanCount, setRelawanCount] = useState(0);
 
     useEffect(() => {
         const fetchLimbahDetail = async () => {
@@ -37,6 +38,10 @@ export default function LimbahDetail() {
                         registUntil: data.registUntil?.toDate().toLocaleString(),
                         isCreator: data.creator?.id === user?.uid,
                     })
+
+                    const relawanRef = collection(firestore, "limbah", id, "relawan");
+                    const snapshot = await getDocs(relawanRef);
+                    setRelawanCount(snapshot.size);
                     
                     if (user) {
                         // Cek apakah user sudah join
@@ -115,6 +120,7 @@ export default function LimbahDetail() {
                 Swal.fire("Berhasil!", "Anda telah bergabung sebagai relawan dan mendapatkan 100 points.", "success");
                 setIsJoined(true);
                 setUserPoints((prev) => prev + 100); // Update state points
+                setRelawanCount((prev) => prev + 1);
             }
         } catch (error) {
             console.error("Error joining event:", error);
@@ -161,6 +167,7 @@ export default function LimbahDetail() {
                     <div className="rightContainer flex-1 border border-gray-300 p-6 rounded-lg bg-gray-50 h-fit sticky top-24">
                         <h3 className="text-2xl font-bold text-gray-800">{limbah.title}</h3>
                         <p className="mt-4"><strong>Oleh:</strong> {limbah.creator}</p>
+                        <p className="mt-4"><strong>Relawan:</strong> {relawanCount} / {limbah.detailJob?.jobNeeded || 0}</p>
                         <p className="mt-4"><strong>Jadwal:</strong> {limbah.date}</p>
                         <p className="mt-4"><strong>Lokasi:</strong> {limbah.locate}</p>
                         <p className="mt-4"><strong>Batas Registrasi:</strong> {limbah.registUntil}</p>
