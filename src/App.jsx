@@ -13,6 +13,7 @@ import Profile from "./pages/Profile/page";
 import Voucher from "./pages/Voucher/page";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AddEvent from "./pages/My/addEvent";
+import EditEvent from "./pages/My/editEvent";
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -38,6 +39,7 @@ const App = () => (
 			<Route path="/voucher" element={<Voucher />} />
 			<Route path="/myevent" element={<ProtectedRoute element={<MyEvent />}/>} />
 			<Route path="/addevent" element={<ProtectedRoute element={<AddEvent />}/>} />
+			<Route path="/editEvent/:id" element={<EditEvent />} />
 			<Route path="/myinterest" element={<ProtectedRoute element={<MyInterest />}/>} />
 			<Route path="*" element={<NotFound />} /> 
 		</Routes>
