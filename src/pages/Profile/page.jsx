@@ -194,7 +194,7 @@ export default function ProfilePage() {
 
     return (
         <div>
-            <Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah']} />
+            <Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah', 'shop',]} />
             <main className="p-8 mt-16 bg-gray-200 flex flex-col gap-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {/* Card Profil */}

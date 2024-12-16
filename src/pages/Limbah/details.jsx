@@ -43,7 +43,7 @@ export default function LimbahDetail() {
             <div className="w-full bg-gray-100">
     
             {isLoading ? ( <Spinner /> ) : (
-                <><Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah', 'contactUs']} />
+                <><Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah', 'shop', 'contactUs']} />
     
                 <section className="max-w-6xl mx-auto py-12 pt-24 px-6">
                     <div className="flex gap-6 p-5">

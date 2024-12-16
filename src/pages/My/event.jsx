@@ -68,7 +68,7 @@ export default function MyEvent() {
 
     return (
         <div className="w-full bg-gray-100">
-            <Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah']} />
+            <Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah', 'shop', 'contactUs']} />
             <button onClick={() => navigate(-1)} className="fixed top-28 left-9 bg-ijoTua text-white w-12 h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-green-600 transition duration-300">
                 <img src="https://img.icons8.com/external-freebies-bomsymbols-/91/external-audio-doodle-audio-video-game-freebies-bomsymbols--33.png" alt="" />
             </button>
