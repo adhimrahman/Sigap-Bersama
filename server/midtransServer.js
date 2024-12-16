@@ -1,7 +1,7 @@
 import express from "express";
 import midtransClient from "midtrans-client";
 import dotenv from "dotenv";
-import cors from "cors"; // Tambahkan ini
+import cors from "cors";
 
 dotenv.config();
 
@@ -9,7 +9,8 @@ const app = express();
 
 // Tambahkan middleware CORS
 app.use(cors({
-    origin: "http://localhost:5173", // Izinkan origin React Vite
+    origin: "http://localhost:5173",
+    // origin: "https://sigap-bersama.vercel.app/",
     methods: "POST",
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
@@ -27,18 +28,11 @@ app.post("/api/midtrans", async (req, res) => {
         });
 
         const parameter = {
-            transaction_details: {
-                order_id: orderId,
-                gross_amount: parseInt(amount),
-            },
-            customer_details: {
-                first_name: name,
-                email: email,
-            },
+            transaction_details: { order_id: orderId, gross_amount: parseInt(amount) },
+            customer_details: { first_name: name, email: email },
         };
 
         const transaction = await snap.createTransaction(parameter);
-
         res.status(200).json({ token: transaction.token });
     } catch (error) {
         console.error("Midtrans Error Stack:", error);
