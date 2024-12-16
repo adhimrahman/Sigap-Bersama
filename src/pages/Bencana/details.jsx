@@ -170,9 +170,18 @@ export default function BencanaDetail() {
                             <UserIcon className="h-5 w-5 text-white" />{isJoined ? "Joined" : "Jadi Relawan"}
                         </button>
                         
-                        <button className="w-full mt-2 px-6 py-2 bg-red-500 text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-red-600" onClick={() => navigate(`/bencanadetail/${id}/donate/`)}>
-                            <HeartIcon className="h-5 w-5 text-white" />Donasi
-                        </button>{bencana.isCreator && (
+                        <button className={`w-full mt-2 px-6 py-2 ${
+                                user?.role === "komunitas" ? "bg-gray-400 cursor-not-allowed" : "bg-red-500 hover:bg-red-600"
+                            } text-white font-bold rounded-lg flex items-center justify-center gap-2`}
+                            onClick={() => {
+                                if (user?.role === "komunitas") { Swal.fire("Akses Ditolak", "Akun komunitas tidak diperbolehkan melakukan donasi.", "error");
+                                } else { navigate(`/donate/bencana/${id}`) }
+                            }}
+                            disabled={user?.role === "komunitas"}
+                        ><HeartIcon className="h-5 w-5 text-white" />Donasi
+                        </button>
+                        <p className='text-red-600 text-xs ml-2 mt-2'>*hanya akun individu</p>
+                        {bencana.isCreator && (
                             <button className="w-full mt-2 px-6 py-2 bg-ijoTua text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-green-800" onClick={() => navigate(`/editEvent/bencana/${id}`)}>
                                 <PencilIcon className="h-5 w-5 text-white" />Edit
                             </button>

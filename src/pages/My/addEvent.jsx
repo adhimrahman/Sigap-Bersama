@@ -139,7 +139,7 @@ export default function AddEvent() {
                         <p className="mb-4 text-red-600 text-xs mt-1">*Harus sebelum tanggal acara</p>
 
                         <label>Lokasi</label>
-                        <input type="text" value={newEvent.locate} onChange={(e) => setNewEvent({ ...newEvent, locate: e.target.value })} className="w-full border-ijoTua p-2 border rounded mb-4" placeholder="Lokasi Kegiatan" required />
+                        <input type="text" value={newEvent.locate} onChange={(e) => setNewEvent({ ...newEvent, locate: e.target.value })} className="w-full border-ijoTua p-2 border rounded mb-4" placeholder="Lokasi Kegiatan (Maks. 32 karakter)" maxLength={24} required />
                         
                         <label>URL Gambar</label>
                         <input type="text" value={newEvent.image} onChange={(e) => setNewEvent({ ...newEvent, image: e.target.value })} className="w-full border-ijoTua p-2 border rounded mb-4" placeholder="Link Cover Kegiatan" />
