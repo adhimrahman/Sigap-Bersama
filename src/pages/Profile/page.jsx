@@ -17,6 +17,8 @@ export default function ProfilePage() {
     const [isEditing, setIsEditing] = useState(false);
     const [points, setPoints] = useState(0);
     const [redeemedVouchers, setRedeemedVouchers] = useState([]);
+    const [joinedEventCount, setJoinedEventCount] = useState(0);
+    const [createdEventCount, setCreatedEventCount] = useState(0);
 
     const navigate = useNavigate();
 
@@ -39,6 +41,50 @@ export default function ProfilePage() {
                         const vouchersSnapshot = await getDocs(redeemedVouchersRef);
                         const vouchers = vouchersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                         setRedeemedVouchers(vouchers);
+
+                        // Hitung jumlah event yang diikuti (untuk user individu)
+                        if (data.role === "individu") {
+                            const bencanaRef = collection(firestore, "bencana");
+                            const bencanaSnapshot = await getDocs(bencanaRef);
+
+                            let eventCount = 0;
+
+                            for (const bencanaDoc of bencanaSnapshot.docs) {
+                                const relawanRef = collection(bencanaDoc.ref, "relawan");
+                                const relawanSnapshot = await getDocs(relawanRef);
+
+                                const isUserJoined = relawanSnapshot.docs.some(
+                                    (relawanDoc) => relawanDoc.data().userId === user.uid
+                                );
+
+                                if (isUserJoined) {
+                                    eventCount += 1;
+                                }
+                            }
+                            setJoinedEventCount(eventCount);
+                        }
+
+                        // Hitung jumlah event yang dibuat (untuk komunitas)
+                        if (data.role === "komunitas") {
+                            const bencanaRef = collection(firestore, "bencana");
+                            const limbahRef = collection(firestore, "limbah");
+
+                            let createdCount = 0;
+
+                            // Periksa koleksi bencana
+                            const bencanaSnapshot = await getDocs(bencanaRef);
+                            createdCount += bencanaSnapshot.docs.filter(
+                                (doc) => doc.data().creator?.path === `users/${user.uid}`
+                            ).length;
+
+                            // Periksa koleksi limbah
+                            const limbahSnapshot = await getDocs(limbahRef);
+                            createdCount += limbahSnapshot.docs.filter(
+                                (doc) => doc.data().creator?.path === `users/${user.uid}`
+                            ).length;
+
+                            setCreatedEventCount(createdCount);
+                        }
                     } else { console.error("User profile not found") }
                 } catch (error) { console.error("Error fetching profile:", error)
                 } finally { setLoading(false) }
@@ -165,7 +211,7 @@ export default function ProfilePage() {
                         <div className="mt-4">
                             <div className="flex justify-between border-t border-black py-5 px-2">
                                 <span>{profileData.role === 'komunitas' ? 'Aktivitas yang telah dibuat' : 'Aktivitas yang telah diikuti'}</span>
-                                <span>10</span>
+                                <span>{profileData.role === 'komunitas' ? createdEventCount : joinedEventCount}</span>
                             </div>
                             <div className="flex justify-between border-t border-black py-5 px-2">
                                 <span>Lencana</span>
