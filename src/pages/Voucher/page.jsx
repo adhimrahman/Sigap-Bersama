@@ -183,10 +183,10 @@ export default function Voucher() {
         <div>
             <Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah', 'contactUs']} />
             <div className="min-h-screen bg-gray-50 mt-20">
-                <header className="bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow p-6 mb-8">
-                    <h1 className="text-3xl font-extrabold text-center">🎁 Redeem Points for Vouchers 🎁</h1>
+                <header className="p-6 mb-8">
+                    <h1 className="text-3xl font-extrabold text-center">Redeem Points for Vouchers</h1>
                     <p className="text-center text-lg font-medium mt-2">
-                        Total Poin Anda: <span className="font-bold text-yellow-300">{userPoints} Poin</span>
+                        Total Poin Anda: <span className="font-bold text-blue-700">{userPoints} Poin</span>
                     </p>
                 </header>
                 <main className="container mx-auto px-4">
