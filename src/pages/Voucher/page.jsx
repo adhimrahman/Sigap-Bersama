@@ -158,6 +158,14 @@ export default function Voucher() {
     
             // Update state lokal setelah transaksi berhasil
             setUserPoints(prevPoints => prevPoints - voucher.points);
+
+            setVouchers(prevVouchers =>
+                prevVouchers.map(item =>
+                    item.id === voucher.id
+                        ? { ...item, totalVoucher: item.totalVoucher - 1 }
+                        : item
+                )
+            );
     
             // Notifikasi sukses
             Swal.fire({
