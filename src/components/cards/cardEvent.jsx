@@ -7,8 +7,8 @@ export default function CardEvent({ id, image = "https://placehold.co/600x400", 
     return (
         <div className="card bg-white rounded-lg shadow-2xl hover:cursor-pointer hover:scale-[1.01] capitalize"
         onClick={() => navigate(`/${detailPath}/${id}`)}>
-            <div className="h-fit lg:h-56 bg-gray-200 rounded-t-lg overflow-hidden">
-                <img src={image || "https://placehold.co/600x400"} alt={name} className="w-full h-full object-cover object-center" />
+            <div className="h-fit max-h-48 lg:h-56 bg-gray-200 rounded-t-lg overflow-hidden">
+                <img src={image || "https://placehold.co/600x400?text=Image\nCover"} alt={name} className="w-full h-full object-cover object-center" />
             </div>
             <div className="p-4">
                 <h2 className="text-lg font-bold">{title}</h2>
