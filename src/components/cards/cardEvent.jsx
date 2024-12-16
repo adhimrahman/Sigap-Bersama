@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function CardEvent({ id, image = "https://placehold.co/600x400", title, creator, date, locate, detailPath }) {
     const navigate = useNavigate();
+    console.log(id)
 
     return (
         <div className="card bg-white rounded-lg shadow-2xl hover:cursor-pointer hover:scale-[1.01] capitalize"
-        onClick={() => navigate(`/${detailPath}/${id}`)}>
+        onClick={() => navigate(detailPath)}>
             <div className="h-fit max-h-48 lg:h-56 bg-gray-200 rounded-t-lg overflow-hidden">
                 <img src={image || "https://placehold.co/600x400?text=Image\nCover"} alt={name} className="w-full h-full object-cover object-center" />
             </div>
