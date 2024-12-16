@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { firestore } from "../../api/firebaseConfig";
+import { firestore } from "../../../api/firebaseConfig";
 import { getCreatorName } from '../../utils/firestoreUtils';
 
 import Navbar from "../../components/layouts/Navbar";

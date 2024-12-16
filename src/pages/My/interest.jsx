@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
-import { firestore } from "../../api/firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
+import { firestore } from "../../../api/firebaseConfig";
 import { getAuth } from "firebase/auth";
 
 import Navbar from "../../components/layouts/Navbar";

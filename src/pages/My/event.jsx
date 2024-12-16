@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { firestore } from "../../api/firebaseConfig";
+import { firestore } from "../../../api/firebaseConfig";
 import { getCreatorName } from "../../utils/firestoreUtils";
 import { collection, getDocs, doc, query, where } from "firebase/firestore";
 

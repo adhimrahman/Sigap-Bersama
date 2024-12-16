@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { firestore } from "../../api/firebaseConfig";
+import { firestore } from "../../../api/firebaseConfig";
 import { collection, setDoc, getDocs, doc, serverTimestamp, updateDoc, increment } from "firebase/firestore";
 
 import Swal from "sweetalert2";

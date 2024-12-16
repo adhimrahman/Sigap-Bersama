@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { auth, firestore  } from '../../api/firebaseConfig'; // Sesuaikan path sesuai struktur proyek Anda
+import { auth, firestore  } from '../../../api/firebaseConfig'; // Sesuaikan path sesuai struktur proyek Anda
 import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate, useParams } from 'react-router-dom';

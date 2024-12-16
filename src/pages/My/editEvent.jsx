@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
-import { firestore } from "../../api/firebaseConfig";
+import { firestore } from "../../../api/firebaseConfig";
 import Swal from "sweetalert2";
 import Navbar from "../../components/layouts/Navbar";
 

@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { firestore, auth } from "../../api/firebaseConfig";
+import { firestore, auth } from "../../../api/firebaseConfig";
 import { doc, collection, getDocs, setDoc } from "firebase/firestore";
 import { requestSnapToken } from "../../utils/midtransUtils";
 import { onAuthStateChanged } from "firebase/auth";

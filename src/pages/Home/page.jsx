@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import { useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { firestore } from "../../api/firebaseConfig";
+import { firestore } from "../../../api/firebaseConfig";
 import { getCreatorName } from '../../utils/firestoreUtils';
 
 import Navbar from "../../components/layouts/Navbar";
