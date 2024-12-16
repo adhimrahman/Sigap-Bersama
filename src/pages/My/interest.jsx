@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { firestore } from "../../../api/firebaseConfig";
 import { getAuth } from "firebase/auth";
 
@@ -43,6 +43,20 @@ export default function MyInterest() {
 
                     if (isUserJoined) {
                         const eventData = bencanaDoc.data();
+                        let creatorName = "Unknown Creator";
+
+                        // Ambil nama creator dari referensi
+                        if (eventData.creator) {
+                            try {
+                                const creatorDoc = await getDoc(eventData.creator);
+                                if (creatorDoc.exists()) {
+                                    creatorName = creatorDoc.data().communityName || "Unknown Creator";
+                                }
+                            } catch (error) {
+                                console.error(`Error fetching creator for ${bencanaDoc.id}:`, error);
+                            }
+                        }
+
                         joinedEvents.push({
                             id: bencanaDoc.id,
                             title: eventData.title || "No Title",
@@ -51,7 +65,7 @@ export default function MyInterest() {
                                 ? eventData.date.toDate().toLocaleDateString("id-ID")
                                 : "No Date",
                             locate: eventData.locate || "Unknown Location",
-                            creator: "Event Organizer", // Anda bisa ambil detail jika creator reference
+                            creator: creatorName,
                         });
                     }
                 }
