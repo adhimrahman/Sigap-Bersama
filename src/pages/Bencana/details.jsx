@@ -112,15 +112,14 @@ export default function BencanaDetail() {
                     joinedAt: serverTimestamp(),
                 });
 
-                // Tambahkan points ke akun user (50 points)
                 await updateDoc(userDocRef, {
                     points: increment(100),
                 });
                 console.log(userPoints)
 
-                Swal.fire("Berhasil!", "Anda telah bergabung sebagai relawan dan mendapatkan 50 points.", "success");
+                Swal.fire("Berhasil!", "Anda telah bergabung sebagai relawan dan mendapatkan 100 points.", "success");
                 setIsJoined(true);
-                setUserPoints((prev) => prev + 50); // Update state points
+                setUserPoints((prev) => prev + 100); // Update state points
             }
         } catch (error) {
             console.error("Error joining event:", error);
