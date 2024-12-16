@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore";
-import { firestore, auth } from "../../api/firebaseConfig";
+import { firestore, auth, storage } from "../../api/firebaseConfig";
 import { updatePassword, signOut, deleteUser } from "firebase/auth";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 import Swal from "sweetalert2";
 import Navbar from "../../components/layouts/Navbar";
@@ -19,7 +20,9 @@ export default function ProfilePage() {
     const [redeemedVouchers, setRedeemedVouchers] = useState([]);
     const [joinedEventCount, setJoinedEventCount] = useState(0);
     const [createdEventCount, setCreatedEventCount] = useState(0);
+    const fileInputRef = useRef(null);
 
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -98,6 +101,54 @@ export default function ProfilePage() {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setEditedData((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleProfileImageClick = () => {
+        // Trigger input file saat gambar di-klik
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
+
+    const handleImageChange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) {
+            Swal.fire("Error", "No file selected.", "error");
+            return;
+        }
+
+        if (file.size > MAX_FILE_SIZE) {
+            Swal.fire("Error", "File size exceeds 5 MB. Please upload a smaller image.", "error");
+            return;
+        }
+
+        try {
+            // Upload gambar ke Firebase Storage
+            const imageRef = ref(storage, `profile-images/${user.uid}`);
+            const uploadTask = uploadBytesResumable(imageRef, file);
+
+            const downloadUrl = await new Promise((resolve, reject) => {
+                uploadTask.on(
+                    "state_changed",
+                    null,
+                    reject,
+                    () => {
+                        getDownloadURL(uploadTask.snapshot.ref).then(resolve);
+                    }
+                );
+            });
+
+            // Update Firestore dengan URL gambar baru
+            const userDocRef = doc(firestore, "users", user.uid);
+            await setDoc(userDocRef, { image: downloadUrl }, { merge: true });
+
+            setProfileData((prev) => ({ ...prev, image: downloadUrl }));
+
+            Swal.fire("Success", "Profile picture updated successfully!", "success");
+        } catch (error) {
+            console.error("Error updating profile picture:", error);
+            Swal.fire("Error", "Failed to update profile picture. Please try again.", "error");
+        }
     };
 
     const handleSaveClick = async () => {
@@ -203,7 +254,20 @@ export default function ProfilePage() {
                             {profileData.role === 'komunitas' ? 'Profil Komunitas' : 'Profil Individu'}
                         </h2>
                         <div className="flex flex-col items-center">
-                            <div className="w-24 h-24 bg-[#d9d9d9] rounded-full mb-2"></div>
+                            <div className="w-24 h-24 bg-[#d9d9d9] rounded-full mb-2">
+                                <img
+                                    src={profileData.image || "https://via.placeholder.com/150"}
+                                    className="w-24 h-24 rounded-full mb-2 cursor-pointer bg-gray-200"
+                                    onClick={handleProfileImageClick}
+                                />
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    ref={fileInputRef}
+                                    className="hidden"
+                                    onChange={handleImageChange}
+                                />
+                            </div>
                             <p className="text-center m-3">
                                 {profileData.role === 'komunitas' ? profileData.communityName || 'Nama Komunitas' : profileData.fullName || 'No Name'}
                             </p>
