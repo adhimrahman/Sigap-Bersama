@@ -28,6 +28,7 @@ export default function MyInterest() {
             try {
                 setIsLoading(true);
                 const joinedEvents = [];
+                const addedEventKeys = new Set(); // Set untuk memastikan ID unik berdasarkan eventType
 
                 // Fetch data dari koleksi "bencana" dan "limbah"
                 const eventCollections = ["bencana", "limbah"];
@@ -37,8 +38,9 @@ export default function MyInterest() {
 
                     for (const eventDoc of eventSnapshot.docs) {
                         const data = eventDoc.data();
+                        const eventKey = `${collectionName}-${eventDoc.id}`; // ID unik dengan prefix jenis koleksi
 
-                        // Periksa apakah user berpartisipasi di subkoleksi "relawan"
+                        // Periksa apakah user bergabung di subkoleksi "relawan"
                         const relawanRef = collection(eventDoc.ref, "relawan");
                         const relawanSnapshot = await getDocs(relawanRef);
 
@@ -46,18 +48,19 @@ export default function MyInterest() {
                             (relawanDoc) => relawanDoc.data().userId === user.uid
                         );
 
-                        if (isUserJoined) {
+                        // Hanya tambahkan jika belum ada di Set dan user berpartisipasi
+                        if (isUserJoined && !addedEventKeys.has(eventKey)) {
+                            addedEventKeys.add(eventKey); // Tambahkan ke Set
                             const creatorName = await getCreatorName(data.creator);
-                            const date = data.date?.toDate?.()?.toLocaleString("id-ID") || "No Date";
 
                             joinedEvents.push({
                                 id: eventDoc.id,
                                 title: data.title || "No Title",
                                 image: data.image || "https://placehold.co/600x400",
-                                date,
+                                date: data.date?.toDate?.()?.toLocaleString("id-ID") || "No Date",
                                 locate: data.locate || "Unknown Location",
                                 creator: creatorName,
-                                eventType: collectionName, // Tambahkan jenis event
+                                eventType: collectionName,
                             });
                         }
                     }
@@ -91,7 +94,7 @@ export default function MyInterest() {
             ) : (
                 <>
                     <Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah', 'shop', 'contactUs']} />
-                    <div className="w-full px-9 sm:px-12 md:px-12 lg:px-24 p-4 mt-20 mb-16">
+                    <div className="w-full px-4 sm:px-12 md:px-12 lg:px-24 p-4 mt-20 mb-16">
                         <h1 className="text-4xl font-bold tracking-wider text-center pt-9 mb-8 capitalize">
                             Event yang Diikuti
                         </h1>
@@ -104,18 +107,24 @@ export default function MyInterest() {
 
                         {/* Event Cards */}
                         {filteredEvents.length === 0 ? (
-                            <div className="cards min-h-96 text-center">
+                            <div className="min-h-96 text-center flex items-center justify-center">
                                 <p className="text-lg text-gray-500">
                                     Tidak ada event yang cocok dengan pencarian Anda.
                                 </p>
                             </div>
                         ) : (
-                            <div className="cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-9 min-h-96">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                                 {filteredEvents.map((item) => (
                                     <CardEvent
-                                        key={item.id}
-                                        {...item}
+                                        key={`${item.eventType}-${item.id}`} // Key unik
+                                        id={item.id}
+                                        title={item.title}
+                                        image={item.image}
+                                        creator={item.creator}
+                                        date={item.date}
+                                        locate={item.locate}
                                         detailPath={`/${item.eventType}/detail/${item.id}`}
+                                        className="w-full h-auto"
                                     />
                                 ))}
                             </div>
