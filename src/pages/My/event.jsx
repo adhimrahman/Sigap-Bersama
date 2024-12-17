@@ -80,14 +80,18 @@ export default function MyEvent() {
                 {isLoading ? ( <Spinner /> ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {events.map((event) => (
-                        <CardEvent key={event.id} id={event.id} image={event.image || "https://placehold.co/600x400"}
-                        title={event.title || "Nama tidak tersedia"}
-                        creator={event.creatorName || event.creator || "Creator tidak diketahui"}
-                        date={event.date || "Tanggal tidak tersedia"}
-                        locate={event.locate || "Lokasi tidak tersedia"}
-                        detailPath={event.type === "bencana" ? "bencanadetail" : "limbahdetail"}/>                    
+                        <CardEvent
+                            key={event.id}
+                            id={event.id}
+                            image={event.image || "https://placehold.co/600x400"}
+                            title={event.title || "Nama tidak tersedia"}
+                            creator={event.creatorName || event.creator || "Creator tidak diketahui"}
+                            date={event.date || "Tanggal tidak tersedia"}
+                            locate={event.locate || "Lokasi tidak tersedia"}
+                            detailPath={`/${event.type}/detail/${event.id}`}
+                        />
                     ))}
-                    </div>
+                </div>                
                 )}
             </div>
         </div>
