@@ -65,7 +65,7 @@ export default function EditEvent() {
             await setDoc(docRef, updatedEvent, { merge: true });
 
             await Swal.fire("Berhasil!", "Event berhasil diperbarui.", "success");
-            navigate(`/${type}detail/${id}`);
+            navigate(`/${type}/detail/${id}`);
         } catch (error) {
             console.error("Error updating event:", error);
             Swal.fire("Error!", "Terjadi kesalahan saat memperbarui event.", "error");

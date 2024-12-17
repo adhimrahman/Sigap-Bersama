@@ -55,12 +55,12 @@ export default function EventPage() {
                 <><Navbar pageKeys={['landingPage', 'navBencana', 'navLimbah', 'shop', 'contactUs']} />
                 <div className="w-full px-9 sm:px-12 md:px-12 lg:px-24 p-4 mt-20 mb-16">
                     <h1 className="text-4xl font-bold tracking-wider text-center pt-9 mb-8 capitalize">
-                        {eventType === "bencana" ? "Kegiatan Bencana" : "Kegiatan Limbah"}
+                        {eventType === "bencana" ? "Kegiatan Bencana" : "Kegiatan Lingkungan"}
                     </h1>
                     <SearchBar query={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
                     {filteredEvents.length === 0 ? (
                         <div className="cards min-h-96 text-center">
-                            <p className="text-lg text-gray-500">Tidak ada data {eventType} yang cocok dengan pencarian Anda.</p>
+                            <p className="text-lg text-gray-500">Tidak ada data kegiatan {eventType === "limbah" ? "lingkungan" : "bencana"} yang cocok dengan pencarian Anda.</p>
                         </div>
                     ) : (
                         <div className="cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-9 min-h-96">

@@ -63,25 +63,16 @@ export default function EventDetail() {
     }, [eventType, id, user]);
 
     const handleJoinRelawan = async () => {
-        if (!id) {
-            Swal.fire("Error", "ID event tidak ditemukan.", "error");
-            return;
-        }
+        if (!id) return Swal.fire({ title: "Error", text: "ID event tidak ditemukan.", icon: "error", confirmButtonColor: "#365E32", });
 
-        if (!user) {
-            Swal.fire("Tidak Diizinkan", "Anda harus login terlebih dahulu.", "warning");
-            return;
-        }
+        if (!user) return Swal.fire("Tidak Diizinkan", "Anda harus login terlebih dahulu.", "warning");
 
         try {
             const userDocRef = doc(firestore, "users", user.uid);
             const userDoc = await getDoc(userDocRef);
             const userData = userDoc.exists() ? userDoc.data() : null;
 
-            if (!userData || userData.role !== "individu") {
-                Swal.fire("Tidak Diizinkan", "Hanya akun individu yang bisa menjadi relawan.", "warning");
-                return;
-            }
+            if (!userData || userData.role !== "individu") return Swal.fire({ title: "Tidak Diizinkan", text: "Hanya akun relawan yang bisa menjadi relawan.", icon: "warning", confirmButtonColor: "#365E32", });
 
             const relawanRef = collection(firestore, eventType, id, "relawan");
             const snapshot = await getDocs(relawanRef);
@@ -93,6 +84,7 @@ export default function EventDetail() {
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Ya, Gabung!",
+                confirmButtonColor: "#365E32",
                 cancelButtonText: "Batal",
             });
 
@@ -106,14 +98,24 @@ export default function EventDetail() {
                 await updateDoc(userDocRef, { points: increment(100) });
                 console.log(userPoints)
 
-                Swal.fire("Berhasil!", "Anda telah bergabung dan mendapatkan 100 points.", "success");
+                Swal.fire({
+                    title: "Berhasil!", 
+                    text: "Anda telah bergabung dan mendapatkan 100 points.",
+                    icon: "success",
+                    confirmButtonColor: "#365E32",
+                });
                 setIsJoined(true);
                 setRelawanCount((prev) => prev + 1);
                 setUserPoints((prev) => prev + 100);
             }
         } catch (error) {
             console.error("Error joining as relawan:", error);
-            Swal.fire("Gagal!", "Terjadi kesalahan saat bergabung sebagai relawan.", "error");
+            Swal.fire({
+                title: "Gagal!", 
+                text: "Terjadi kesalahan saat bergabung sebagai relawan.",
+                icon: "error",
+                confirmButtonColor: "#365E32",
+            });
         }
     };
 
@@ -164,22 +166,17 @@ export default function EventDetail() {
                             <UserIcon className="h-5 w-5 text-white" />{isJoined ? "Joined" : "Jadi Relawan"}
                         </button>
                         
-                        <button
-                            className={`w-full mt-2 px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg flex items-center justify-center gap-2`}
-                            onClick={() => {
-                                if (!user) {
-                                    Swal.fire("Tidak Diizinkan", "Anda harus login terlebih dahulu.", "warning");
-                                } else if (user?.role === "komunitas") {
-                                    Swal.fire("Akses Ditolak", "Akun komunitas tidak diperbolehkan untuk melakukan donasi.", "error");
-                                } else if (user?.role === "individu") {
-                                    navigate(`/donate/${eventType}/${id}`);
-                                }
-                            }}
-                        >
-                            <HeartIcon className="h-5 w-5 text-white" />
-                            Donasi
+                        <button className={`w-full mt-2 px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg flex items-center justify-center gap-2`}
+                        onClick={() => {
+                            if (!user) {
+                                Swal.fire({title: "Tidak Diizinkan", text:"Anda harus login terlebih dahulu.", icon:"warning", confirmButtonColor: "#365E32",});
+                            } else if (user?.role === "komunitas") {
+                                Swal.fire({title: "Akses Ditolak", text: "Akun komunitas tidak diperbolehkan untuk melakukan donasi.", icon: "error", confirmButtonColor: "#365E32",});
+                            } else if (user?.role === "individu") { navigate(`/donate/${eventType}/${id}`);
+                        }}}>
+                            <HeartIcon className="h-5 w-5 text-white" />Donasi
                         </button>
-                        <p className='text-red-600 text-xs ml-2 mt-2'>*hanya akun individu</p>
+                        <p className='text-red-600 text-xs ml-2 mt-2'>*hanya akun relawan</p>
                         {eventDetail.isCreator && (
                             <button className="w-full mt-2 px-6 py-2 bg-ijoTua text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-green-800" onClick={() => navigate(`/editEvent/${eventType}/${id}`)}>
                                 <PencilIcon className="h-5 w-5 text-white" />Edit

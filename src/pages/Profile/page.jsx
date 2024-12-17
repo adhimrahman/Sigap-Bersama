@@ -277,7 +277,7 @@ export default function ProfilePage() {
                     {/* Card Profil */}
                     <div className="bg-white p-4 rounded-lg shadow-md">
                         <h2 className="text-lg font-extrabold mb-4">
-                            {profileData.role === 'komunitas' ? 'Profil Komunitas' : 'Profil Individu'}
+                            {profileData.role === 'komunitas' ? 'Profil Komunitas' : 'Profil Relawan'}
                         </h2>
                         <div className="flex flex-col items-center">
                             <div className="w-24 h-24 bg-[#d9d9d9] rounded-full mb-2">

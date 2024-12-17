@@ -8,7 +8,7 @@ const SignupIndividu = ({
             {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
             <form onSubmit={handleSignup} className="flex flex-col justify-center bg-[#282C34]/95 w-1/3 rounded-[16px] backdrop-blur-sm gap-6 p-11 pb-14">              
                 <div className="flex items-center justify-center w-full mt-8">
-                    <h2 className="text-2xl font-bold mb-8">Daftar Sebagai Individu</h2>
+                    <h2 className="text-2xl font-bold mb-8">Daftar Sebagai Relawan</h2>
                 </div>
 
                 <label>Nama Lengkap
