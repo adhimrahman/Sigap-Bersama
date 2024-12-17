@@ -26,75 +26,101 @@ export default function ProfilePage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!user) { navigate('/signin') }
-        else {
+        if (!user) {
+            navigate('/signin');
+        } else {
             const fetchProfileData = async () => {
                 try {
                     const userDocRef = doc(firestore, "users", user.uid);
                     const userDoc = await getDoc(userDocRef);
-
+    
                     if (userDoc.exists()) {
                         const data = userDoc.data();
                         setProfileData(data);
                         setEditedData(data);
                         setPoints(data.points || 0);
-
+    
                         // Ambil data voucher yang di-redeem
                         const redeemedVouchersRef = collection(userDocRef, "redeemedVouchers");
                         const vouchersSnapshot = await getDocs(redeemedVouchersRef);
                         const vouchers = vouchersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                         setRedeemedVouchers(vouchers);
-
-                        // Hitung jumlah event yang diikuti (untuk user individu)
+    
+                        let eventCount = 0;
+    
+                        // Hitung jumlah event yang diikuti dari koleksi "bencana"
                         if (data.role === "individu") {
                             const bencanaRef = collection(firestore, "bencana");
                             const bencanaSnapshot = await getDocs(bencanaRef);
-
-                            let eventCount = 0;
-
+    
                             for (const bencanaDoc of bencanaSnapshot.docs) {
                                 const relawanRef = collection(bencanaDoc.ref, "relawan");
                                 const relawanSnapshot = await getDocs(relawanRef);
-
+    
                                 const isUserJoined = relawanSnapshot.docs.some(
                                     (relawanDoc) => relawanDoc.data().userId === user.uid
                                 );
-
+    
                                 if (isUserJoined) {
                                     eventCount += 1;
                                 }
                             }
+    
+                            // Hitung jumlah event yang diikuti dari koleksi "limbah"
+                            const limbahRef = collection(firestore, "limbah");
+                            const limbahSnapshot = await getDocs(limbahRef);
+    
+                            for (const limbahDoc of limbahSnapshot.docs) {
+                                const relawanRef = collection(limbahDoc.ref, "relawan");
+                                const relawanSnapshot = await getDocs(relawanRef);
+    
+                                const isUserJoined = relawanSnapshot.docs.some(
+                                    (relawanDoc) => relawanDoc.data().userId === user.uid
+                                );
+    
+                                if (isUserJoined) {
+                                    eventCount += 1;
+                                }
+                            }
+    
                             setJoinedEventCount(eventCount);
                         }
-
+    
                         // Hitung jumlah event yang dibuat (untuk komunitas)
                         if (data.role === "komunitas") {
                             const bencanaRef = collection(firestore, "bencana");
                             const limbahRef = collection(firestore, "limbah");
-
+    
                             let createdCount = 0;
-
+    
                             // Periksa koleksi bencana
                             const bencanaSnapshot = await getDocs(bencanaRef);
                             createdCount += bencanaSnapshot.docs.filter(
                                 (doc) => doc.data().creator?.path === `users/${user.uid}`
                             ).length;
-
+    
                             // Periksa koleksi limbah
                             const limbahSnapshot = await getDocs(limbahRef);
                             createdCount += limbahSnapshot.docs.filter(
                                 (doc) => doc.data().creator?.path === `users/${user.uid}`
                             ).length;
-
+    
                             setCreatedEventCount(createdCount);
                         }
-                    } else { console.error("User profile not found") }
-                } catch (error) { console.error("Error fetching profile:", error)
-                } finally { setLoading(false) }
+                    } else {
+                        console.error("User profile not found");
+                    }
+                } catch (error) {
+                    console.error("Error fetching profile:", error);
+                } finally {
+                    setLoading(false);
+                }
             };
+    
             fetchProfileData();
         }
     }, [user, navigate]);
+    
 
     if (!user || loading) return <Spinner />
     const handleEditClick = () => { setIsEditing(true) }
