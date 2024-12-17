@@ -45,11 +45,11 @@ html {
 	}
 }
 
-/* html::-webkit-scrollbar {
+html::-webkit-scrollbar {
 	display: none;
 }
 
 html {
 	-ms-overflow-style: none;
 	scrollbar-width: none;
-} */
+}

@@ -17,33 +17,19 @@ export default function AddEvent() {
     const [currentPerlengkapan, setCurrentPerlengkapan] = useState("");
     const addPerlengkapanItem = () => {
         if (currentPerlengkapan.trim()) {
-            setNewEvent((prev) => ({ ...prev,
-                perlengkapanRelawan: [...prev.perlengkapanRelawan, currentPerlengkapan],
-            }));
-            setCurrentPerlengkapan(""); // reset
+            setNewEvent((prev) => ({ ...prev, perlengkapanRelawan: [...prev.perlengkapanRelawan, currentPerlengkapan], }));
+            setCurrentPerlengkapan("");
         }
     };
 
     const extractGoogleMapsLink = (input) => {
         console.log("Input sebelum diproses:", input);
-    
-        // Regex untuk mencari URL di dalam atribut src dalam tag iframe
         const regex = /<iframe[^>]+src=["']([^"']+)["']/i;
         const match = input.match(regex);
     
-        // Jika menemukan src di dalam iframe, ambil URL
-        if (match) {
-            console.log("Ditemukan dalam iframe:", match[1]);
-            return match[1];
-        }
+        if (match) { console.log("Ditemukan dalam iframe:", match[1]); return match[1] }
+        if (input.startsWith("https://www.google.com/maps/embed")) { console.log("Input berupa URL langsung:", input.trim()); return input.trim() }
     
-        // Jika input sudah berupa URL embed langsung
-        if (input.startsWith("https://www.google.com/maps/embed")) {
-            console.log("Input berupa URL langsung:", input.trim());
-            return input.trim();
-        }
-    
-        // Jika tidak valid sama sekali
         console.warn("Input tidak valid untuk link embed Google Maps");
         return "";
     };
@@ -73,39 +59,21 @@ export default function AddEvent() {
             // Hitung ID baru berdasarkan jumlah dokumen di koleksi
             const snapshot = await getDocs(collectionRef);
             const newId = (snapshot.docs.length + 1).toString();
-
             const eventDate = new Date(`${newEvent.date}T${newEvent.time}`);
             const registUntil = new Date(`${newEvent.registUntilDate}T${newEvent.registUntilTime}`);
-
-            // Persiapkan data event
-            const eventData = {
-                ...newEvent, date: eventDate, registUntil: registUntil, creator: doc(firestore, "users", user.uid), createdAt: serverTimestamp(),
-            };
+            const eventData = { ...newEvent, date: eventDate, registUntil: registUntil, creator: doc(firestore, "users", user.uid), createdAt: serverTimestamp(), };
 
             // Simpan data ke Firestore
             await setDoc(doc(collectionRef, newId), eventData);
-            await Swal.fire({
-                title: "Berhasil!",
-                text: "Event berhasil ditambahkan.",
-                icon: "success",
-                confirmButtonColor: "#365E32",
-            });
+            await Swal.fire({ title: "Berhasil!", text: "Event berhasil ditambahkan.", icon: "success", confirmButtonColor: "#365E32", });
 
             // Tambahkan 100 points ke user komunitas
             const userRef = doc(firestore, "users", user.uid);
-            await updateDoc(userRef, {
-                points: increment(100),
-            });
-
+            await updateDoc(userRef, { points: increment(100),});
             navigate("/myevent");
         } catch (error) {
             console.error("Error adding event:", error);
-            Swal.fire({
-                title: "Error!",
-                text: "Terjadi kesalahan saat menambahkan event.",
-                icon: "error",
-                confirmButtonColor: "#d33",
-            });
+            Swal.fire({ title: "Error!", text: "Terjadi kesalahan saat menambahkan event.", icon: "error", confirmButtonColor: "#d33", });
         }
     };
 
