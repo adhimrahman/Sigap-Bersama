@@ -24,7 +24,7 @@ export default function LimbahSection({ data, navigate }) {
             <div className="bottomSide w-4/5 pt-5 rounded-b-lg hidden lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-hidden gap-6">
             {data.map((item) => (
                 <div key={item.id} className="card bg-white rounded-lg shadow-2xl drop-shadow-2xl hover:cursor-pointer hover:scale-[1.01] capitalize"
-                onClick={() => navigate(`/limbahdetail/${item.id}`)}>
+                onClick={() => navigate(`/limbah/detail/${item.id}`)}>
                     <div className="h-40 bg-gray-200 rounded-t-lg overflow-hidden">
                         <img src={item.image} alt="" className="h-full w-full object-cover" />
                     </div>
