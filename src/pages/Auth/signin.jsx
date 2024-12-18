@@ -93,12 +93,12 @@ export default function Signin() {
 
                 <div className="flex flex-col w-10/12 gap-3 capitalize">
                     <label htmlFor="email">Email</label>
-                    <input type="email" placeholder="example@gmail.com" onChange={(e) => setEmail(e.target.value)} name="email" value={email} required
+                    <input type="email" placeholder="example@gmail.com" onChange={(e) => setEmail(e.target.value)} name="email" value={email} required autoComplete='email'
                         className="p-6 h-10 focus:outline-none bg-[#CDF5FD] rounded-[12px] text-black"
                     />
 
                     <label htmlFor="password" className="mt-2">Password</label>
-                    <input type="password" placeholder="password" value={password} required name="password" onChange={(e) => setPassword(e.target.value)}
+                    <input type="password" placeholder="password" value={password} required name="password" onChange={(e) => setPassword(e.target.value)} autoComplete='current-password'
                         className="p-6 h-10 focus:outline-none bg-[#CDF5FD] rounded-[12px] text-black"
                     />
 
